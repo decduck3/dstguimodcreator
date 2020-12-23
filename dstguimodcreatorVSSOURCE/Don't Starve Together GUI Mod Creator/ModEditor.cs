@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Don_t_Starve_Together_GUI_Mod_Creator
 {
-	public partial class Form1 : Form
+	public partial class ModEditor : Form
 	{
-		public Form1()
+		public ModEditor()
 		{
 			InitializeComponent();
 		}

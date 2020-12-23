@@ -1,0 +1,11 @@
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don't Starve Together GUI Mod Creator.csprojAssemblyReference.cache
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don_t_Starve_Together_GUI_Mod_Creator.Properties.Resources.resources
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don_t_Starve_Together_GUI_Mod_Creator.StartMenu.resources
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don't Starve Together GUI Mod Creator.csproj.GenerateResource.cache
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don't Starve Together GUI Mod Creator.csproj.CoreCompileInputs.cache
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\bin\Debug\Don't Starve Together GUI Mod Creator.exe.config
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\bin\Debug\Don't Starve Together GUI Mod Creator.exe
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\bin\Debug\Don't Starve Together GUI Mod Creator.pdb
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don't Starve Together GUI Mod Creator.exe
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don't Starve Together GUI Mod Creator.pdb
+Z:\Dev\dstguimodcreator\dstguimodcreatorVSSOURCE\Don't Starve Together GUI Mod Creator\obj\Debug\Don_t_Starve_Together_GUI_Mod_Creator.ModEditor.resources
