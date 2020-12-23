@@ -6,20 +6,20 @@ Written in C#, using Windows Forms, it allows for mods for the game Don't Starve
 https://forums.kleientertainment.com/forums/topic/125145-how-to-mod-dst-without-coding/
 
 ## Planned Features:
-- [ ]Mod name, description, author
-- [ ]Mod icon
-- [ ]Add items
-   - [ ]Names
-   - [ ]Food stats
-   - [ ]Sanity Auras
-   - [ ]Weapons
-   - [ ]Durablity
-   - [ ]Light
-   - [ ]Fuel
-- [ ]Add characters
-   - [ ]Stats
-   - [ ]Starting inventory
-   - [ ]Dapperness
-   - [ ]Hunger drain
-   - [ ]Sanity drain
-- [ ]Add own code
+- [ ] Mod name, description, author
+- [ ] Mod icon
+- [ ] Add items
+   - [ ] Names
+   - [ ] Food stats
+   - [ ] Sanity Auras
+   - [ ] Weapons
+   - [ ] Durablity
+   - [ ] Light
+   - [ ] Fuel
+- [ ] Add characters
+   - [ ] Stats
+   - [ ] Starting inventory
+   - [ ] Dapperness
+   - [ ] Hunger drain
+   - [ ] Sanity drain
+- [ ] Add own code
