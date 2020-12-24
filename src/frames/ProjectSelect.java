@@ -1,11 +1,14 @@
 package frames;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class ProjectSelect {
     private JPanel ProjectSelectPanel;
     private JTable projectsListTable;
+    private JButton newMod;
+    private JButton loadMod;
 
     public JPanel getProjectSelectPanel() {
         return ProjectSelectPanel;
@@ -13,6 +16,14 @@ public class ProjectSelect {
 
     public JTable getProjectsListTable() {
         return projectsListTable;
+    }
+
+    public JButton getNewMod() {
+        return newMod;
+    }
+
+    public JButton getLoadMod() {
+        return loadMod;
     }
 
     {
@@ -31,15 +42,24 @@ public class ProjectSelect {
      */
     private void $$$setupUI$$$() {
         ProjectSelectPanel = new JPanel();
-        ProjectSelectPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(20, 20, 20, 20), -1, -1));
+        ProjectSelectPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(20, 20, 20, 20), -1, -1));
+        ProjectSelectPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$("Belisa plumilla manual", -1, 22, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
         label1.setText("DST Mod Creator - by decduck3");
         ProjectSelectPanel.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        ProjectSelectPanel.add(scrollPane1, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         projectsListTable = new JTable();
-        projectsListTable.setEnabled(false);
-        ProjectSelectPanel.add(projectsListTable, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        projectsListTable.setEnabled(true);
+        scrollPane1.setViewportView(projectsListTable);
+        newMod = new JButton();
+        newMod.setText("Create New Mod");
+        ProjectSelectPanel.add(newMod, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        loadMod = new JButton();
+        loadMod.setText("Load Selected Mod");
+        ProjectSelectPanel.add(loadMod, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
