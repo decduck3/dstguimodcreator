@@ -2,15 +2,22 @@ package modloader;
 
 import frames.ModEditor;
 import modloader.classes.Item;
+import modloader.classes.Texture;
+import modloader.resources.Resource;
+import modloader.resources.ResourceLoader;
 
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.io.*;
 
 public class ModLoader {
     public static JFrame modEditorFrame;
     public static ModEditor modEditor;
+    public static DefaultTableModel textureModel;
 
     public static Mod currentMod;
 
@@ -32,7 +39,33 @@ public class ModLoader {
             modEditor.getModItemSelect().addItem(Mod.items.get(i).itemName);
         }
 
+        for(int i = 0; i < textureModel.getRowCount(); i++){
+            textureModel.removeRow(i);
+        }
 
+        for(int i =0; i < ResourceLoader.resources.size(); i++){
+            textureModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
+        }
+
+        var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+
+        modEditor.getModItemNameTextField().setText(item.itemName);
+        modEditor.getModItemIdTextField().setText(item.itemId);
+        //Set the selected for the texture
+        modEditor.getAxe().setSelected(item.axeBool);
+        modEditor.getWeapon().setSelected(item.weaponBool);
+        modEditor.getDurability().setSelected(item.durabilityBool);
+        modEditor.getPickaxe().setSelected(item.pickaxeBool);
+        modEditor.getHat().setSelected(item.hatBool);
+        modEditor.getEquipable().setSelected(item.equipableBool);
+        modEditor.getLight().setSelected(item.lightBool);
+        modEditor.getDapperness().setSelected(item.dappernessBool);
+        modEditor.getStorage().setSelected(item.storageBool);
+        modEditor.getEdible().setSelected(item.edibleBool);
+        modEditor.getChest().setSelected(item.chestBool);
+        modEditor.getArmor().setSelected(item.armorBool);
+        modEditor.getFuel().setSelected(item.fuelBool);
+        modEditor.getHand().setSelected(item.handBool);
 
         modEditorFrame.pack();
     }
@@ -43,6 +76,11 @@ public class ModLoader {
 
         modEditorFrame.setContentPane(modEditor.getModEditorPanel());
         modEditorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textureModel = (DefaultTableModel) modEditor.getModItemTextureSelect().getModel();
+
+        textureModel.addColumn("Texture");
+        textureModel.addColumn("Path");
 
         modEditor.getModItemCreate().addActionListener(new ActionListener() {
             @Override
@@ -66,12 +104,12 @@ public class ModLoader {
                 int row = modEditor.getModItemTextureSelect().rowAtPoint(evt.getPoint());
                 int col = modEditor.getModItemTextureSelect().columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
-                    //Need to implement resources
-                    //Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).itemTexture = modEditor.getModItemTextureSelect().getModel().getValueAt(row, col);
+                    Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).itemTexture = modEditor.getModItemTextureSelect().getModel().getValueAt(row, col);
                 }
             }
         });
 
+        //Save Item
         modEditor.getModItemSave().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,25 +132,41 @@ public class ModLoader {
                 item.armorBool = modEditor.getArmor().isSelected();
                 item.fuelBool = modEditor.getFuel().isSelected();
                 item.handBool = modEditor.getHand().isSelected();
+
+                Update();
             }
         });
 
+        modEditor.getModItemSelect().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Update();
+            }
+        });
+
+        //Axe
         modEditor.getAxe().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
                 if(modEditor.getAxe().isSelected()){
-                    item.axe.efficiency = getFloat("Axe Efficiency", 1); // Default value for axe
+                    item.axe.efficiency = (float)getFloat("Axe Efficiency"); // Default value for axe
                 }
             }
         });
+
+        //Weapon
         modEditor.getWeapon().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
                 if(modEditor.getWeapon().isSelected()){
-                    item.weapon.damage = getFloat("Weapon Damage:", 17); // Default value for axe
-
+                    item.weapon.damage = (float) getFloat("Weapon Damage:"); // Default value for axe
+                    item.weapon.electric = getBool("Weapon electric:");
+                    item.weapon.ranged = getBool("Weapon ranged:");
+                    if(item.weapon.ranged){
+                        item.weapon.ammo = Mod.items.get(getOption("Weapon Ammo:", Mod.items.toArray(new Object[0])));
+                    }
                 }
             }
         });
@@ -121,26 +175,32 @@ public class ModLoader {
         modEditorFrame.setVisible(true);
     }
 
-    public static int getInt(String message, int defaultValue){
-        String response = JOptionPane.showInputDialog(message);
-        if(response!=null){
-            return Integer.parseInt(response);
-        }else{
-            return defaultValue;
-        }
+    public static int getInt(String message){
+        SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 1000, 1);
+        JSpinner spinner = new JSpinner(model);
+        JOptionPane.showMessageDialog(modEditorFrame, spinner, message, JOptionPane.QUESTION_MESSAGE);
+        return (int)spinner.getValue();
     }
 
-    public static float getFloat(String message, float defaultValue){
-        String response = JOptionPane.showInputDialog(message);
-        if(response!=null){
-            return Float.parseFloat(response);
-        }else{
-            return defaultValue;
-        }
-
+    public static double getFloat(String message){
+        SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 1000, 0.1);
+        JSpinner spinner = new JSpinner(model);
+        JOptionPane.showMessageDialog(modEditorFrame, spinner, message, JOptionPane.QUESTION_MESSAGE);
+        return (double) spinner.getValue();
     }
 
-    public static boolean getBool(String message, boolean defaultValue){
-        boolean response = JOptionPane.showOptionDialog(modEditorFrame, message, JOptionPane.YES_NO_OPTION)
+    public static int getOption(String message, Object[] options){
+        JComboBox comboBox = new JComboBox(options);
+        JOptionPane.showMessageDialog(modEditorFrame, comboBox, message, JOptionPane.QUESTION_MESSAGE);
+        return comboBox.getSelectedIndex();
+    }
+
+    public static boolean getBool(String message){
+        Object[] options = {
+            "Yes",
+            "No"
+        };
+        int n = JOptionPane.showOptionDialog(modEditorFrame, message, message, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        return n == 1;
     }
 }
