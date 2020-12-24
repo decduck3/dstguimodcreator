@@ -147,14 +147,6 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="42e2d" class="javax.swing.JTable" binding="modItemTextureSelect">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="50"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="ac5d8" class="javax.swing.JLabel" binding="modItemTextureSelectLabel">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -297,11 +289,6 @@
                       </component>
                     </children>
                   </grid>
-                  <hspacer id="6aa63">
-                    <constraints>
-                      <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                  </hspacer>
                   <hspacer id="c33e6">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -323,6 +310,19 @@
                     </constraints>
                     <properties/>
                   </component>
+                  <scrollpane id="f70d5" binding="modItemTextureScrollPlane">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="42e2d" class="javax.swing.JTable" binding="modItemTextureSelect">
+                        <constraints/>
+                        <properties/>
+                      </component>
+                    </children>
+                  </scrollpane>
                 </children>
               </grid>
               <component id="dd08f" class="javax.swing.JButton" binding="modItemCreate">
@@ -368,7 +368,7 @@
             <border type="none"/>
             <children/>
           </grid>
-          <grid id="1f6dd" binding="resources" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="1f6dd" binding="resources" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Resources">
@@ -377,7 +377,42 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <hspacer id="56566">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="6e970" class="javax.swing.JButton" binding="resourcesAdd">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Add Resource"/>
+                </properties>
+              </component>
+              <component id="7f256" class="javax.swing.JButton" binding="resourcesRemove">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Remove Resource"/>
+                </properties>
+              </component>
+              <scrollpane id="e1802" binding="resourcesScroll">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="592f9" class="javax.swing.JTable" binding="resourcesTable">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
           </grid>
           <grid id="87d1b" binding="modSpeechConfig" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>

@@ -1,7 +1,8 @@
 package modloader.classes.components;
 
-public class Fuel {
-    public boolean isEnabled;
+import modloader.classes.Item;
 
-    public float burntime;
+public class Fuel {
+    public double burntime;
+    public Item fuel;
 }

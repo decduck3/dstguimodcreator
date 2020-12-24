@@ -3,7 +3,7 @@ package modloader.classes.components;
 import modloader.classes.Item;
 
 public class Weapon {
-    public float damage;
+    public double damage;
     public boolean electric;
 
     public boolean ranged;

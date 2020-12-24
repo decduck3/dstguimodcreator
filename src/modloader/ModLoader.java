@@ -7,8 +7,11 @@ import modloader.resources.Resource;
 import modloader.resources.ResourceLoader;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.text.html.Option;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,8 +21,7 @@ public class ModLoader {
     public static JFrame modEditorFrame;
     public static ModEditor modEditor;
     public static DefaultTableModel textureModel;
-
-    public static Mod currentMod;
+    public static DefaultTableModel resourceModel;
 
     public static void LoadMod(String path){
         CreateModEditorFrame();
@@ -43,31 +45,40 @@ public class ModLoader {
             textureModel.removeRow(i);
         }
 
-        for(int i =0; i < ResourceLoader.resources.size(); i++){
-            textureModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
+        for(int i = 0; i < resourceModel.getRowCount(); i++){
+            resourceModel.removeRow(i);
         }
 
-        var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+        for(int i =0; i < ResourceLoader.resources.size(); i++){
+            textureModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
+            resourceModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
+        }
 
-        modEditor.getModItemNameTextField().setText(item.itemName);
-        modEditor.getModItemIdTextField().setText(item.itemId);
-        //Set the selected for the texture
-        modEditor.getAxe().setSelected(item.axeBool);
-        modEditor.getWeapon().setSelected(item.weaponBool);
-        modEditor.getDurability().setSelected(item.durabilityBool);
-        modEditor.getPickaxe().setSelected(item.pickaxeBool);
-        modEditor.getHat().setSelected(item.hatBool);
-        modEditor.getEquipable().setSelected(item.equipableBool);
-        modEditor.getLight().setSelected(item.lightBool);
-        modEditor.getDapperness().setSelected(item.dappernessBool);
-        modEditor.getStorage().setSelected(item.storageBool);
-        modEditor.getEdible().setSelected(item.edibleBool);
-        modEditor.getChest().setSelected(item.chestBool);
-        modEditor.getArmor().setSelected(item.armorBool);
-        modEditor.getFuel().setSelected(item.fuelBool);
-        modEditor.getHand().setSelected(item.handBool);
+        try {
+            var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
 
-        modEditorFrame.pack();
+            modEditor.getModItemNameTextField().setText(item.itemName);
+            modEditor.getModItemIdTextField().setText(item.itemId);
+            //Set the selected for the texture
+            modEditor.getAxe().setSelected(item.axeBool);
+            modEditor.getWeapon().setSelected(item.weaponBool);
+            modEditor.getDurability().setSelected(item.durabilityBool);
+            modEditor.getPickaxe().setSelected(item.pickaxeBool);
+            modEditor.getHat().setSelected(item.hatBool);
+            modEditor.getEquipable().setSelected(item.equipableBool);
+            modEditor.getLight().setSelected(item.lightBool);
+            modEditor.getDapperness().setSelected(item.dappernessBool);
+            modEditor.getStorage().setSelected(item.storageBool);
+            modEditor.getEdible().setSelected(item.edibleBool);
+            modEditor.getChest().setSelected(item.chestBool);
+            modEditor.getArmor().setSelected(item.armorBool);
+            modEditor.getFuel().setSelected(item.fuelBool);
+            modEditor.getHand().setSelected(item.handBool);
+
+            modEditorFrame.pack();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void CreateModEditorFrame(){
@@ -78,9 +89,13 @@ public class ModLoader {
         modEditorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         textureModel = (DefaultTableModel) modEditor.getModItemTextureSelect().getModel();
+        resourceModel = (DefaultTableModel) modEditor.getResourcesTable().getModel();
 
         textureModel.addColumn("Texture");
         textureModel.addColumn("Path");
+
+        resourceModel.addColumn("Texture");
+        resourceModel.addColumn("Path");
 
         modEditor.getModItemCreate().addActionListener(new ActionListener() {
             @Override
@@ -104,8 +119,34 @@ public class ModLoader {
                 int row = modEditor.getModItemTextureSelect().rowAtPoint(evt.getPoint());
                 int col = modEditor.getModItemTextureSelect().columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
-                    Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).itemTexture = modEditor.getModItemTextureSelect().getModel().getValueAt(row, col);
+                    var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                    //item.itemTexture = ResourceLoader.GetResource(modEditor.getModItemTextureSelect().getModel().getValueAt(row, col).toString()).texture;
+
+                    Update();
                 }
+            }
+        });
+
+        modEditor.getResourcesAdd().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter tex = new FileNameExtensionFilter("TEX File", "tex");
+                FileNameExtensionFilter xml = new FileNameExtensionFilter("XML File", "xml");
+
+                chooser.addChoosableFileFilter(tex);
+                JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open TEX file", JOptionPane.QUESTION_MESSAGE);
+                File texFile = chooser.getSelectedFile();
+
+                chooser.removeChoosableFileFilter(tex);
+                chooser.addChoosableFileFilter(xml);
+                JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open XML file", JOptionPane.QUESTION_MESSAGE);
+                File xmlFile = chooser.getSelectedFile();
+
+                ResourceLoader.LoadResource(texFile.getAbsolutePath(), xmlFile.getAbsolutePath());
+
+                Update();
             }
         });
 
@@ -144,29 +185,19 @@ public class ModLoader {
             }
         });
 
-        //Axe
+        //Axe - For development (not final)
         modEditor.getAxe().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
                 if(modEditor.getAxe().isSelected()){
-                    item.axe.efficiency = (float)getFloat("Axe Efficiency"); // Default value for axe
-                }
-            }
-        });
+                    //item.axe.efficiency = (float)getFloat("Axe Efficiency"); // Default value for axe
+                    System.out.println(getBool("Test bool:"));
+                    System.out.println(getInt("Test int:"));
+                    System.out.println(getFloat("Test float:"));
+                    System.out.println(getOption("Test option", new Object[] { "Option 1", "Option 2"}));
 
-        //Weapon
-        modEditor.getWeapon().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getWeapon().isSelected()){
-                    item.weapon.damage = (float) getFloat("Weapon Damage:"); // Default value for axe
-                    item.weapon.electric = getBool("Weapon electric:");
-                    item.weapon.ranged = getBool("Weapon ranged:");
-                    if(item.weapon.ranged){
-                        item.weapon.ammo = Mod.items.get(getOption("Weapon Ammo:", Mod.items.toArray(new Object[0])));
-                    }
+                    Update();
                 }
             }
         });
@@ -201,6 +232,6 @@ public class ModLoader {
             "No"
         };
         int n = JOptionPane.showOptionDialog(modEditorFrame, message, message, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        return n == 1;
+        return n == 0;
     }
 }

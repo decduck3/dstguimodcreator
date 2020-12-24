@@ -1,5 +1,5 @@
 package modloader.classes.components;
 
 public class Durability {
-    public float durability;
+    public double durability;
 }

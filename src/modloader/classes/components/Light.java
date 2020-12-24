@@ -1,11 +1,11 @@
 package modloader.classes.components;
 
 public class Light {
-    public float range;
-    public float falloff;
-    public float intensity;
+    public double range;
+    public double falloff;
+    public double intensity;
 
-    public float r;
-    public float g;
-    public float b;
+    public double r;
+    public double g;
+    public double b;
 }
