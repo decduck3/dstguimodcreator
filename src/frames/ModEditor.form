@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frames.ModEditor">
-  <grid id="27dc6" binding="modEditorPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="20" left="20" bottom="20" right="20"/>
+  <grid id="27dc6" binding="modEditorPanel" layout-manager="GridBagLayout">
     <constraints>
       <xy x="20" y="20" width="845" height="779"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <hspacer id="bfff3">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
-      <vspacer id="93ec7">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
       <tabbedpane id="8b95d" binding="modConfig">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="1280" height="720"/>
           </grid>
+          <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
         <properties>
           <enabled value="true"/>
@@ -32,8 +22,8 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="c3700" binding="mainConfig" custom-create="true" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="c3700" binding="mainConfig" layout-manager="GridLayoutManager" row-count="8" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Main Config">
                 <tooltip value="Change things such as mod name, author, config options"/>
@@ -42,27 +32,6 @@
             <properties/>
             <border type="none"/>
             <children>
-              <hspacer id="43873">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="-1" height="20"/>
-                  </grid>
-                </constraints>
-              </hspacer>
-              <hspacer id="345a2">
-                <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="-1" height="20"/>
-                  </grid>
-                </constraints>
-              </hspacer>
-              <hspacer id="dac12">
-                <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="-1" height="20"/>
-                  </grid>
-                </constraints>
-              </hspacer>
               <component id="ea3a7" class="javax.swing.JLabel" binding="modNameLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -127,10 +96,18 @@
                 </constraints>
                 <properties/>
               </component>
+              <component id="75602" class="javax.swing.JButton" binding="modConfigSave">
+                <constraints>
+                  <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Save"/>
+                </properties>
+              </component>
             </children>
           </grid>
-          <grid id="e9185" binding="modItems" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="e9185" binding="modItems" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Items">
                 <tooltip value="Create, delete and modify your modded items"/>
@@ -142,7 +119,7 @@
               <grid id="c0232" binding="modItemConfigPanel" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="1" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="0" column="1" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="1000" height="-1"/>
                   </grid>
                 </constraints>
@@ -213,108 +190,109 @@
                           <text value="Fuel"/>
                         </properties>
                       </component>
-                      <component id="13b39" class="javax.swing.JCheckBox" binding="checkBox3" default-binding="true">
+                      <component id="13b39" class="javax.swing.JCheckBox" binding="Light">
                         <constraints>
                           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Light"/>
                         </properties>
                       </component>
-                      <component id="db603" class="javax.swing.JCheckBox" binding="checkBox4" default-binding="true">
+                      <component id="db603" class="javax.swing.JCheckBox" binding="Pickaxe">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Pickaxe"/>
                         </properties>
                       </component>
-                      <component id="a063e" class="javax.swing.JCheckBox" binding="checkBox5" default-binding="true">
+                      <component id="a063e" class="javax.swing.JCheckBox" binding="Axe">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Axe"/>
                         </properties>
                       </component>
-                      <component id="c7f8b" class="javax.swing.JCheckBox" binding="checkBox6" default-binding="true">
+                      <component id="c7f8b" class="javax.swing.JCheckBox" binding="Weapon">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Weapon"/>
                         </properties>
                       </component>
-                      <component id="48f5a" class="javax.swing.JCheckBox" binding="checkBox7" default-binding="true">
+                      <component id="48f5a" class="javax.swing.JCheckBox" binding="Durability">
                         <constraints>
                           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Durability"/>
                         </properties>
                       </component>
-                      <component id="91ab7" class="javax.swing.JCheckBox" binding="checkBox8" default-binding="true">
+                      <component id="91ab7" class="javax.swing.JCheckBox" binding="Hat">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Hat"/>
                         </properties>
                       </component>
-                      <component id="ce5be" class="javax.swing.JCheckBox" binding="checkBox9" default-binding="true">
+                      <component id="ce5be" class="javax.swing.JCheckBox" binding="Equipable">
                         <constraints>
                           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <selected value="false"/>
+                          <text value="Equipable"/>
                         </properties>
                       </component>
-                      <component id="e3a53" class="javax.swing.JCheckBox" binding="checkBox10" default-binding="true">
+                      <component id="e3a53" class="javax.swing.JCheckBox" binding="Dapperness">
                         <constraints>
                           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Dapperness"/>
                         </properties>
                       </component>
-                      <component id="9164c" class="javax.swing.JCheckBox" binding="checkBox11" default-binding="true">
+                      <component id="9164c" class="javax.swing.JCheckBox" binding="Storage">
                         <constraints>
                           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Storage"/>
                         </properties>
                       </component>
-                      <component id="6dcdf" class="javax.swing.JCheckBox" binding="checkBox12" default-binding="true">
+                      <component id="6dcdf" class="javax.swing.JCheckBox" binding="Chest">
                         <constraints>
                           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Chest"/>
                         </properties>
                       </component>
-                      <component id="a218c" class="javax.swing.JCheckBox" binding="checkBox13" default-binding="true">
+                      <component id="a218c" class="javax.swing.JCheckBox" binding="Armor">
                         <constraints>
                           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Armor"/>
                         </properties>
                       </component>
-                      <component id="69d41" class="javax.swing.JCheckBox" binding="checkBox14" default-binding="true">
+                      <component id="69d41" class="javax.swing.JCheckBox" binding="Hand">
                         <constraints>
                           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Hand"/>
                         </properties>
                       </component>
-                      <component id="259c2" class="javax.swing.JCheckBox" binding="checkBox15" default-binding="true">
+                      <component id="259c2" class="javax.swing.JCheckBox" binding="NotImplemented">
                         <constraints>
                           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="CheckBox"/>
+                          <text value="Not Implemented"/>
                         </properties>
                       </component>
                     </children>
@@ -369,10 +347,18 @@
                 </constraints>
                 <properties/>
               </component>
+              <component id="c0f7f" class="javax.swing.JButton" binding="modItemSave">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Save"/>
+                </properties>
+              </component>
             </children>
           </grid>
           <grid id="670d4" binding="modCharacters" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+            <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Characters">
                 <tooltip value="Create, delete and modify your modded characters"/>
@@ -383,7 +369,7 @@
             <children/>
           </grid>
           <grid id="1f6dd" binding="resources" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+            <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Resources">
                 <tooltip value="Import assets to use in your mod"/>
@@ -394,7 +380,7 @@
             <children/>
           </grid>
           <grid id="87d1b" binding="modSpeechConfig" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+            <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Speech"/>
             </constraints>

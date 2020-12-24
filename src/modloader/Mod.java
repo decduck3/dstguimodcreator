@@ -1,18 +1,16 @@
 package modloader;
 
+import modloader.classes.*;
+
+import java.util.*;
+
 public class Mod {
-    public String modName;
-    public String modAuthor;
+    public static String modName;
+    public static String modAuthor;
 
-    public Mod(){
+    public static List<Item> items = new ArrayList<Item>();
 
-    }
-
-    public Mod(String path){
-        LoadFromFile(path);
-    }
-
-    public void LoadFromFile(String path){
+    public static void LoadFromFile(String path){
 
     }
 }
