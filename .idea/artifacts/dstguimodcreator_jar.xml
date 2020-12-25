@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="dstguimodcreator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/dstguimodcreator_jar</output-path>
+    <root id="archive" name="dstguimodcreator.jar">
+      <element id="module-output" name="dstguimodcreator" />
+    </root>
+  </artifact>
+</component>

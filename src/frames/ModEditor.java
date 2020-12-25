@@ -60,6 +60,210 @@ public class ModEditor {
         return saveAll;
     }
 
+    public void setModEditorPanel(JPanel modEditorPanel) {
+        this.modEditorPanel = modEditorPanel;
+    }
+
+    public void setModConfig(JTabbedPane modConfig) {
+        this.modConfig = modConfig;
+    }
+
+    public void setMainConfig(JPanel mainConfig) {
+        this.mainConfig = mainConfig;
+    }
+
+    public void setModItems(JPanel modItems) {
+        this.modItems = modItems;
+    }
+
+    public void setModCharacters(JPanel modCharacters) {
+        this.modCharacters = modCharacters;
+    }
+
+    public void setResources(JPanel resources) {
+        this.resources = resources;
+    }
+
+    public void setModNameTextField(JTextField modNameTextField) {
+        this.modNameTextField = modNameTextField;
+    }
+
+    public void setModAuthorTextField(JTextField modAuthorTextField) {
+        this.modAuthorTextField = modAuthorTextField;
+    }
+
+    public void setModDescriptTextArea(JTextArea modDescriptTextArea) {
+        this.modDescriptTextArea = modDescriptTextArea;
+    }
+
+    public void setModVersionTextField(JTextField modVersionTextField) {
+        this.modVersionTextField = modVersionTextField;
+    }
+
+    public void setModNameLabel(JLabel modNameLabel) {
+        this.modNameLabel = modNameLabel;
+    }
+
+    public void setModAuthorLabel(JLabel modAuthorLabel) {
+        this.modAuthorLabel = modAuthorLabel;
+    }
+
+    public void setModDescriptionLabel(JLabel modDescriptionLabel) {
+        this.modDescriptionLabel = modDescriptionLabel;
+    }
+
+    public void setModVersionLabel(JLabel modVersionLabel) {
+        this.modVersionLabel = modVersionLabel;
+    }
+
+    public void setModItemConfigPanel(JPanel modItemConfigPanel) {
+        this.modItemConfigPanel = modItemConfigPanel;
+    }
+
+    public void setModItemList(JTable modItemList) {
+        this.modItemList = modItemList;
+    }
+
+    public void setModItemListScrollPlane(JScrollPane modItemListScrollPlane) {
+        this.modItemListScrollPlane = modItemListScrollPlane;
+    }
+
+    public void setModItemDelete(JButton modItemDelete) {
+        this.modItemDelete = modItemDelete;
+    }
+
+    public void setModItemCreate(JButton modItemCreate) {
+        this.modItemCreate = modItemCreate;
+    }
+
+    public void setModItemNameLabel(JLabel modItemNameLabel) {
+        this.modItemNameLabel = modItemNameLabel;
+    }
+
+    public void setModItemNameTextField(JTextField modItemNameTextField) {
+        this.modItemNameTextField = modItemNameTextField;
+    }
+
+    public void setModItemTextureSelect(JTable modItemTextureSelect) {
+        this.modItemTextureSelect = modItemTextureSelect;
+    }
+
+    public void setModItemTextureSelectLabel(JLabel modItemTextureSelectLabel) {
+        this.modItemTextureSelectLabel = modItemTextureSelectLabel;
+    }
+
+    public void setModItemCheckboxPanel(JPanel modItemCheckboxPanel) {
+        this.modItemCheckboxPanel = modItemCheckboxPanel;
+    }
+
+    public void setEdible(JCheckBox edible) {
+        Edible = edible;
+    }
+
+    public void setFuel(JCheckBox fuel) {
+        Fuel = fuel;
+    }
+
+    public void setLight(JCheckBox light) {
+        Light = light;
+    }
+
+    public void setPickaxe(JCheckBox pickaxe) {
+        Pickaxe = pickaxe;
+    }
+
+    public void setAxe(JCheckBox axe) {
+        Axe = axe;
+    }
+
+    public void setWeapon(JCheckBox weapon) {
+        Weapon = weapon;
+    }
+
+    public void setDurability(JCheckBox durability) {
+        Durability = durability;
+    }
+
+    public void setHat(JCheckBox hat) {
+        Hat = hat;
+    }
+
+    public void setEquipable(JCheckBox equipable) {
+        Equipable = equipable;
+    }
+
+    public void setDapperness(JCheckBox dapperness) {
+        Dapperness = dapperness;
+    }
+
+    public void setStorage(JCheckBox storage) {
+        Storage = storage;
+    }
+
+    public void setChest(JCheckBox chest) {
+        Chest = chest;
+    }
+
+    public void setArmor(JCheckBox armor) {
+        Armor = armor;
+    }
+
+    public void setHand(JCheckBox hand) {
+        Hand = hand;
+    }
+
+    public void setNotImplemented(JCheckBox notImplemented) {
+        NotImplemented = notImplemented;
+    }
+
+    public void setModSpeechConfig(JPanel modSpeechConfig) {
+        this.modSpeechConfig = modSpeechConfig;
+    }
+
+    public void setModItemIdLabel(JLabel modItemIdLabel) {
+        this.modItemIdLabel = modItemIdLabel;
+    }
+
+    public void setModItemIdTextField(JTextField modItemIdTextField) {
+        this.modItemIdTextField = modItemIdTextField;
+    }
+
+    public void setModItemSelect(JComboBox modItemSelect) {
+        this.modItemSelect = modItemSelect;
+    }
+
+    public void setModItemSave(JButton modItemSave) {
+        this.modItemSave = modItemSave;
+    }
+
+    public void setModConfigSave(JButton modConfigSave) {
+        this.modConfigSave = modConfigSave;
+    }
+
+    public void setResourcesTable(JTable resourcesTable) {
+        this.resourcesTable = resourcesTable;
+    }
+
+    public void setResourcesAdd(JButton resourcesAdd) {
+        this.resourcesAdd = resourcesAdd;
+    }
+
+    public void setResourcesRemove(JButton resourcesRemove) {
+        this.resourcesRemove = resourcesRemove;
+    }
+
+    public void setResourcesScroll(JScrollPane resourcesScroll) {
+        this.resourcesScroll = resourcesScroll;
+    }
+
+    public void setModItemTextureScrollPlane(JScrollPane modItemTextureScrollPlane) {
+        this.modItemTextureScrollPlane = modItemTextureScrollPlane;
+    }
+
+    public void setSaveAll(JButton saveAll) {
+        this.saveAll = saveAll;
+    }
+
     public JScrollPane getResourcesScroll() {
         return resourcesScroll;
     }
