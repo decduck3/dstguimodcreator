@@ -5,6 +5,7 @@ import modloader.classes.Item;
 import modloader.classes.Texture;
 import modloader.resources.Resource;
 import modloader.resources.ResourceLoader;
+import savesystem.SaveSystem;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -24,15 +25,32 @@ public class ModLoader {
     public static DefaultTableModel resourceModel;
 
     public static void LoadMod(String path){
-        CreateModEditorFrame();
+        Mod.path = path;
 
-        Mod.LoadFromFile(path);
+        SaveSystem.Load(path);
+
+        Debug();
+
+        CreateModEditorFrame();
+        Update();
     }
     public static void CreateMod(String path, String author, String name){
+        Mod.path = path;
+
         CreateModEditorFrame();
 
         Mod.modName = name;
         Mod.modAuthor = author;
+
+        SaveSystem.Save(path);
+        Update();
+    }
+
+    public static void Debug(){
+        System.out.println("Mod Name: " + Mod.modName);
+        System.out.println("Mod Author: " + Mod.modAuthor);
+        System.out.println("Mod Description: " + Mod.modDescription);
+        System.out.println("Mod Version: " + Mod.modVersion);
     }
 
     public static void Update(){
@@ -53,6 +71,11 @@ public class ModLoader {
             textureModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
             resourceModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
         }
+
+        modEditor.getModNameTextField().setText(Mod.modName);
+        modEditor.getModAuthorTextField().setText(Mod.modAuthor);
+        modEditor.getModDescriptTextArea().setText(Mod.modDescription);
+        modEditor.getModVersionTextField().setText(Mod.modVersion);
 
         try {
             var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
@@ -77,8 +100,41 @@ public class ModLoader {
 
             modEditorFrame.pack();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Item not selected");
         }
+    }
+
+    public static void SaveItem(){
+        try {
+            var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+
+            item.itemName = modEditor.getModItemNameTextField().getText();
+            item.itemId = modEditor.getModItemIdTextField().getText();
+            //item.itemTexture = modEditor.getModItemTextureSelect().getModel() Need to implement resources
+            item.axeBool = modEditor.getAxe().isSelected();
+            item.weaponBool = modEditor.getWeapon().isSelected();
+            item.durabilityBool = modEditor.getDurability().isSelected();
+            item.pickaxeBool = modEditor.getPickaxe().isSelected();
+            item.hatBool = modEditor.getHat().isSelected();
+            item.equipableBool = modEditor.getEquipable().isSelected();
+            item.lightBool = modEditor.getLight().isSelected();
+            item.dappernessBool = modEditor.getDapperness().isSelected();
+            item.storageBool = modEditor.getStorage().isSelected();
+            item.edibleBool = modEditor.getEdible().isSelected();
+            item.chestBool = modEditor.getChest().isSelected();
+            item.armorBool = modEditor.getArmor().isSelected();
+            item.fuelBool = modEditor.getFuel().isSelected();
+            item.handBool = modEditor.getHand().isSelected();
+        }catch(java.lang.IndexOutOfBoundsException e){
+            System.out.println("Item not selected");
+        }
+    }
+
+    public static void SaveModConfig(){
+        Mod.modName = modEditor.getModNameTextField().getText();
+        Mod.modAuthor = modEditor.getModAuthorTextField().getText();
+        Mod.modDescription = modEditor.getModDescriptTextArea().getText();
+        Mod.modVersion = modEditor.getModVersionTextField().getText();
     }
 
     public static void CreateModEditorFrame(){
@@ -88,8 +144,24 @@ public class ModLoader {
         modEditorFrame.setContentPane(modEditor.getModEditorPanel());
         modEditorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        textureModel = (DefaultTableModel) modEditor.getModItemTextureSelect().getModel();
-        resourceModel = (DefaultTableModel) modEditor.getResourcesTable().getModel();
+        textureModel = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        modEditor.getModItemTextureSelect().setModel(textureModel);
+        resourceModel = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        modEditor.getResourcesTable().setModel(resourceModel);
 
         textureModel.addColumn("Texture");
         textureModel.addColumn("Path");
@@ -127,6 +199,15 @@ public class ModLoader {
             }
         });
 
+        modEditor.getSaveAll().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SaveItem();
+                SaveModConfig();
+                SaveSystem.Save(Mod.path);
+            }
+        });
+
         modEditor.getResourcesAdd().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,26 +235,15 @@ public class ModLoader {
         modEditor.getModItemSave().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                SaveItem();
 
-                item.itemName = modEditor.getModItemNameTextField().getText();
-                item.itemId = modEditor.getModItemIdTextField().getText();
-                //item.itemTexture = modEditor.getModItemTextureSelect().getModel() Need to implement resources
-                item.axeBool = modEditor.getAxe().isSelected();
-                item.weaponBool = modEditor.getWeapon().isSelected();
-                item.durabilityBool = modEditor.getDurability().isSelected();
-                item.pickaxeBool = modEditor.getPickaxe().isSelected();
-                item.hatBool = modEditor.getHat().isSelected();
-                item.equipableBool = modEditor.getEquipable().isSelected();
-                item.lightBool = modEditor.getLight().isSelected();
-                item.dappernessBool = modEditor.getDapperness().isSelected();
-                item.storageBool = modEditor.getStorage().isSelected();
-                item.edibleBool = modEditor.getEdible().isSelected();
-                item.chestBool = modEditor.getChest().isSelected();
-                item.armorBool = modEditor.getArmor().isSelected();
-                item.fuelBool = modEditor.getFuel().isSelected();
-                item.handBool = modEditor.getHand().isSelected();
-
+                Update();
+            }
+        });
+        modEditor.getModConfigSave().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SaveModConfig();
                 Update();
             }
         });

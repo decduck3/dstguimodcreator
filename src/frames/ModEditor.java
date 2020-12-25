@@ -54,6 +54,11 @@ public class ModEditor {
     private JButton resourcesRemove;
     private JScrollPane resourcesScroll;
     private JScrollPane modItemTextureScrollPlane;
+    private JButton saveAll;
+
+    public JButton getSaveAll() {
+        return saveAll;
+    }
 
     public JScrollPane getResourcesScroll() {
         return resourcesScroll;
@@ -280,8 +285,8 @@ public class ModEditor {
         modConfig.setTabPlacement(2);
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -420,6 +425,13 @@ public class ModEditor {
         modSpeechConfig = new JPanel();
         modSpeechConfig.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(20, 20, 20, 20), -1, -1));
         modConfig.addTab("Speech", modSpeechConfig);
+        saveAll = new JButton();
+        saveAll.setText("Save All");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        modEditorPanel.add(saveAll, gbc);
     }
 
     /**

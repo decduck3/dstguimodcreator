@@ -7,7 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Master {
     public static ProjectSelect projectSelect;
@@ -35,9 +37,16 @@ public class Master {
         projectSelectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        DefaultTableModel model = (DefaultTableModel) projectSelect.getProjectsListTable().getModel();
+        DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        projectSelect.getProjectsListTable().setModel(model);
         model.addColumn("Project Name:");
-        model.addColumn("Project Date:");
+        model.addColumn("Project Author:");
         readMods();
 
         projectSelect.getNewMod().addActionListener(new ActionListener() {
@@ -82,7 +91,7 @@ public class Master {
                 String author = newModConfig.getModAuthorTextField().getText();
                 projectSelectFrame.setVisible(false);
                 newModConfigFrame.setVisible(false);
-                ModLoader.CreateMod(System.getProperty("user.dir") + "/mods" + name, author, name);
+                ModLoader.CreateMod(System.getProperty("user.dir") + "/mods/" + name + ".demv", author, name);
             }
         });
 
@@ -98,7 +107,7 @@ public class Master {
                     JOptionPane.WARNING_MESSAGE);
         }else{
             projectSelectFrame.setVisible(false);
-            ModLoader.LoadMod(System.getProperty("user.dir") + "/mods" + currentlySelectedTable);
+            ModLoader.LoadMod(System.getProperty("user.dir") + "/mods/" + currentlySelectedTable);
         }
     }
 
@@ -108,18 +117,24 @@ public class Master {
         System.out.println(System.getProperty("user.dir") + "/mods");
         System.out.println(Arrays.toString(mods));
         for(int i = 0; i < mods.length; i++){
-            model.addRow(new Object[]{mods[i], "0/0/0000"});
+            model.addRow(new Object[]{mods[i], "-"});
         }
     }
 
     public static String[] getAllDirectories(String path){
-        File file = new File(path);
-        String[] directories = file.list(new FilenameFilter() {
+        File dir = new File(path);
+        File [] files = dir.listFiles(new FilenameFilter() {
             @Override
-            public boolean accept(File current, String name) {
-                return new File(current, name).isDirectory();
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".demv");
             }
         });
-        return directories;
+        List<String> _directories = new ArrayList<String>();
+
+        for(int i = 0; i < files.length; i++){
+            _directories.add(files[i].getName());
+        }
+
+        return _directories.toArray(new String[0]);
     }
 }

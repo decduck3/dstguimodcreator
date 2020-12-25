@@ -2,7 +2,7 @@ package modloader.classes;
 
 import modloader.classes.components.*;
 
-public class Item {
+public class Item implements java.io.Serializable {
     public String itemName = "New Item";
     public String itemId;
     public Texture itemTexture;
