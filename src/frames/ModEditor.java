@@ -55,6 +55,15 @@ public class ModEditor {
     private JScrollPane resourcesScroll;
     private JScrollPane modItemTextureScrollPlane;
     private JButton saveAll;
+    private JButton modExport;
+
+    public JButton getModExport() {
+        return modExport;
+    }
+
+    public void setModExport(JButton modExport) {
+        this.modExport = modExport;
+    }
 
     public JButton getSaveAll() {
         return saveAll;
@@ -636,6 +645,13 @@ public class ModEditor {
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         modEditorPanel.add(saveAll, gbc);
+        modExport = new JButton();
+        modExport.setText("Export");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        modEditorPanel.add(modExport, gbc);
     }
 
     /**

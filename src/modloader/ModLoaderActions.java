@@ -1,5 +1,6 @@
 package modloader;
 
+import export.Exporter;
 import frames.ModEditor;
 import modloader.classes.Item;
 import modloader.resources.ResourceLoader;
@@ -111,6 +112,13 @@ public class ModLoaderActions extends ModLoader{
 
                     Update();
                 }
+            }
+        });
+
+        modEditor.getModExport().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Exporter.Export();
             }
         });
     }
