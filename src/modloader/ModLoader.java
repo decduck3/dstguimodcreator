@@ -94,18 +94,13 @@ public class ModLoader {
             modEditor.getModItemIdTextField().setText(item.itemId);
             //Set the selected for the texture
             modEditor.getAxe().setSelected(item.axeBool);
-            modEditor.getWeapon().setSelected(item.weaponBool);
             modEditor.getDurability().setSelected(item.durabilityBool);
-            modEditor.getPickaxe().setSelected(item.pickaxeBool);
             modEditor.getHat().setSelected(item.hatBool);
             modEditor.getEquipable().setSelected(item.equipableBool);
-            modEditor.getLight().setSelected(item.lightBool);
             modEditor.getDapperness().setSelected(item.dappernessBool);
-            modEditor.getStorage().setSelected(item.storageBool);
             modEditor.getEdible().setSelected(item.edibleBool);
             modEditor.getChest().setSelected(item.chestBool);
             modEditor.getArmor().setSelected(item.armorBool);
-            modEditor.getFuel().setSelected(item.fuelBool);
             modEditor.getHand().setSelected(item.handBool);
 
             modEditorFrame.pack();
@@ -122,18 +117,13 @@ public class ModLoader {
             item.itemId = modEditor.getModItemIdTextField().getText();
             //item.itemTexture = modEditor.getModItemTextureSelect().getModel() Need to implement resources
             item.axeBool = modEditor.getAxe().isSelected();
-            item.weaponBool = modEditor.getWeapon().isSelected();
             item.durabilityBool = modEditor.getDurability().isSelected();
-            item.pickaxeBool = modEditor.getPickaxe().isSelected();
             item.hatBool = modEditor.getHat().isSelected();
             item.equipableBool = modEditor.getEquipable().isSelected();
-            item.lightBool = modEditor.getLight().isSelected();
             item.dappernessBool = modEditor.getDapperness().isSelected();
-            item.storageBool = modEditor.getStorage().isSelected();
             item.edibleBool = modEditor.getEdible().isSelected();
             item.chestBool = modEditor.getChest().isSelected();
             item.armorBool = modEditor.getArmor().isSelected();
-            item.fuelBool = modEditor.getFuel().isSelected();
             item.handBool = modEditor.getHand().isSelected();
         }catch(java.lang.IndexOutOfBoundsException e){
             System.out.println("Item not selected");

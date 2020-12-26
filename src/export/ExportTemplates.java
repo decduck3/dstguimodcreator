@@ -23,7 +23,8 @@ public class ExportTemplates {
             "\t{1}\n" +
             "}";
 
-    public static String itemTemplate = "local assets =\n" +
+    public static String itemTemplate =
+            "local assets =\n" +
             "{\n" +
             "\t{0}\n" +
             "}\n" +
@@ -56,8 +57,6 @@ public class ExportTemplates {
             "    \n" +
             "    {7}\n" +
             "    inst:AddComponent(\"inventoryitem\")\n" +
-            "    inst.components.inventoryitem.atlasname = {4}\n" +
-            "    inst.components.inventoryitem.imagename = {5}\n" +
             "\n" +
             "    MakeHauntableLaunch(inst)\n" +
             "\n" +
@@ -70,21 +69,33 @@ public class ExportTemplates {
     public static String image = "\tAsset(\"IMAGE\", \"REPLACE\" ),\n{0}";
     public static String atlas = "\tAsset(\"ATLAS\", \"REPLACE\"),\n{0}";
 
-    public static String armor = "    inst:AddComponent(\"armor\")\n" +
+    public static String armor =
+            "    inst:AddComponent(\"armor\")\n" +
             "    inst.components.armor:InitCondition(ARMOR, ABSORPTION)\n{7}";
-    public static String axe = "    inst:AddComponent(\"tool\")\n" +
+    public static String axe =
+            "    inst:AddComponent(\"tool\")\n" +
             "    inst.components.tool:SetAction(ACTIONS.CHOP, SPEED)\n{7}";
-    public static String equipable = "inst:AddComponent(\"equippable\")\n" +
+    public static String equipable =
+            "    inst:AddComponent(\"equippable\")\n" +
             "    inst.components.equippable.equipslot = REPLACE\n{7}";
 
     public static String dapperness = "        inst.components.equippable.dapperness = REPLACE\n{7}";
 
     public static String chest = "EQUIPSLOTS.BODY";
     public static String hand = "EQUIPSLOTS.HEAD";
+    public static String hat = "EQUIPSLOTS.HEAD";
 
-    public static String duriability = "        inst:AddComponent(\"finiteuses\")\n" +
-            "        inst.components.finiteuses:SetMaxUses(TUNING.AXE_USES)\n" +
-            "        inst.components.finiteuses:SetUses(TUNING.AXE_USES)\n" +
+    public static String duriability =
+            "        inst:AddComponent(\"finiteuses\")\n" +
+            "        inst.components.finiteuses:SetMaxUses(MAX)\n" +
+            "        inst.components.finiteuses:SetUses(MAX)\n" +
             "        inst.components.finiteuses:SetOnFinished(inst.Remove)\n" +
-            "        inst.components.finiteuses:SetConsumption(ACTIONS.CHOP, 1)\n{7}";
+            "        inst.components.finiteuses:SetConsumption(ACTION.CHOP, 1)\n{7}";
+    public static String edible =
+            "        inst:AddComponent(\"edible\")\n" +
+            "        inst.components.edible.healthvalue = HEALTH\n" +
+            "        inst.components.edible.hungervalue = HUNGER\n" +
+            "        inst.components.edible.sanityvalue = SANITY\n" +
+            "        inst.components.edible.foodtype = FOODTYPE\n{7}";
+
 }

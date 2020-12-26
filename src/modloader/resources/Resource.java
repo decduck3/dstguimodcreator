@@ -2,7 +2,7 @@ package modloader.resources;
 
 import modloader.classes.Texture;
 
-public class Resource {
+public class Resource implements java.io.Serializable {
     public boolean isTexture;
     public boolean isOther;
 
