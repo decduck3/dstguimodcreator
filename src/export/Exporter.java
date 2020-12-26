@@ -58,10 +58,19 @@ public class Exporter {
         modmainWriter.close();
     }
 
-    public static void ExportItems(){
-
+    public static void ExportItems() throws IOException {
+        for(int i = 0; i < Mod.items.size(); i++){
+            ExportItem(Mod.items.get(i));
+        }
     }
-    private  static void ExportItem(Item i){
+    private static void ExportItem(Item i) throws IOException {
+        File item = new File(pathToDirectory + "/scripts/prefabs/" + i.itemId + ".lua");
+        item.createNewFile();
 
+        FileWriter itemWriter = new FileWriter(pathToDirectory + "/scripts/prefabs/" + i.itemId + ".lua");
+
+        itemWriter.write(ExportGenerator.itemGenerator(i));
+
+        itemWriter.close();
     }
 }

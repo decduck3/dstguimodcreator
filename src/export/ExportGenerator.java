@@ -4,14 +4,14 @@ import modloader.classes.Item;
 
 public class ExportGenerator {
     public static String modinfoGenerator(){
-        return "";
+        return "modinfo";
     }
 
     public static String modmainGenerator(){
-        return "";
+        return "modmain";
     }
 
     public static String itemGenerator(Item i){
-        return "";
+        return i.itemName;
     }
 }
