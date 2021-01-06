@@ -1,6 +1,5 @@
 package modloader;
 
-import export.Exporter;
 import frames.ModEditor;
 import modloader.classes.Item;
 import modloader.classes.components.Equipable;
@@ -223,7 +222,7 @@ public class ModLoaderActions extends ModLoader{
         modEditor.getModExport().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Exporter.Export();
+
             }
         });
     }
