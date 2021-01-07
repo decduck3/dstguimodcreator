@@ -5,7 +5,7 @@ import modloader.resources.Resource;
 
 public class Item implements java.io.Serializable {
     public String itemName = "New Item";
-    public String itemId;
+    public String itemId = "new_item";
     public Resource itemTexture;
 
     public boolean edibleBool;

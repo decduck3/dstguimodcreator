@@ -8,4 +8,6 @@ public class Resource implements java.io.Serializable {
 
     public Texture texture;
     public String filePath;
+
+    public String displayUse;
 }

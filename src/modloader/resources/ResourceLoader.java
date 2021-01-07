@@ -8,7 +8,16 @@ import java.io.*;
 public class ResourceLoader {
     public static List<Resource> resources = new ArrayList<Resource>();
 
-    public static void LoadResource(String tex, String xml){
+    public static Object currentlySelected;
+
+    public enum TextureLocation{
+        InventoryImage,
+        ModIcon,
+        Portrait,
+        MapIcon
+    }
+
+    public static void LoadResource(String tex, String xml, TextureLocation texLocation){
         Resource resource = new Resource();
         resource.isTexture = true;
         resource.isOther = false;
@@ -17,7 +26,19 @@ public class ResourceLoader {
         resource.texture.texPath = tex;
         resource.texture.xmlPath = xml;
 
-        resource.filePath = "";
+        if(texLocation == TextureLocation.InventoryImage){
+            resource.filePath = "images/inventoryimages/";
+            resource.displayUse = "Inventory Image";
+        }else if(texLocation == TextureLocation.ModIcon){
+            resource.filePath = "";
+            resource.displayUse = "Mod Icon";
+        }else if(texLocation == TextureLocation.Portrait){
+            resource.filePath = "bigportrait/";
+            resource.displayUse = "Character Portrait";
+        }else if(texLocation == TextureLocation.MapIcon){
+            resource.filePath = "images/map_icons/";
+            resource.displayUse = "Map Icon";
+        }
 
         resources.add(resource);
     }
@@ -29,5 +50,14 @@ public class ResourceLoader {
             }
         }
         return null;
+    }
+
+    public static void RemoveResource(String texPath, String xmlPath){
+        for(Resource r:resources){
+            if(r.texture.texPath == texPath && r.texture.xmlPath == xmlPath){
+                resources.remove(r);
+                return;
+            }
+        }
     }
 }

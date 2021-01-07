@@ -1,6 +1,8 @@
 import frames.NewModConfig;
 import frames.ProjectSelect;
 import modloader.ModLoader;
+import savesystem.SaveObject;
+import savesystem.SaveSystem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -114,10 +116,9 @@ public class Master {
     public static void readMods(){
         DefaultTableModel model = (DefaultTableModel) projectSelect.getProjectsListTable().getModel();
         String[] mods = getAllDirectories(System.getProperty("user.dir") + "/mods");
-        System.out.println(System.getProperty("user.dir") + "/mods");
-        System.out.println(Arrays.toString(mods));
         for(int i = 0; i < mods.length; i++){
-            model.addRow(new Object[]{mods[i], "-"});
+            SaveObject saveObject = SaveSystem.TempLoad(System.getProperty("user.dir") + "/mods/" + mods[i]);
+            model.addRow(new Object[]{saveObject.modName, saveObject.modAuthor});
         }
     }
 

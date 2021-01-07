@@ -22,7 +22,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="c3700" binding="mainConfig" layout-manager="GridLayoutManager" row-count="8" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="c3700" binding="mainConfig" layout-manager="GridLayoutManager" row-count="9" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Main Config">
@@ -98,10 +98,24 @@
               </component>
               <component id="75602" class="javax.swing.JButton" binding="modConfigSave">
                 <constraints>
-                  <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Save"/>
+                </properties>
+              </component>
+              <component id="570ba" class="javax.swing.JComboBox" binding="modIconTextureSelect">
+                <constraints>
+                  <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="650cf" class="javax.swing.JLabel" binding="modIconLabel">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Mod Icon"/>
                 </properties>
               </component>
             </children>
@@ -116,7 +130,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <grid id="c0232" binding="modItemConfigPanel" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="c0232" binding="modItemConfigPanel" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="0" column="1" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -128,7 +142,7 @@
                 <children>
                   <hspacer id="6f28c">
                     <constraints>
-                      <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </hspacer>
                   <component id="23097" class="javax.swing.JLabel" binding="modItemNameLabel">
@@ -149,7 +163,7 @@
                   </component>
                   <component id="ac5d8" class="javax.swing.JLabel" binding="modItemTextureSelectLabel">
                     <constraints>
-                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="Texture:"/>
@@ -158,7 +172,7 @@
                   <grid id="5af4d" binding="modItemCheckboxPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                         <minimum-size width="150" height="150"/>
                         <preferred-size width="150" height="150"/>
                       </grid>
@@ -262,19 +276,12 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <scrollpane id="f70d5" binding="modItemTextureScrollPlane">
+                  <component id="b762b" class="javax.swing.JComboBox" binding="modItemTextureSelect">
                     <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
-                    <border type="none"/>
-                    <children>
-                      <component id="42e2d" class="javax.swing.JTable" binding="modItemTextureSelect">
-                        <constraints/>
-                        <properties/>
-                      </component>
-                    </children>
-                  </scrollpane>
+                  </component>
                 </children>
               </grid>
               <component id="dd08f" class="javax.swing.JButton" binding="modItemCreate">

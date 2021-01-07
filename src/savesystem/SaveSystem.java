@@ -53,4 +53,20 @@ public class SaveSystem {
             return;
         }
     }
+
+    public static SaveObject TempLoad(String filePath){
+        SaveObject e = null;
+        try {
+            FileInputStream fileIn = new FileInputStream(filePath);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            e = (SaveObject) in.readObject();
+            in.close();
+            fileIn.close();
+
+            return e;
+        } catch (IOException | ClassNotFoundException i) {
+            i.printStackTrace();
+            return null;
+        }
+    }
 }

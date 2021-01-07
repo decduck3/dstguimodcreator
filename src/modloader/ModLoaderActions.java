@@ -1,8 +1,10 @@
 package modloader;
 
+import export.Exporter;
 import frames.ModEditor;
 import modloader.classes.Item;
 import modloader.classes.components.Equipable;
+import modloader.resources.Resource;
 import modloader.resources.ResourceLoader;
 import savesystem.SaveSystem;
 
@@ -10,6 +12,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 
 public class ModLoaderActions extends ModLoader{
@@ -30,26 +34,10 @@ public class ModLoaderActions extends ModLoader{
             }
         });
 
-        modEditor.getModItemTextureSelect().addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int row = modEditor.getModItemTextureSelect().rowAtPoint(evt.getPoint());
-                int col = modEditor.getModItemTextureSelect().columnAtPoint(evt.getPoint());
-                if (row >= 0 && col >= 0) {
-                    var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                    item.itemTexture = ResourceLoader.GetResource(modEditor.getModItemTextureSelect().getModel().getValueAt(row, col).toString());
-
-                    Update();
-                }
-            }
-        });
-
         modEditor.getSaveAll().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SaveItem();
-                SaveModConfig();
-                SaveSystem.Save(Mod.path);
+                SaveAll();
             }
         });
 
@@ -70,11 +58,23 @@ public class ModLoaderActions extends ModLoader{
                 JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open XML file", JOptionPane.QUESTION_MESSAGE);
                 File xmlFile = chooser.getSelectedFile();
 
-                ResourceLoader.LoadResource(texFile.getAbsolutePath(), xmlFile.getAbsolutePath());
+                ResourceLoader.LoadResource(texFile.getAbsolutePath(), xmlFile.getAbsolutePath(), ResourceLoader.TextureLocation.values()[(ModLoader.getOption("Texture location", new Object[] {"Inventory Image", "Mod Icon", "Portrait", "Map Icon"}))]);
 
                 Update();
             }
         });
+
+        modEditor.getResourcesRemove().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResourceLoader.RemoveResource(
+                        (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 1),
+                        (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 2));
+                Update();
+            }
+        });
+
+
 
         modEditor.getModItemSave().addActionListener(new ActionListener() {
             @Override
@@ -99,7 +99,6 @@ public class ModLoaderActions extends ModLoader{
             }
         });
 
-        //Axe - For development (not final)
         modEditor.getAxe().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -222,7 +221,7 @@ public class ModLoaderActions extends ModLoader{
         modEditor.getModExport().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Exporter.Export();
             }
         });
     }

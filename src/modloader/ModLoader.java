@@ -17,6 +17,8 @@ import java.awt.desktop.SystemSleepEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,15 @@ import java.util.List;
 public class ModLoader {
     public static JFrame modEditorFrame;
     public static ModEditor modEditor;
-    public static DefaultTableModel textureModel;
     public static DefaultTableModel resourceModel;
+
+    public static String fileComponent(String fname) {
+        int pos = fname.lastIndexOf(File.separator);
+        if(pos > -1)
+            return fname.substring(pos + 1);
+        else
+            return fname;
+    }
 
     public static void LoadMod(String path){
         Mod.path = path;
@@ -57,29 +66,52 @@ public class ModLoader {
     }
 
     public static void Update(){
-        int selected = modEditor.getModItemSelect().getSelectedIndex();
+        int selectedModItem = modEditor.getModItemSelect().getSelectedIndex();
+        int selectedModIcon = ResourceLoader.resources.indexOf(Mod.modIcon);
+        int selectedModTexture = 0;
+        try{
+            selectedModTexture = ResourceLoader.resources.indexOf(Mod.items.get(selectedModItem).itemTexture);
+        }catch(IndexOutOfBoundsException e){
+
+        }
+
 
         modEditor.getModItemSelect().removeAllItems();
         for(int i = 0; i < Mod.items.size(); i++){
             modEditor.getModItemSelect().addItem(Mod.items.get(i).itemName);
         }
 
-        if(Mod.items.size() < selected){
-            selected = 0;
+        if(Mod.items.size() < selectedModItem){
+            selectedModItem = 0;
         }
-        modEditor.getModItemSelect().setSelectedIndex(selected);
-
-        for(int i = 0; i < textureModel.getRowCount(); i++){
-            textureModel.removeRow(i);
-        }
+        modEditor.getModItemSelect().setSelectedIndex(selectedModItem);
 
         for(int i = 0; i < resourceModel.getRowCount(); i++){
             resourceModel.removeRow(i);
         }
 
-        for(int i =0; i < ResourceLoader.resources.size(); i++){
-            textureModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
-            resourceModel.addRow(new Object[] { new File(ResourceLoader.resources.get(i).texture.texPath).getName(), ResourceLoader.resources.get(i).texture.texPath });
+        modEditor.getModIconTextureSelect().removeAllItems();
+        modEditor.getModItemTextureSelect().removeAllItems();
+        for(Resource r:ResourceLoader.resources){
+            resourceModel.addRow(new Object[] { ModLoader.fileComponent(r.texture.texPath), r.texture.texPath, r.texture.xmlPath,  r.displayUse });
+            modEditor.getModIconTextureSelect().addItem(fileComponent(r.texture.texPath));
+            modEditor.getModItemTextureSelect().addItem(fileComponent(r.texture.texPath));
+        }
+        if(Mod.items.size() < selectedModIcon){
+            selectedModIcon = 0;
+        }
+        if(Mod.items.size() < selectedModTexture){
+            selectedModTexture = 0;
+        }
+        try{
+            modEditor.getModItemTextureSelect().setSelectedIndex(selectedModTexture);
+        }catch (IllegalArgumentException e){
+
+        }
+        try{
+            modEditor.getModIconTextureSelect().setSelectedIndex(selectedModIcon);
+        }catch (IllegalArgumentException e){
+
         }
 
         modEditor.getModNameTextField().setText(Mod.modName);
@@ -105,7 +137,7 @@ public class ModLoader {
 
             modEditorFrame.pack();
         } catch (Exception e) {
-            System.out.println("Item not selected");
+
         }
     }
 
@@ -115,7 +147,7 @@ public class ModLoader {
 
             item.itemName = modEditor.getModItemNameTextField().getText();
             item.itemId = modEditor.getModItemIdTextField().getText();
-            //item.itemTexture = modEditor.getModItemTextureSelect().getModel() Need to implement resources
+            item.itemTexture = ResourceLoader.resources.get(modEditor.getModItemTextureSelect().getSelectedIndex());
             item.axeBool = modEditor.getAxe().isSelected();
             item.durabilityBool = modEditor.getDurability().isSelected();
             item.hatBool = modEditor.getHat().isSelected();
@@ -126,7 +158,7 @@ public class ModLoader {
             item.armorBool = modEditor.getArmor().isSelected();
             item.handBool = modEditor.getHand().isSelected();
         }catch(java.lang.IndexOutOfBoundsException e){
-            System.out.println("Item not selected");
+
         }
     }
 
@@ -135,6 +167,18 @@ public class ModLoader {
         Mod.modAuthor = modEditor.getModAuthorTextField().getText();
         Mod.modDescription = modEditor.getModDescriptTextArea().getText();
         Mod.modVersion = modEditor.getModVersionTextField().getText();
+        Mod.modIcon = ResourceLoader.resources.get(modEditor.getModIconTextureSelect().getSelectedIndex());
+    }
+
+    public static void SaveAll(){
+        try{
+            SaveItem();
+            SaveModConfig();
+            SaveSystem.Save(Mod.path);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(modEditorFrame, e.getLocalizedMessage(), "Error while saving", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public static void CreateModEditorFrame(){
@@ -142,17 +186,48 @@ public class ModLoader {
         modEditor = new ModEditor();
 
         modEditorFrame.setContentPane(modEditor.getModEditorPanel());
-        modEditorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        modEditorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        modEditorFrame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
 
-        textureModel = new DefaultTableModel() {
+            }
 
             @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
+            public void windowClosing(WindowEvent e) {
+                if(getBool("Save?")){
+                    SaveAll();
+                }
+                modEditorFrame.dispose();
+                return;
             }
-        };
-        modEditor.getModItemTextureSelect().setModel(textureModel);
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
         resourceModel = new DefaultTableModel() {
 
             @Override
@@ -163,11 +238,10 @@ public class ModLoader {
         };
         modEditor.getResourcesTable().setModel(resourceModel);
 
-        textureModel.addColumn("Texture");
-        textureModel.addColumn("Path");
-
         resourceModel.addColumn("Texture");
-        resourceModel.addColumn("Path");
+        resourceModel.addColumn("TEX Path");
+        resourceModel.addColumn("XML Path");
+        resourceModel.addColumn("Type");
 
         //Go see file for definitions
         ModLoaderActions.SetupListeners();

@@ -1,7 +1,10 @@
 package frames;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.util.Locale;
 
 public class ModEditor {
     private JPanel modEditorPanel;
@@ -25,7 +28,7 @@ public class ModEditor {
     private JButton modItemCreate;
     private JLabel modItemNameLabel;
     private JTextField modItemNameTextField;
-    private JTable modItemTextureSelect;
+    private JComboBox modItemTextureSelect;
     private JLabel modItemTextureSelectLabel;
     private JPanel modItemCheckboxPanel;
     private JCheckBox Edible;
@@ -53,256 +56,17 @@ public class ModEditor {
     private JButton resourcesAdd;
     private JButton resourcesRemove;
     private JScrollPane resourcesScroll;
-    private JScrollPane modItemTextureScrollPlane;
     private JButton saveAll;
     private JButton modExport;
+    private JComboBox modIconTextureSelect;
+    private JLabel modIconLabel;
 
-    public JButton getModExport() {
-        return modExport;
+    public JPanel getModEditorPanel() {
+        return modEditorPanel;
     }
 
-    public void setModExport(JButton modExport) {
-        this.modExport = modExport;
-    }
-
-    public JButton getSaveAll() {
-        return saveAll;
-    }
-
-    public void setModEditorPanel(JPanel modEditorPanel) {
-        this.modEditorPanel = modEditorPanel;
-    }
-
-    public void setModConfig(JTabbedPane modConfig) {
-        this.modConfig = modConfig;
-    }
-
-    public void setMainConfig(JPanel mainConfig) {
-        this.mainConfig = mainConfig;
-    }
-
-    public void setModItems(JPanel modItems) {
-        this.modItems = modItems;
-    }
-
-    public void setModCharacters(JPanel modCharacters) {
-        this.modCharacters = modCharacters;
-    }
-
-    public void setResources(JPanel resources) {
-        this.resources = resources;
-    }
-
-    public void setModNameTextField(JTextField modNameTextField) {
-        this.modNameTextField = modNameTextField;
-    }
-
-    public void setModAuthorTextField(JTextField modAuthorTextField) {
-        this.modAuthorTextField = modAuthorTextField;
-    }
-
-    public void setModDescriptTextArea(JTextArea modDescriptTextArea) {
-        this.modDescriptTextArea = modDescriptTextArea;
-    }
-
-    public void setModVersionTextField(JTextField modVersionTextField) {
-        this.modVersionTextField = modVersionTextField;
-    }
-
-    public void setModNameLabel(JLabel modNameLabel) {
-        this.modNameLabel = modNameLabel;
-    }
-
-    public void setModAuthorLabel(JLabel modAuthorLabel) {
-        this.modAuthorLabel = modAuthorLabel;
-    }
-
-    public void setModDescriptionLabel(JLabel modDescriptionLabel) {
-        this.modDescriptionLabel = modDescriptionLabel;
-    }
-
-    public void setModVersionLabel(JLabel modVersionLabel) {
-        this.modVersionLabel = modVersionLabel;
-    }
-
-    public void setModItemConfigPanel(JPanel modItemConfigPanel) {
-        this.modItemConfigPanel = modItemConfigPanel;
-    }
-
-    public void setModItemList(JTable modItemList) {
-        this.modItemList = modItemList;
-    }
-
-    public void setModItemListScrollPlane(JScrollPane modItemListScrollPlane) {
-        this.modItemListScrollPlane = modItemListScrollPlane;
-    }
-
-    public void setModItemDelete(JButton modItemDelete) {
-        this.modItemDelete = modItemDelete;
-    }
-
-    public void setModItemCreate(JButton modItemCreate) {
-        this.modItemCreate = modItemCreate;
-    }
-
-    public void setModItemNameLabel(JLabel modItemNameLabel) {
-        this.modItemNameLabel = modItemNameLabel;
-    }
-
-    public void setModItemNameTextField(JTextField modItemNameTextField) {
-        this.modItemNameTextField = modItemNameTextField;
-    }
-
-    public void setModItemTextureSelect(JTable modItemTextureSelect) {
-        this.modItemTextureSelect = modItemTextureSelect;
-    }
-
-    public void setModItemTextureSelectLabel(JLabel modItemTextureSelectLabel) {
-        this.modItemTextureSelectLabel = modItemTextureSelectLabel;
-    }
-
-    public void setModItemCheckboxPanel(JPanel modItemCheckboxPanel) {
-        this.modItemCheckboxPanel = modItemCheckboxPanel;
-    }
-
-    public void setEdible(JCheckBox edible) {
-        Edible = edible;
-    }
-
-    public void setFuel(JCheckBox fuel) {
-        Fuel = fuel;
-    }
-
-    public void setLight(JCheckBox light) {
-        Light = light;
-    }
-
-    public void setPickaxe(JCheckBox pickaxe) {
-        Pickaxe = pickaxe;
-    }
-
-    public void setAxe(JCheckBox axe) {
-        Axe = axe;
-    }
-
-    public void setWeapon(JCheckBox weapon) {
-        Weapon = weapon;
-    }
-
-    public void setDurability(JCheckBox durability) {
-        Durability = durability;
-    }
-
-    public void setHat(JCheckBox hat) {
-        Hat = hat;
-    }
-
-    public void setEquipable(JCheckBox equipable) {
-        Equipable = equipable;
-    }
-
-    public void setDapperness(JCheckBox dapperness) {
-        Dapperness = dapperness;
-    }
-
-    public void setStorage(JCheckBox storage) {
-        Storage = storage;
-    }
-
-    public void setChest(JCheckBox chest) {
-        Chest = chest;
-    }
-
-    public void setArmor(JCheckBox armor) {
-        Armor = armor;
-    }
-
-    public void setHand(JCheckBox hand) {
-        Hand = hand;
-    }
-
-    public void setNotImplemented(JCheckBox notImplemented) {
-        NotImplemented = notImplemented;
-    }
-
-    public void setModSpeechConfig(JPanel modSpeechConfig) {
-        this.modSpeechConfig = modSpeechConfig;
-    }
-
-    public void setModItemIdLabel(JLabel modItemIdLabel) {
-        this.modItemIdLabel = modItemIdLabel;
-    }
-
-    public void setModItemIdTextField(JTextField modItemIdTextField) {
-        this.modItemIdTextField = modItemIdTextField;
-    }
-
-    public void setModItemSelect(JComboBox modItemSelect) {
-        this.modItemSelect = modItemSelect;
-    }
-
-    public void setModItemSave(JButton modItemSave) {
-        this.modItemSave = modItemSave;
-    }
-
-    public void setModConfigSave(JButton modConfigSave) {
-        this.modConfigSave = modConfigSave;
-    }
-
-    public void setResourcesTable(JTable resourcesTable) {
-        this.resourcesTable = resourcesTable;
-    }
-
-    public void setResourcesAdd(JButton resourcesAdd) {
-        this.resourcesAdd = resourcesAdd;
-    }
-
-    public void setResourcesRemove(JButton resourcesRemove) {
-        this.resourcesRemove = resourcesRemove;
-    }
-
-    public void setResourcesScroll(JScrollPane resourcesScroll) {
-        this.resourcesScroll = resourcesScroll;
-    }
-
-    public void setModItemTextureScrollPlane(JScrollPane modItemTextureScrollPlane) {
-        this.modItemTextureScrollPlane = modItemTextureScrollPlane;
-    }
-
-    public void setSaveAll(JButton saveAll) {
-        this.saveAll = saveAll;
-    }
-
-    public JScrollPane getResourcesScroll() {
-        return resourcesScroll;
-    }
-
-    public JScrollPane getModItemTextureScrollPlane() {
-        return modItemTextureScrollPlane;
-    }
-
-    public JTable getResourcesTable() {
-        return resourcesTable;
-    }
-
-    public JButton getResourcesAdd() {
-        return resourcesAdd;
-    }
-
-    public JButton getResourcesRemove() {
-        return resourcesRemove;
-    }
-
-    public JComboBox getModItemSelect() {
-        return modItemSelect;
-    }
-
-    public JLabel getModItemIdLabel() {
-        return modItemIdLabel;
-    }
-
-    public JTextField getModItemIdTextField() {
-        return modItemIdTextField;
+    public JTabbedPane getModConfig() {
+        return modConfig;
     }
 
     public JPanel getMainConfig() {
@@ -381,7 +145,7 @@ public class ModEditor {
         return modItemNameTextField;
     }
 
-    public JTable getModItemTextureSelect() {
+    public JComboBox getModItemTextureSelect() {
         return modItemTextureSelect;
     }
 
@@ -457,12 +221,16 @@ public class ModEditor {
         return modSpeechConfig;
     }
 
-    public JPanel getModEditorPanel() {
-        return modEditorPanel;
+    public JLabel getModItemIdLabel() {
+        return modItemIdLabel;
     }
 
-    public JTabbedPane getModConfig() {
-        return modConfig;
+    public JTextField getModItemIdTextField() {
+        return modItemIdTextField;
+    }
+
+    public JComboBox getModItemSelect() {
+        return modItemSelect;
     }
 
     public JButton getModItemSave() {
@@ -471,6 +239,38 @@ public class ModEditor {
 
     public JButton getModConfigSave() {
         return modConfigSave;
+    }
+
+    public JTable getResourcesTable() {
+        return resourcesTable;
+    }
+
+    public JButton getResourcesAdd() {
+        return resourcesAdd;
+    }
+
+    public JButton getResourcesRemove() {
+        return resourcesRemove;
+    }
+
+    public JScrollPane getResourcesScroll() {
+        return resourcesScroll;
+    }
+
+    public JButton getSaveAll() {
+        return saveAll;
+    }
+
+    public JButton getModExport() {
+        return modExport;
+    }
+
+    public JComboBox getModIconTextureSelect() {
+        return modIconTextureSelect;
+    }
+
+    public JLabel getModIconLabel() {
+        return modIconLabel;
     }
 
     {
@@ -505,7 +305,7 @@ public class ModEditor {
         gbc.fill = GridBagConstraints.BOTH;
         modEditorPanel.add(modConfig, gbc);
         mainConfig = new JPanel();
-        mainConfig.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(8, 3, new Insets(20, 20, 20, 20), -1, -1));
+        mainConfig.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(9, 3, new Insets(20, 20, 20, 20), -1, -1));
         modConfig.addTab("Main Config", null, mainConfig, "Change things such as mod name, author, config options");
         modNameLabel = new JLabel();
         modNameLabel.setText("Mod Name:");
@@ -529,15 +329,20 @@ public class ModEditor {
         mainConfig.add(modVersionTextField, new com.intellij.uiDesigner.core.GridConstraints(6, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         modConfigSave = new JButton();
         modConfigSave.setText("Save");
-        mainConfig.add(modConfigSave, new com.intellij.uiDesigner.core.GridConstraints(7, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mainConfig.add(modConfigSave, new com.intellij.uiDesigner.core.GridConstraints(8, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        modIconTextureSelect = new JComboBox();
+        mainConfig.add(modIconTextureSelect, new com.intellij.uiDesigner.core.GridConstraints(7, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        modIconLabel = new JLabel();
+        modIconLabel.setText("Mod Icon");
+        mainConfig.add(modIconLabel, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         modItems = new JPanel();
         modItems.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 2, new Insets(20, 20, 20, 20), -1, -1));
         modConfig.addTab("Items", null, modItems, "Create, delete and modify your modded items");
         modItemConfigPanel = new JPanel();
-        modItemConfigPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(7, 2, new Insets(0, 0, 0, 0), -1, -1));
+        modItemConfigPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
         modItems.add(modItemConfigPanel, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 4, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(1000, -1), null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
-        modItemConfigPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        modItemConfigPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         modItemNameLabel = new JLabel();
         modItemNameLabel.setText("Item Name:");
         modItemConfigPanel.add(modItemNameLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -545,10 +350,10 @@ public class ModEditor {
         modItemConfigPanel.add(modItemNameTextField, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         modItemTextureSelectLabel = new JLabel();
         modItemTextureSelectLabel.setText("Texture:");
-        modItemConfigPanel.add(modItemTextureSelectLabel, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        modItemConfigPanel.add(modItemTextureSelectLabel, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         modItemCheckboxPanel = new JPanel();
         modItemCheckboxPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 3, new Insets(0, 0, 0, 0), -1, -1));
-        modItemConfigPanel.add(modItemCheckboxPanel, new com.intellij.uiDesigner.core.GridConstraints(6, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(150, 150), new Dimension(150, 150), null, 0, false));
+        modItemConfigPanel.add(modItemCheckboxPanel, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(150, 150), new Dimension(150, 150), null, 0, false));
         Edible = new JCheckBox();
         Edible.setText("Edible");
         modItemCheckboxPanel.add(Edible, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -584,10 +389,8 @@ public class ModEditor {
         modItemConfigPanel.add(modItemIdLabel, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         modItemIdTextField = new JTextField();
         modItemConfigPanel.add(modItemIdTextField, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        modItemTextureScrollPlane = new JScrollPane();
-        modItemConfigPanel.add(modItemTextureScrollPlane, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        modItemTextureSelect = new JTable();
-        modItemTextureScrollPlane.setViewportView(modItemTextureSelect);
+        modItemTextureSelect = new JComboBox();
+        modItemConfigPanel.add(modItemTextureSelect, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         modItemCreate = new JButton();
         modItemCreate.setText("New Item");
         modItems.add(modItemCreate, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -652,7 +455,10 @@ public class ModEditor {
                 resultName = currentFont.getName();
             }
         }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
+        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**
