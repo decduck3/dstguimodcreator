@@ -2,6 +2,7 @@ package modloader;
 
 import export.Exporter;
 import frames.SpeechConfig;
+import logging.Logger;
 import modloader.classes.Item;
 import modloader.classes.components.Equipable;
 import modloader.resources.Resource;
@@ -21,6 +22,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 Mod.items.add(new Item());
                 Update();
+                Logger.Log("Created new item");
             }
         });
 
@@ -29,6 +31,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 Mod.items.remove(Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()));
                 Update();
+                Logger.Log("Removed item");
             }
         });
 
@@ -44,6 +47,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 switch(ModLoader.getOption("Type of resource", new Object[]{ "Texture", "Speech" })){
                     case 0:
+                        Logger.Log("Importing texture....");
                         JFileChooser chooser = new JFileChooser();
                         chooser.setAcceptAllFileFilterUsed(false);
                         FileNameExtensionFilter tex = new FileNameExtensionFilter("TEX File", "tex");
@@ -59,8 +63,12 @@ public class ModLoaderActions extends ModLoader{
                         File xmlFile = chooser.getSelectedFile();
 
                         ResourceManager.LoadResource(texFile.getAbsolutePath(), xmlFile.getAbsolutePath(), ResourceManager.TextureLocation.values()[(ModLoader.getOption("Texture location", new Object[] {"Inventory Image", "Mod Icon", "Portrait", "Map Icon"}))]);
+                        Logger.Log("Created resource with settings:\n" +
+                                "   Tex Path: " + texFile.getAbsolutePath() + "\n" +
+                                "   Xml Path: " + xmlFile.getAbsolutePath() + "\n");
                         break;
                     case 1:
+                        Logger.Log("Creating speech file...");
                         JFrame speechConfigFrame = new JFrame("Create New Speech File");
                         ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
                         speechConfigFrame.setIconImage(img.getImage());
@@ -74,11 +82,13 @@ public class ModLoaderActions extends ModLoader{
                                 ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], System.getProperty("user.dir") + "/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
                                 speechConfigFrame.dispose();
                                 Update();
+                                Logger.Log("Created speech resource");
                             }
                         });
 
                         speechConfigFrame.pack();
                         speechConfigFrame.setVisible(true);
+                        Logger.Log("Finished speechConfigFrame setup");
                         break;
                 }
 
@@ -93,6 +103,7 @@ public class ModLoaderActions extends ModLoader{
                         (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 1),
                         (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 2));
                 Update();
+                Logger.Log("Removed resource");
             }
         });
 
@@ -101,6 +112,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 SaveItem();
                 Update();
+                Logger.Log("Saved Item");
             }
         });
 
@@ -109,6 +121,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 SaveModConfig();
                 Update();
+                Logger.Log("Saved mod config");
             }
         });
 
@@ -127,6 +140,7 @@ public class ModLoaderActions extends ModLoader{
                     item.axe.efficiency = getFloat("Axe efficiency");
 
                     Update();
+                    Logger.Log("Added axe component");
                 }
             }
         });
@@ -140,6 +154,7 @@ public class ModLoaderActions extends ModLoader{
                     item.armor.maxCondition = getFloat("Armor Max Condition");
 
                     Update();
+                    Logger.Log("Added armor component");
                 }
             }
         });
@@ -157,6 +172,7 @@ public class ModLoaderActions extends ModLoader{
                         modEditor.getChest().setSelected(false);
                     }
                     Update();
+                    Logger.Log("Added chest component");
                 }
             }
         });
@@ -169,6 +185,7 @@ public class ModLoaderActions extends ModLoader{
                     item.dapperness.rate = getFloat("Dapperness rate");
 
                     Update();
+                    Logger.Log("Added dapperness component");
                 }
             }
         });
@@ -184,6 +201,7 @@ public class ModLoaderActions extends ModLoader{
                         JOptionPane.showMessageDialog(modEditorFrame, "Enable axe first", "Enable axe first", JOptionPane.WARNING_MESSAGE);
                     }
                     Update();
+                    Logger.Log("Added durability component");
                 }
             }
         });
@@ -198,6 +216,7 @@ public class ModLoaderActions extends ModLoader{
                     item.edible.sanity = getFloat("Sanity");
 
                     Update();
+                    Logger.Log("Added edible component");
                 }
             }
         });
@@ -217,11 +236,12 @@ public class ModLoaderActions extends ModLoader{
                         modEditor.getChest().setSelected(false);
                     }
                     Update();
+                    Logger.Log("Added hand component");
                 }
             }
         });
 
-        modEditor.getHand().addActionListener(new ActionListener() {
+        modEditor.getHat().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
@@ -234,6 +254,7 @@ public class ModLoaderActions extends ModLoader{
                         modEditor.getChest().setSelected(false);
                     }
                     Update();
+                    Logger.Log("Added hat component");
                 }
             }
         });
@@ -242,6 +263,7 @@ public class ModLoaderActions extends ModLoader{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Exporter.Export();
+                Logger.Log("Exported");
             }
         });
 
@@ -250,6 +272,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 ReloadSpeech();
                 Update();
+                Logger.Log("Reloaded speech resources");
             }
         });
     }

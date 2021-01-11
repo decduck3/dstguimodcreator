@@ -3,6 +3,7 @@ package savesystem;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import logging.Logger;
 import modloader.classes.Item;
 
 import java.io.*;
@@ -19,9 +20,11 @@ public class SaveSystem {
         }catch (IOException e){
             e.printStackTrace();
         }
+        Logger.Log("Cleared " + fileName);
     }
 
     public static void Save(String filePath){
+        Logger.Log("Starting save");
         try {
         File f = new File(filePath);
         if(!f.isFile()){
@@ -47,6 +50,7 @@ public class SaveSystem {
 
     public static void Load(String filePath){
         try {
+            Logger.Log("Starting load");
             SaveObject e = null;
             XStream xstream = new XStream(new StaxDriver());
 
@@ -80,6 +84,8 @@ public class SaveSystem {
             String xml = new String(data);
 
             e = (SaveObject) xstream.fromXML(xml);
+
+            Logger.Log("TempLoaded " + filePath);
 
             return e;
         } catch (IOException ioException) {

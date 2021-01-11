@@ -1,6 +1,7 @@
 package export;
 
 import export.templates.Template;
+import logging.Logger;
 import modloader.Mod;
 
 import java.util.*;
@@ -18,5 +19,6 @@ public class Templates {
                     new Template(TemplateLoader.ITEM_TEMPLATE, Template.Type.Item, Mod.items.get(i))
             );
         }
+        Logger.Log("Created template objects");
     }
 }

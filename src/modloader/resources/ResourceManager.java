@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.Dom4JDriver;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import logging.Logger;
 import modloader.ModLoader;
 import modloader.classes.Texture;
 import savesystem.SaveObject;
@@ -43,6 +44,7 @@ public class ResourceManager {
         speechXStream.alias("character", CharacterSpeech.class);
         speechXStream.alias("item", ItemSpeech.class);
         speechXStream.alias("resource", Resource.class);
+        Logger.Log("Created speechXStream with appropriate settings");
     }
 
     public static void GenerateResourceLists(){
@@ -65,6 +67,8 @@ public class ResourceManager {
                 mapicons.add(r);
             }
         }
+
+        Logger.Log("Generated resource lists");
     }
 
     public static void LoadResource(String tex, String xml, TextureLocation texLocation){
@@ -92,6 +96,7 @@ public class ResourceManager {
         resource.texLocation = texLocation;
 
         resources.add(resource);
+        Logger.Log("Loaded texture resource");
     }
 
     public static void LoadResource(SpeechFile.SpeechType speechType, String fileLocation){
@@ -122,14 +127,17 @@ public class ResourceManager {
         }
 
         resources.add(r);
+        Logger.Log("Loaded speech resource");
     }
 
     public static void LoadResource(Resource r){
+        Logger.Log("Directing resource");
         if(r.isTexture){
             LoadResource(r.texture.texPath, r.texture.xmlPath, r.texLocation);
         }else if(r.isSpeech){
             LoadResource(r.speechFile.speechType, r.speechFile.filePath);
         }
+        Logger.Log("Directed");
     }
 
     public static void ReloadResource(Resource r){
@@ -145,6 +153,7 @@ public class ResourceManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Logger.Log("Reloaded resource");
     }
 
     public static Resource GetResource(String name){

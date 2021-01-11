@@ -1,5 +1,6 @@
 package export.templates;
 
+import logging.Logger;
 import modloader.Mod;
 import modloader.ModLoader;
 import modloader.classes.Item;
@@ -38,6 +39,7 @@ public class Template {
     }
 
     public void Create(){
+        Logger.Log("Starting template create of " + templateType.name());
         if(templateType == Type.Modinfo){
 
             ReplaceAll("MOD_NAME", Mod.modName);
@@ -47,30 +49,47 @@ public class Template {
             ReplaceAll("MOD_ICON", fileComponent(ResourceManager.modicons.get(Mod.modIcon).texture.texPath));
             ReplaceAll("MOD_XML_ICON", fileComponent(ResourceManager.modicons.get(Mod.modIcon).texture.xmlPath));
 
+            Logger.Log("Replaced all values, returning");
+
         }else if(templateType == Type.Modmain){
             String prefabTemplate = "   \"PREFABNAME\",\n";
             String prefabs = "";
-            for(Item i: Mod.items){
-                prefabs = prefabs + prefabTemplate.replace("PREFABNAME", i.itemId);
-                System.out.println(prefabTemplate.replace("PREFABNAME", i.itemId));
+            Logger.Log("Generating prefabs...");
+            if(Mod.items.size() > 0){
+                for(Item i: Mod.items){
+                    prefabs = prefabs + prefabTemplate.replace("PREFABNAME", i.itemId);
+                }
+                prefabs = prefabs.substring(0, prefabs.length()-1); //Remove last newline
+                Logger.Log("Replacing prefabs...");
+                ReplaceAll("PREFAB_FILES", prefabs);
+            }else{
+                Logger.Log("Skipping prefabs, no items");
+                ReplaceAll("PREFAB_FILES", "");
             }
-            prefabs = prefabs.substring(0, prefabs.length()-1); //Remove last newline
-            ReplaceAll("PREFAB_FILES", prefabs);
+            Logger.Log("Done prefabs");
 
             String assets = "";
 
             String atlasTemplate = "    Asset(\"ATLAS\", \"REPLACE\"),\n";
             String imageTemplate = "    Asset(\"IMAGE\", \"REPLACE\" ),\n";
 
-            for(Resource r:ResourceManager.resources){
-                if(r.isTexture && r.filePath != ""){ //If a texture, and not the mod icon
-                    String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
-                    String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
-                    assets = assets + atlas + image;
+            Logger.Log("Generating assets...");
+            if(ResourceManager.resources.size() > 0){
+                for(Resource r:ResourceManager.resources){
+                    if(r.isTexture && r.filePath != ""){ //If a texture, and not the mod icon
+                        String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
+                        String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
+                        assets = assets + atlas + image;
+                    }
                 }
+                assets = assets.substring(0, assets.length()-1); //Remove last newline
+                Logger.Log("Replacing assets...");
+                ReplaceAll("ASSETS", assets);
+            }else{
+                Logger.Log("No assets, skipping");
+                ReplaceAll("ASSETS", "");
             }
-            assets = assets.substring(0, assets.length()-1); //Remove last newline
-            ReplaceAll("ASSETS", assets);
+            Logger.Log("All done, returning");
 
         }else if(templateType == Type.Item){
 

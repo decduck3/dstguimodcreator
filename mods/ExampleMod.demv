@@ -1,8 +1,21 @@
 <savesystem.SaveObject>
   <modName>Example Mod</modName>
   <modAuthor>decduck3</modAuthor>
+  <modDescription>Mod description</modDescription>
   <modVersion>decduck3</modVersion>
   <modIcon>0</modIcon>
   <items/>
-  <resources/>
+  <resources>
+    <modloader.resources.Resource>
+      <isTexture>true</isTexture>
+      <isSpeech>false</isSpeech>
+      <texture>
+        <texPath>D:\Steam\steamapps\common\Don&apos;t Starve Together\mods\workshop-1199711719\modicon.tex</texPath>
+        <xmlPath>D:\Steam\steamapps\common\Don&apos;t Starve Together\mods\workshop-1199711719\modicon.xml</xmlPath>
+      </texture>
+      <filePath></filePath>
+      <displayUse>Mod Icon</displayUse>
+      <texLocation>ModIcon</texLocation>
+    </modloader.resources.Resource>
+  </resources>
 </savesystem.SaveObject>

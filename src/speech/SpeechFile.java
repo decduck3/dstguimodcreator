@@ -1,5 +1,7 @@
 package speech;
 
+import logging.Logger;
+
 public class SpeechFile {
 
     public enum SpeechType{
@@ -22,6 +24,7 @@ public class SpeechFile {
         }else if (s == SpeechType.Item){
             itemSpeech = (ItemSpeech) speech;
         }
+        Logger.Log("Created speech object with settings:" + s + ";" + speech);
     }
 
 }

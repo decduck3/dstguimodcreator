@@ -1,5 +1,7 @@
 package export;
 
+import logging.Logger;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -35,6 +37,7 @@ public class TemplateLoader {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        Logger.Log("Loaded template: " + location);
         return returnValue;
     }
 

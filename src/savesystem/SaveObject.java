@@ -1,5 +1,6 @@
 package savesystem;
 
+import logging.Logger;
 import modloader.Mod;
 import modloader.classes.*;
 import modloader.resources.Resource;
@@ -28,6 +29,8 @@ public class SaveObject implements java.io.Serializable {
         items = Mod.items.toArray(new Item[0]);
         ResourceManager.GenerateResourceLists();
         resources = ResourceManager.resources;
+
+        Logger.Log("Created SaveObject");
     }
 
     public void LoadBack(){
@@ -43,6 +46,8 @@ public class SaveObject implements java.io.Serializable {
         }
         LoadResourcesList(resources);
         ResourceManager.GenerateResourceLists();
+
+        Logger.Log("Loaded from SaveObject");
     }
 
     public void LoadResourcesList(List<Resource> a){

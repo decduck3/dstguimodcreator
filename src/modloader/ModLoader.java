@@ -231,7 +231,7 @@ public class ModLoader {
             Logger.Error(e.getLocalizedMessage());
             e.printStackTrace();
         }
-
+        Logger.Log("Saved All");
     }
 
     public static void CreateModEditorFrame(){
@@ -239,6 +239,8 @@ public class ModLoader {
         ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
         modEditorFrame.setIconImage(img.getImage());
         modEditor = new ModEditor();
+
+        Logger.Log("Created JFrame and ModEditor objects");
 
         modEditorFrame.setContentPane(modEditor.getModEditorPanel());
         modEditorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -283,6 +285,8 @@ public class ModLoader {
             }
         });
 
+        Logger.Log("Added window listener");
+
         speechModel = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -301,6 +305,8 @@ public class ModLoader {
         modEditor.getResourcesTable().setModel(resourceModel);
         modEditor.getModSpeechTable().setModel(speechModel);
 
+        Logger.Log("Created table models with appropriate settings");
+
         resourceModel.addColumn("Name");
         resourceModel.addColumn("Type");
         resourceModel.addColumn("Path");
@@ -311,11 +317,16 @@ public class ModLoader {
         speechModel.addColumn("Type");
         speechModel.addColumn("Entries");
 
+        Logger.Log("Added columns to resourceModel and speechModel");
+
         //Go see file for definitions
         ModLoaderActions.SetupListeners();
 
+        Logger.Log("Completed ModLoaderActions.SetupListeners()");
+
         modEditorFrame.pack();
         modEditorFrame.setVisible(true);
+        Logger.Log("Finished Init of modEditorFrame");
     }
 
     public static int getInt(String message){

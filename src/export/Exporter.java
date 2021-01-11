@@ -51,6 +51,7 @@ public class Exporter {
 
     }
     private static void CopyResources(String outputLocation){
+        Logger.Log("Starting resource copy");
         new File(outputLocation + "images").mkdir();
         new File(outputLocation + "images/inventoryimages").mkdir();
         new File(outputLocation + "images/bigportraits").mkdir();
@@ -64,10 +65,13 @@ public class Exporter {
                 }
             }
         }
+        Logger.Log("Finished resource copy");
     }
     private static void InitLoading(){
         exportWindow = new ExportWindow();
         exportWindowFrame = new JFrame("Exporting...");
+        Logger.Log("Exporting...");
+        Logger.Log("Starting exporting init");
         ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
         exportWindowFrame.setIconImage(img.getImage());
         exportWindowFrame.setContentPane(exportWindow.getExportWindowFrame());
@@ -78,8 +82,10 @@ public class Exporter {
         for(int i = 0; i < Mod.items.size(); i++){
             points += 1;
         }
+        Logger.Log("Finished Init");
     }
     private static void Write(Template toWrite, String fileLocation){
+        Logger.Log("Writing to " + fileLocation);
         try {
             new File(fileLocation).createNewFile();
             FileWriter f = new FileWriter(fileLocation, false);
@@ -88,6 +94,7 @@ public class Exporter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Logger.Log("Done");
     }
     private static void MoveLoading(){
         int currentValue = exportWindow.getExportProgressBar().getValue();
@@ -99,5 +106,6 @@ public class Exporter {
         exportWindow.getExportProgressBar().setValue(100);
         exportWindowFrame.dispose();
         JOptionPane.showMessageDialog(ModLoader.modEditorFrame, "Done!");
+        Logger.Log("Finished export");
     }
 }
