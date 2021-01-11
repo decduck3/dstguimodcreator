@@ -24,7 +24,7 @@ public class Master {
         Logger.Log("Starting up...");
 
         new File("mods").mkdir();
-        new File("speech").mkdir();
+        new File("src/speech").mkdir();
 
         try {
             UIManager.setLookAndFeel(

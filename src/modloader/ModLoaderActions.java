@@ -79,7 +79,7 @@ public class ModLoaderActions extends ModLoader{
                         speech.getSpeechCreate().addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], System.getProperty("user.dir") + "/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
+                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], System.getProperty("user.dir") + "/src/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
                                 speechConfigFrame.dispose();
                                 Update();
                                 Logger.Log("Created speech resource");
