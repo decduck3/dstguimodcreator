@@ -29,19 +29,28 @@ public class ModLoader {
     }
 
     public static void LoadMod(String path){
+        Logger.Log("Loading mod...");
+        Logger.Log("Path: " + path);
         Mod.path = path;
 
         SaveSystem.Load(path);
 
         Debug();
 
+        Logger.Log("Creating editor window...");
         CreateModEditorFrame();
+        Logger.Log("Done!");
+
         Update();
     }
     public static void CreateMod(String path, String author, String name){
+        Logger.Log("Creating mod...");
+        Logger.Log("Path: " + path);
         Mod.path = path;
 
+        Logger.Log("Creating editor window...");
         CreateModEditorFrame();
+        Logger.Log("Done!");
 
         Mod.modName = name;
         Mod.modAuthor = author;
@@ -227,6 +236,8 @@ public class ModLoader {
 
     public static void CreateModEditorFrame(){
         modEditorFrame = new JFrame("Mod Editor");
+        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+        modEditorFrame.setIconImage(img.getImage());
         modEditor = new ModEditor();
 
         modEditorFrame.setContentPane(modEditor.getModEditorPanel());

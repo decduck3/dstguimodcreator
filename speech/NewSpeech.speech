@@ -11,10 +11,6 @@
           <string>new_item</string>
           <string>Look! A cool new item!</string>
         </entry>
-        <entry>
-           <string>new_item</string>
-           <string>Look! A cool new item!</string>
-        </entry>
       </speech>
     </itemSpeech>
   </speechFile>

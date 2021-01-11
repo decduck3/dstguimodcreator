@@ -1,7 +1,9 @@
 package export.templates;
 
 import modloader.Mod;
+import modloader.ModLoader;
 import modloader.classes.Item;
+import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 
 import java.io.File;
@@ -52,10 +54,23 @@ public class Template {
                 prefabs = prefabs + prefabTemplate.replace("PREFABNAME", i.itemId);
                 System.out.println(prefabTemplate.replace("PREFABNAME", i.itemId));
             }
-            prefabs = prefabs.substring(0, prefabs.length() - 2); //Remove the last ",", and "\n"
-            //ReplaceAll("PREFAB_FILES", prefabs);
-            ReplaceAll("PREFAB_FILES", "");
-            ReplaceAll("ASSETS", "");
+            prefabs = prefabs.substring(0, prefabs.length()-1); //Remove last newline
+            ReplaceAll("PREFAB_FILES", prefabs);
+
+            String assets = "";
+
+            String atlasTemplate = "    Asset(\"ATLAS\", \"REPLACE\"),\n";
+            String imageTemplate = "    Asset(\"IMAGE\", \"REPLACE\" ),\n";
+
+            for(Resource r:ResourceManager.resources){
+                if(r.isTexture && r.filePath != ""){ //If a texture, and not the mod icon
+                    String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
+                    String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
+                    assets = assets + atlas + image;
+                }
+            }
+            assets = assets.substring(0, assets.length()-1); //Remove last newline
+            ReplaceAll("ASSETS", assets);
 
         }else if(templateType == Type.Item){
 

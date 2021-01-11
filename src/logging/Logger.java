@@ -5,6 +5,7 @@ import savesystem.SaveObject;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
 
 public class Logger {
 
@@ -13,14 +14,13 @@ public class Logger {
     public static String currentLog = "";
 
     public static void Log(String message){
-        currentLog = currentLog + message + "\n";
+        currentLog = currentLog + "[" + Calendar.getInstance().getTime() + "] " + message + "\n";
         System.out.println(message);
         WriteChanges();
     }
 
     public static void Error(String error){
-        currentLog = currentLog + "[ERROR] " + error + "\n";
-        System.out.println("[ERROR] " + error);
+        Log("[ERROR] " + error);
         WriteChanges();
     }
 

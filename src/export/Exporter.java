@@ -2,6 +2,7 @@ package export;
 
 import export.templates.Template;
 import frames.ExportWindow;
+import logging.Logger;
 import modloader.Mod;
 import modloader.ModLoader;
 import modloader.resources.Resource;
@@ -44,6 +45,7 @@ public class Exporter {
             Done();
         }catch(Exception e){
             ModLoader.ShowWarning("There was an error while exporting the mod!");
+            Logger.Error(e.getLocalizedMessage());
             Done();
         }
 
@@ -53,17 +55,21 @@ public class Exporter {
         new File(outputLocation + "images/inventoryimages").mkdir();
         new File(outputLocation + "images/bigportraits").mkdir();
         for(Resource r: ResourceManager.resources){
-            try {
-                Files.copy(Paths.get(r.texture.texPath), Paths.get(outputLocation + r.filePath + ModLoader.fileComponent(r.texture.texPath)), StandardCopyOption.REPLACE_EXISTING);
-                Files.copy(Paths.get(r.texture.xmlPath), Paths.get(outputLocation + r.filePath+ ModLoader.fileComponent(r.texture.xmlPath)), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(r.isTexture) {
+                try {
+                    Files.copy(Paths.get(r.texture.texPath), Paths.get(outputLocation + r.filePath + ModLoader.fileComponent(r.texture.texPath)), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(Paths.get(r.texture.xmlPath), Paths.get(outputLocation + r.filePath + ModLoader.fileComponent(r.texture.xmlPath)), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
     private static void InitLoading(){
         exportWindow = new ExportWindow();
         exportWindowFrame = new JFrame("Exporting...");
+        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+        exportWindowFrame.setIconImage(img.getImage());
         exportWindowFrame.setContentPane(exportWindow.getExportWindowFrame());
         exportWindowFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         exportWindowFrame.pack();

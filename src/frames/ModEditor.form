@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frames.ModEditor">
   <grid id="27dc6" binding="modEditorPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="845" height="779"/>
+      <xy x="20" y="20" width="845" height="965"/>
     </constraints>
     <properties/>
     <border type="none"/>

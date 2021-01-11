@@ -1,14 +1,14 @@
 <savesystem.SaveObject>
   <modName>Test Mod</modName>
   <modAuthor>decduck3</modAuthor>
-  <modDescription></modDescription>
+  <modDescription>Description</modDescription>
   <modVersion>decduck3</modVersion>
-  <modIcon>-1</modIcon>
+  <modIcon>0</modIcon>
   <items>
     <modloader.classes.Item>
-      <itemName>Random Item</itemName>
-      <itemId>new_item</itemId>
-      <itemTexture>-1</itemTexture>
+      <itemName>Tellebrella</itemName>
+      <itemId>tella_brella</itemId>
+      <itemTexture>0</itemTexture>
       <edibleBool>false</edibleBool>
       <axeBool>false</axeBool>
       <hatBool>false</hatBool>
@@ -37,6 +37,28 @@
           </speech>
         </itemSpeech>
       </speechFile>
+    </modloader.resources.Resource>
+    <modloader.resources.Resource>
+      <isTexture>true</isTexture>
+      <isSpeech>false</isSpeech>
+      <texture>
+        <texPath>D:\Steam\steamapps\common\Don&apos;t Starve Together\mods\workshop-1153998909\modicon.tex</texPath>
+        <xmlPath>D:\Steam\steamapps\common\Don&apos;t Starve Together\mods\workshop-1153998909\modicon.xml</xmlPath>
+      </texture>
+      <filePath></filePath>
+      <displayUse>Mod Icon</displayUse>
+      <texLocation>ModIcon</texLocation>
+    </modloader.resources.Resource>
+    <modloader.resources.Resource>
+      <isTexture>true</isTexture>
+      <isSpeech>false</isSpeech>
+      <texture>
+        <texPath>D:\Steam\steamapps\common\Don&apos;t Starve Together\mods\workshop-1836974133\images\inventoryimages\telebrella.tex</texPath>
+        <xmlPath>D:\Steam\steamapps\common\Don&apos;t Starve Together\mods\workshop-1836974133\images\inventoryimages\telebrella.xml</xmlPath>
+      </texture>
+      <filePath>images/inventoryimages/</filePath>
+      <displayUse>Inventory Image</displayUse>
+      <texLocation>InventoryImage</texLocation>
     </modloader.resources.Resource>
   </resources>
 </savesystem.SaveObject>

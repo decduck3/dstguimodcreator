@@ -62,6 +62,8 @@ public class ModLoaderActions extends ModLoader{
                         break;
                     case 1:
                         JFrame speechConfigFrame = new JFrame("Create New Speech File");
+                        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+                        speechConfigFrame.setIconImage(img.getImage());
                         SpeechConfig speech = new SpeechConfig();
                         speechConfigFrame.setContentPane(speech.getSpeechConfigPanel());
                         speechConfigFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

@@ -39,6 +39,8 @@ public class Master {
         projectSelect = new ProjectSelect();
 
         projectSelectFrame = new JFrame("Project Select");
+        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+        projectSelectFrame.setIconImage(img.getImage());
         projectSelectFrame.setContentPane(projectSelect.getProjectSelectPanel());
         projectSelectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Logger.Log("Done!");
