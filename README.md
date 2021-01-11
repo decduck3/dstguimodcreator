@@ -4,16 +4,16 @@ A GUI mod creator, similar to MCreator, for the game Don't Starve Together
 https://forums.kleientertainment.com/forums/topic/125145-how-to-mod-dst-without-coding/
 
 ## Planned Features:
-- [-] Mod name, description, author
-- [-] Mod icon
-- [-] Add items
-   - [-] Names
-   - [-] Food stats
-   - [-] Sanity Auras
-   - [-] Weapons
-   - [-] Durablity
-   - [-] Light
-   - [-] Fuel
+- [x] Mod name, description, author
+- [x] Mod icon
+- [x] Add items
+   - [x] Names
+   - [x] Food stats
+   - [x] Sanity Auras
+   - [x] Weapons
+   - [x] Durablity
+   - [x] Light
+   - [x] Fuel
 - [ ] Add characters
    - [ ] Stats
    - [ ] Starting inventory
