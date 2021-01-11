@@ -1,0 +1,45 @@
+local assets =
+{
+ASSETS
+}
+
+UPPER
+
+local function common_fn(bank, build)
+    local inst = CreateEntity()
+
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
+    inst.entity:AddNetwork()
+
+    MakeInventoryPhysics(inst)
+
+    inst.AnimState:SetBank(bank)
+    inst.AnimState:SetBuild(build)
+    inst.AnimState:PlayAnimation("idle")
+
+    inst:AddTag("sharp")
+
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
+    FILLER
+
+    MakeHauntableLaunch(inst)
+
+    return inst
+end
+
+local function normal()
+    return common_fn("ID", "ID")
+end
+
+
+STRINGS.ID = "NAME"
+STRINGS.NAMES.ID = "Name"
+
+return Prefab("ID", normal, assets)

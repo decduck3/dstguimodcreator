@@ -45,7 +45,7 @@ public class ModLoaderActions extends ModLoader{
         modEditor.getResourcesAdd().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch(ModLoader.getOption("Type of resource", new Object[]{ "Texture", "Speech" })){
+                switch(ModLoader.getOption("Type of resource", new Object[]{ "Texture", "Speech", "Animation" })){
                     case 0:
                         Logger.Log("Importing texture....");
                         JFileChooser chooser = new JFileChooser();
@@ -89,6 +89,18 @@ public class ModLoaderActions extends ModLoader{
                         speechConfigFrame.pack();
                         speechConfigFrame.setVisible(true);
                         Logger.Log("Finished speechConfigFrame setup");
+                        break;
+                    case 2:
+                        Logger.Log("Importing animation...");
+                        JFileChooser animChooser = new JFileChooser();
+                        animChooser.setAcceptAllFileFilterUsed(false);
+                        FileNameExtensionFilter anim = new FileNameExtensionFilter("Animation File", "zip");
+
+                        animChooser.addChoosableFileFilter(anim);
+                        JOptionPane.showMessageDialog(modEditorFrame, animChooser, "Open Animation file", JOptionPane.QUESTION_MESSAGE);
+                        File animationFile = animChooser.getSelectedFile();
+                        ResourceManager.LoadResource(animationFile.getAbsolutePath());
+                        Logger.Log("Finished importing animation");
                         break;
                 }
 

@@ -98,6 +98,8 @@ public class ModLoader {
                 resourceModel.addRow(new Object[] { ModLoader.fileComponent(r.texture.texPath), "Texture", r.texture.texPath + ";" + r.texture.xmlPath, r.filePath});
             }else if(r.isSpeech){
                 resourceModel.addRow(new Object[] { r.speechFile.resourceName, "Speech", r.speechFile.filePath, r.speechFile.speechType.name()});
+            }else if(r.isAnim){
+                resourceModel.addRow(new Object[] { fileComponent(r.animFilePath), "Animation", r.animFilePath, ""});
             }
         }
 

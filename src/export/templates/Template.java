@@ -114,11 +114,48 @@ public class Template {
 
             ReplaceAll("SPEECH", Speech);
 
-            Logger.Log("All done, returning");
+            Logger.Log("Done, returning");
 
         }else if(templateType == Type.Item){
 
+            Logger.Log("Starting template creation for item of id: " + item.itemId);
 
+            //ASSETS
+            String assets = "";
+
+            String atlasTemplate = "    Asset(\"ATLAS\", \"REPLACE\"),\n";
+            String imageTemplate = "    Asset(\"IMAGE\", \"REPLACE\" ),\n";
+            String animTemplate = "	Asset(\"ANIM\", \"anim/REPLACE.zip\"),\n";
+
+            Logger.Log("Generating assets...");
+            if(ResourceManager.resources.size() > 0){
+                for(Resource r:ResourceManager.resources){
+                    if(r.isTexture && r.filePath != ""){ //If a texture, and not the mod icon
+                        String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
+                        String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
+                        assets = assets + atlas + image;
+                    }
+                    if(r.isAnim){
+                        String anim = animTemplate.replace("REPLACE", ModLoader.fileComponent(r.animFilePath));
+                        assets = assets + anim;
+                    }
+                }
+                assets = assets.substring(0, assets.length()-1); //Remove last newline
+                Logger.Log("Replacing assets...");
+                ReplaceAll("ASSETS", assets);
+            }else{
+                Logger.Log("No assets, skipping");
+                ReplaceAll("ASSETS", "");
+            }
+
+            Logger.Log("Starting simple replace");
+            ReplaceAll("ID", item.itemId);
+            ReplaceAll("NAME", item.itemName);
+            Logger.Log("Done");
+
+            //UPPER
+
+            //INNER
 
         }
     }

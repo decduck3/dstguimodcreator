@@ -5,6 +5,7 @@ import frames.ExportWindow;
 import logging.Logger;
 import modloader.Mod;
 import modloader.ModLoader;
+import modloader.classes.Item;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 
@@ -25,6 +26,9 @@ public class Exporter {
             String modOutput = Mod.path + "_exported/";
             new File(modOutput).mkdir();
 
+            CreateFolders(modOutput);
+            MoveLoading();
+
             CopyResources(modOutput);
             MoveLoading();
 
@@ -42,6 +46,12 @@ public class Exporter {
             Write(Templates.modmain, modOutput + "modmain.lua");
             MoveLoading();
 
+            for(int i = 0; i < Mod.items.size(); i++){
+                Templates.itemTemplates.get(i).Create();
+                Write(Templates.itemTemplates.get(i), modOutput + "scripts/prefabs/" + Mod.items.get(i).itemId + ".lua");
+                MoveLoading();
+            }
+
             Done();
         }catch(Exception e){
             ModLoader.ShowWarning("There was an error while exporting the mod!");
@@ -50,16 +60,28 @@ public class Exporter {
         }
 
     }
-    private static void CopyResources(String outputLocation){
-        Logger.Log("Starting resource copy");
+    private static void CreateFolders(String outputLocation){
         new File(outputLocation + "images").mkdir();
         new File(outputLocation + "images/inventoryimages").mkdir();
         new File(outputLocation + "images/bigportraits").mkdir();
+        new File(outputLocation + "scripts").mkdir();
+        new File(outputLocation + "scripts/prefabs").mkdir();
+        new File(outputLocation + "anim").mkdir();
+    }
+    private static void CopyResources(String outputLocation){
+        Logger.Log("Starting resource copy");
         for(Resource r: ResourceManager.resources){
             if(r.isTexture) {
                 try {
                     Files.copy(Paths.get(r.texture.texPath), Paths.get(outputLocation + r.filePath + ModLoader.fileComponent(r.texture.texPath)), StandardCopyOption.REPLACE_EXISTING);
                     Files.copy(Paths.get(r.texture.xmlPath), Paths.get(outputLocation + r.filePath + ModLoader.fileComponent(r.texture.xmlPath)), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(r.isAnim){
+                try {
+                    Files.copy(Paths.get(r.animFilePath), Paths.get(outputLocation + "/anim/" + ModLoader.fileComponent(r.animFilePath)), StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -78,7 +100,7 @@ public class Exporter {
         exportWindowFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         exportWindowFrame.pack();
         exportWindowFrame.setVisible(true);
-        points = 5; //Load Templates, Create Templates, Modmain, Modinfo, Copy Resources
+        points = 6; //Load Templates, Create Templates, Modmain, Modinfo, Copy Resources
         for(int i = 0; i < Mod.items.size(); i++){
             points += 1;
         }

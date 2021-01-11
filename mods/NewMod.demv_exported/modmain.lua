@@ -14,4 +14,3 @@ Ingredient = GLOBAL.Ingredient
 TECH = GLOBAL.TECH
 
 STRINGS.CHARACTERS.GENERIC.NEW_ITEM = "Look! A cool new item!"
-

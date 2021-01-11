@@ -6,6 +6,7 @@ import speech.SpeechFile;
 public class Resource {
     public boolean isTexture;
     public boolean isSpeech;
+    public boolean isAnim;
 
     //TEXTURE
     public Texture texture;
@@ -15,4 +16,7 @@ public class Resource {
 
     //SPEECH
     public SpeechFile speechFile;
+
+    //ANIMATION
+    public String animFilePath;
 }

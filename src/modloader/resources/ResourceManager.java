@@ -71,10 +71,21 @@ public class ResourceManager {
         Logger.Log("Generated resource lists");
     }
 
+    public static void LoadResource(String animPath){
+        Resource resource = new Resource();
+        resource.isAnim = true;
+        resource.isSpeech = false;
+        resource.isTexture = false;
+        resource.animFilePath = animPath;
+
+        resources.add(resource);
+    }
+
     public static void LoadResource(String tex, String xml, TextureLocation texLocation){
         Resource resource = new Resource();
         resource.isTexture = true;
         resource.isSpeech = false;
+        resource.isAnim = false;
 
         resource.texture = new Texture();
         resource.texture.texPath = tex;
@@ -106,6 +117,7 @@ public class ResourceManager {
         Resource r = new Resource();
         r.isTexture = false;
         r.isSpeech = true;
+        r.isAnim = false;
         if(speechType == SpeechFile.SpeechType.Character){
             r.speechFile = new SpeechFile(speechType, new CharacterSpeech());
             r.speechFile.characterSpeech.speech.put("new_item", "Look! A cool new item!");
