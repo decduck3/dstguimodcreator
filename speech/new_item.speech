@@ -1,0 +1,18 @@
+<resource>
+  <isTexture>false</isTexture>
+  <isSpeech>true</isSpeech>
+  <speechFile>
+    <resourceName>New Item Speech File</resourceName>
+    <filePath>Z:\Dev\dstguimodcreator/speech/new_item.speech</filePath>
+    <speechType>Item</speechType>
+    <itemSpeech>
+      <itemName>new_item</itemName>
+      <speech>
+        <entry>
+          <string>generic</string>
+          <string>Look! A cool new item!</string>
+        </entry>
+      </speech>
+    </itemSpeech>
+  </speechFile>
+</resource>

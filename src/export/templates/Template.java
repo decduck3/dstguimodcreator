@@ -6,8 +6,11 @@ import modloader.ModLoader;
 import modloader.classes.Item;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
+import speech.SpeechFile;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Template {
     public static String fileComponent(String fname) {
@@ -89,6 +92,28 @@ public class Template {
                 Logger.Log("No assets, skipping");
                 ReplaceAll("ASSETS", "");
             }
+            Logger.Log("Generating speech...");
+
+            String Speech = "";
+
+            String ItemSpeechTemplate = "STRINGS.CHARACTERS.REPLACE_CHARACTER.REPLACE_ITEM = \"REPLACE_TEXT\"\n";
+
+            for(Resource r:ResourceManager.resources){
+                if(r.isSpeech){
+                    if(r.speechFile.speechType == SpeechFile.SpeechType.Item){
+                        Set<String> keySet = r.speechFile.itemSpeech.speech.keySet();
+                        for(Iterator<String> it = keySet.iterator(); it.hasNext();){
+                            String next = it.next();
+                            String itemSpeech = ItemSpeechTemplate.replace("REPLACE_CHARACTER", next.toUpperCase())
+                                    .replace("REPLACE_ITEM", r.speechFile.itemSpeech.itemName.toUpperCase()).replace("REPLACE_TEXT", r.speechFile.itemSpeech.speech.get(next));
+                            Speech = Speech + itemSpeech;
+                        }
+                    }
+                }
+            }
+
+            ReplaceAll("SPEECH", Speech);
+
             Logger.Log("All done, returning");
 
         }else if(templateType == Type.Item){
