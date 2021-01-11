@@ -1,5 +1,7 @@
+
 import frames.NewModConfig;
 import frames.ProjectSelect;
+import logging.Logger;
 import modloader.ModLoader;
 import savesystem.SaveObject;
 import savesystem.SaveSystem;
@@ -10,35 +12,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Master {
     public static ProjectSelect projectSelect;
     public static JFrame projectSelectFrame;
 
-    public static Object currentlySelectedTable;
+    public static int currentlySelectedRow = -1;
 
     public static void main(String[] args){
+        Logger.Log("Starting up...");
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
+            Logger.Log("Changing look and feel");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Logger.Error(e.getMessage());
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Logger.Error(e.getMessage());
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Logger.Error(e.getMessage());
         } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            Logger.Error(e.getMessage());
         }
+        Logger.Log("Creating frame...");
         projectSelect = new ProjectSelect();
 
-        projectSelectFrame = new JFrame("ProjectSelect");
+        projectSelectFrame = new JFrame("Project Select");
         projectSelectFrame.setContentPane(projectSelect.getProjectSelectPanel());
         projectSelectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Logger.Log("Done!");
 
-
+        Logger.Log("Setting up mods table and reading mods...");
         DefaultTableModel model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -49,7 +54,9 @@ public class Master {
         projectSelect.getProjectsListTable().setModel(model);
         model.addColumn("Project Name:");
         model.addColumn("Project Author:");
+        model.addColumn("Project Path:");
         readMods();
+        Logger.Log("Done!");
 
         projectSelect.getNewMod().addActionListener(new ActionListener() {
             @Override
@@ -69,9 +76,8 @@ public class Master {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = projectSelect.getProjectsListTable().rowAtPoint(evt.getPoint());
-                int col = projectSelect.getProjectsListTable().columnAtPoint(evt.getPoint());
-                if (row >= 0 && col >= 0) {
-                    currentlySelectedTable = projectSelect.getProjectsListTable().getModel().getValueAt(row, col);
+                if (row >= 0) {
+                    currentlySelectedRow = row;
                 }
             }
         });
@@ -93,7 +99,7 @@ public class Master {
                 String author = newModConfig.getModAuthorTextField().getText();
                 projectSelectFrame.setVisible(false);
                 newModConfigFrame.setVisible(false);
-                ModLoader.CreateMod(System.getProperty("user.dir") + "/mods/" + name + ".demv", author, name);
+                ModLoader.CreateMod(System.getProperty("user.dir") + "/mods/" + name.replace(" ", "") + ".demv", author, name);
             }
         });
 
@@ -102,23 +108,27 @@ public class Master {
     }
 
     public static void LoadCurrentMod(){
-        if(currentlySelectedTable == null){
+        if(currentlySelectedRow == -1){
             JOptionPane.showMessageDialog(projectSelectFrame,
                     "No project is selected",
                     "Cannot Load Project",
                     JOptionPane.WARNING_MESSAGE);
         }else{
             projectSelectFrame.setVisible(false);
-            ModLoader.LoadMod(System.getProperty("user.dir") + "/mods/" + currentlySelectedTable);
+            ModLoader.LoadMod(System.getProperty("user.dir") + "/mods/" + projectSelect.getProjectsListTable().getModel().getValueAt(currentlySelectedRow, 2));
         }
     }
 
     public static void readMods(){
-        DefaultTableModel model = (DefaultTableModel) projectSelect.getProjectsListTable().getModel();
-        String[] mods = getAllDirectories(System.getProperty("user.dir") + "/mods");
-        for(int i = 0; i < mods.length; i++){
-            SaveObject saveObject = SaveSystem.TempLoad(System.getProperty("user.dir") + "/mods/" + mods[i]);
-            model.addRow(new Object[]{saveObject.modName, saveObject.modAuthor});
+        try{
+            DefaultTableModel model = (DefaultTableModel) projectSelect.getProjectsListTable().getModel();
+            String[] mods = getAllDirectories(System.getProperty("user.dir") + "/mods");
+            for(int i = 0; i < mods.length; i++){
+                SaveObject saveObject = SaveSystem.TempLoad(System.getProperty("user.dir") + "/mods/" + mods[i]);
+                model.addRow(new Object[]{saveObject.modName, saveObject.modAuthor, mods[i]});
+            }
+        }catch (Exception e){
+            Logger.Error(e.getMessage());
         }
     }
 

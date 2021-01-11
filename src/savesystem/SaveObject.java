@@ -3,19 +3,20 @@ package savesystem;
 import modloader.Mod;
 import modloader.classes.*;
 import modloader.resources.Resource;
-import modloader.resources.ResourceLoader;
+import modloader.resources.ResourceManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SaveObject implements java.io.Serializable {
     public String modName;
     public String modAuthor;
     public String modDescription;
     public String modVersion;
-    public Resource modIcon;
+    public int modIcon;
 
     public Item[] items;
-    public Resource[] resources;
+    public List<Resource> resources = new ArrayList<Resource>();
 
     public SaveObject(){
         modName = Mod.modName;
@@ -25,7 +26,8 @@ public class SaveObject implements java.io.Serializable {
         modIcon = Mod.modIcon;
 
         items = Mod.items.toArray(new Item[0]);
-        resources = ResourceLoader.resources.toArray(new Resource[0]);
+        ResourceManager.GenerateResourceLists();
+        resources = ResourceManager.resources;
     }
 
     public void LoadBack(){
@@ -39,10 +41,13 @@ public class SaveObject implements java.io.Serializable {
         for(int i = 0; i < items.length; i++){
             Mod.items.add(items[i]);
         }
+        LoadResourcesList(resources);
+        ResourceManager.GenerateResourceLists();
+    }
 
-        ResourceLoader.resources.clear();
-        for(int i = 0; i < resources.length; i++){
-            ResourceLoader.resources.add(resources[i]);
+    public void LoadResourcesList(List<Resource> a){
+        for(Resource r: a){
+            ResourceManager.LoadResource(r);
         }
     }
 }

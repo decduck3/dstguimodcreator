@@ -5,7 +5,7 @@ import frames.ExportWindow;
 import modloader.Mod;
 import modloader.ModLoader;
 import modloader.resources.Resource;
-import modloader.resources.ResourceLoader;
+import modloader.resources.ResourceManager;
 
 import javax.swing.*;
 import java.io.File;
@@ -19,34 +19,40 @@ public class Exporter {
     private static int points;
 
     public static void Export(){
-        InitLoading();
-        String modOutput = Mod.path + "_exported/";
-        new File(modOutput).mkdir();
+        try{
+            InitLoading();
+            String modOutput = Mod.path + "_exported/";
+            new File(modOutput).mkdir();
 
-        CopyResources(modOutput);
-        MoveLoading();
+            CopyResources(modOutput);
+            MoveLoading();
 
-        TemplateLoader.LoadTemplates();
-        MoveLoading();
+            TemplateLoader.LoadTemplates();
+            MoveLoading();
 
-        Templates.CreateTemplates();
-        MoveLoading();
+            Templates.CreateTemplates();
+            MoveLoading();
 
-        Templates.modinfo.Create();
-        Write(Templates.modinfo, modOutput + "modinfo.lua");
-        MoveLoading();
+            Templates.modinfo.Create();
+            Write(Templates.modinfo, modOutput + "modinfo.lua");
+            MoveLoading();
 
-        Templates.modmain.Create();
-        Write(Templates.modmain, modOutput + "modmain.lua");
-        MoveLoading();
+            Templates.modmain.Create();
+            Write(Templates.modmain, modOutput + "modmain.lua");
+            MoveLoading();
 
-        Done();
+            Done();
+        }catch(Exception e){
+            ModLoader.ShowWarning("There was an error while exporting the mod!");
+            Done();
+        }
+
     }
     private static void CopyResources(String outputLocation){
         new File(outputLocation + "images").mkdir();
         new File(outputLocation + "images/inventoryimages").mkdir();
         new File(outputLocation + "images/bigportraits").mkdir();
-        for(Resource r: ResourceLoader.resources){
+        for(Resource r: ResourceManager.resources){
             try {
                 Files.copy(Paths.get(r.texture.texPath), Paths.get(outputLocation + r.filePath + ModLoader.fileComponent(r.texture.texPath)), StandardCopyOption.REPLACE_EXISTING);
                 Files.copy(Paths.get(r.texture.xmlPath), Paths.get(outputLocation + r.filePath+ ModLoader.fileComponent(r.texture.xmlPath)), StandardCopyOption.REPLACE_EXISTING);

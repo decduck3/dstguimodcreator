@@ -60,6 +60,21 @@ public class ModEditor {
     private JButton modExport;
     private JComboBox modIconTextureSelect;
     private JLabel modIconLabel;
+    private JTable modSpeechTable;
+    private JScrollPane modSpeechTableScrollPlane;
+    private JButton modSpeechReloadSpeech;
+
+    public JTable getModSpeechTable() {
+        return modSpeechTable;
+    }
+
+    public JScrollPane getModSpeechTableScrollPlane() {
+        return modSpeechTableScrollPlane;
+    }
+
+    public JButton getModSpeechReloadSpeech() {
+        return modSpeechReloadSpeech;
+    }
 
     public JPanel getModEditorPanel() {
         return modEditorPanel;
@@ -421,8 +436,17 @@ public class ModEditor {
         resourcesTable = new JTable();
         resourcesScroll.setViewportView(resourcesTable);
         modSpeechConfig = new JPanel();
-        modSpeechConfig.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(20, 20, 20, 20), -1, -1));
+        modSpeechConfig.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 2, new Insets(20, 20, 20, 20), -1, -1));
         modConfig.addTab("Speech", modSpeechConfig);
+        modSpeechTableScrollPlane = new JScrollPane();
+        modSpeechConfig.add(modSpeechTableScrollPlane, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 2, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        modSpeechTable = new JTable();
+        modSpeechTableScrollPlane.setViewportView(modSpeechTable);
+        final com.intellij.uiDesigner.core.Spacer spacer4 = new com.intellij.uiDesigner.core.Spacer();
+        modSpeechConfig.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        modSpeechReloadSpeech = new JButton();
+        modSpeechReloadSpeech.setText("Reload");
+        modSpeechConfig.add(modSpeechReloadSpeech, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         saveAll = new JButton();
         saveAll.setText("Save All");
         gbc = new GridBagConstraints();

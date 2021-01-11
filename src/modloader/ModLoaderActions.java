@@ -1,19 +1,17 @@
 package modloader;
 
 import export.Exporter;
-import frames.ModEditor;
+import frames.SpeechConfig;
 import modloader.classes.Item;
 import modloader.classes.components.Equipable;
 import modloader.resources.Resource;
-import modloader.resources.ResourceLoader;
-import savesystem.SaveSystem;
+import modloader.resources.ResourceManager;
+import speech.SpeechFile;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 
 public class ModLoaderActions extends ModLoader{
@@ -44,21 +42,43 @@ public class ModLoaderActions extends ModLoader{
         modEditor.getResourcesAdd().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                chooser.setAcceptAllFileFilterUsed(false);
-                FileNameExtensionFilter tex = new FileNameExtensionFilter("TEX File", "tex");
-                FileNameExtensionFilter xml = new FileNameExtensionFilter("XML File", "xml");
+                switch(ModLoader.getOption("Type of resource", new Object[]{ "Texture", "Speech" })){
+                    case 0:
+                        JFileChooser chooser = new JFileChooser();
+                        chooser.setAcceptAllFileFilterUsed(false);
+                        FileNameExtensionFilter tex = new FileNameExtensionFilter("TEX File", "tex");
+                        FileNameExtensionFilter xml = new FileNameExtensionFilter("XML File", "xml");
 
-                chooser.addChoosableFileFilter(tex);
-                JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open TEX file", JOptionPane.QUESTION_MESSAGE);
-                File texFile = chooser.getSelectedFile();
+                        chooser.addChoosableFileFilter(tex);
+                        JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open TEX file", JOptionPane.QUESTION_MESSAGE);
+                        File texFile = chooser.getSelectedFile();
 
-                chooser.removeChoosableFileFilter(tex);
-                chooser.addChoosableFileFilter(xml);
-                JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open XML file", JOptionPane.QUESTION_MESSAGE);
-                File xmlFile = chooser.getSelectedFile();
+                        chooser.removeChoosableFileFilter(tex);
+                        chooser.addChoosableFileFilter(xml);
+                        JOptionPane.showMessageDialog(modEditorFrame, chooser, "Open XML file", JOptionPane.QUESTION_MESSAGE);
+                        File xmlFile = chooser.getSelectedFile();
 
-                ResourceLoader.LoadResource(texFile.getAbsolutePath(), xmlFile.getAbsolutePath(), ResourceLoader.TextureLocation.values()[(ModLoader.getOption("Texture location", new Object[] {"Inventory Image", "Mod Icon", "Portrait", "Map Icon"}))]);
+                        ResourceManager.LoadResource(texFile.getAbsolutePath(), xmlFile.getAbsolutePath(), ResourceManager.TextureLocation.values()[(ModLoader.getOption("Texture location", new Object[] {"Inventory Image", "Mod Icon", "Portrait", "Map Icon"}))]);
+                        break;
+                    case 1:
+                        JFrame speechConfigFrame = new JFrame("Create New Speech File");
+                        SpeechConfig speech = new SpeechConfig();
+                        speechConfigFrame.setContentPane(speech.getSpeechConfigPanel());
+                        speechConfigFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+                        speech.getSpeechCreate().addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], System.getProperty("user.dir") + "/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
+                                speechConfigFrame.dispose();
+                                Update();
+                            }
+                        });
+
+                        speechConfigFrame.pack();
+                        speechConfigFrame.setVisible(true);
+                        break;
+                }
 
                 Update();
             }
@@ -67,14 +87,12 @@ public class ModLoaderActions extends ModLoader{
         modEditor.getResourcesRemove().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ResourceLoader.RemoveResource(
+                ResourceManager.RemoveResource(
                         (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 1),
                         (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 2));
                 Update();
             }
         });
-
-
 
         modEditor.getModItemSave().addActionListener(new ActionListener() {
             @Override
@@ -222,6 +240,14 @@ public class ModLoaderActions extends ModLoader{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Exporter.Export();
+            }
+        });
+
+        modEditor.getModSpeechReloadSpeech().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReloadSpeech();
+                Update();
             }
         });
     }

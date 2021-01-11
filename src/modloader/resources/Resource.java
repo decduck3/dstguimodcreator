@@ -1,13 +1,18 @@
 package modloader.resources;
 
 import modloader.classes.Texture;
+import speech.SpeechFile;
 
-public class Resource implements java.io.Serializable {
+public class Resource {
     public boolean isTexture;
-    public boolean isOther;
+    public boolean isSpeech;
 
+    //TEXTURE
     public Texture texture;
     public String filePath;
-
     public String displayUse;
+    public ResourceManager.TextureLocation texLocation;
+
+    //SPEECH
+    public SpeechFile speechFile;
 }

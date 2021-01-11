@@ -2,6 +2,7 @@ package export.templates;
 
 import modloader.Mod;
 import modloader.classes.Item;
+import modloader.resources.ResourceManager;
 
 import java.io.File;
 
@@ -40,19 +41,21 @@ public class Template {
             ReplaceAll("MOD_NAME", Mod.modName);
             ReplaceAll("MOD_DESCRIPTION", Mod.modDescription);
             ReplaceAll("MOD_AUTHOR", Mod.modAuthor);
-            ReplaceAll("MOD_ICON", fileComponent(Mod.modIcon.texture.texPath));
-            ReplaceAll("MOD_XML_ICON", fileComponent(Mod.modIcon.texture.xmlPath));
+            ReplaceAll("MOD_VERSION", Mod.modVersion);
+            ReplaceAll("MOD_ICON", fileComponent(ResourceManager.modicons.get(Mod.modIcon).texture.texPath));
+            ReplaceAll("MOD_XML_ICON", fileComponent(ResourceManager.modicons.get(Mod.modIcon).texture.xmlPath));
 
         }else if(templateType == Type.Modmain){
-            String prefabTemplate = "\"PREFABNAME\",\n";
+            String prefabTemplate = "   \"PREFABNAME\",\n";
             String prefabs = "";
             for(Item i: Mod.items){
                 prefabs = prefabs + prefabTemplate.replace("PREFABNAME", i.itemId);
                 System.out.println(prefabTemplate.replace("PREFABNAME", i.itemId));
             }
             prefabs = prefabs.substring(0, prefabs.length() - 2); //Remove the last ",", and "\n"
-            ReplaceAll("PREFAB_FILES", prefabs);
-
+            //ReplaceAll("PREFAB_FILES", prefabs);
+            ReplaceAll("PREFAB_FILES", "");
+            ReplaceAll("ASSETS", "");
 
         }else if(templateType == Type.Item){
 

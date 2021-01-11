@@ -1,10 +1,14 @@
 package savesystem;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import modloader.classes.Item;
+
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.*;
 
 public class SaveSystem {
+
     public static void clearTheFile(String fileName) {
         try {
             FileWriter fwOb = new FileWriter(fileName, false);
@@ -26,12 +30,15 @@ public class SaveSystem {
 
         clearTheFile(filePath);
 
-        FileOutputStream fileOut =
-                new FileOutputStream(filePath);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(new SaveObject());
-        out.close();
-        fileOut.close();
+        XStream xstream = new XStream(new DomDriver());
+        SaveObject toSave = new SaveObject();
+
+        String xml = xstream.toXML(toSave);
+
+        FileWriter fileWriter = new FileWriter(filePath);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(xml);
+        printWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,33 +46,44 @@ public class SaveSystem {
     }
 
     public static void Load(String filePath){
-        SaveObject e = null;
         try {
-            FileInputStream fileIn = new FileInputStream(filePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            e = (SaveObject) in.readObject();
-            in.close();
-            fileIn.close();
+            SaveObject e = null;
+            XStream xstream = new XStream(new StaxDriver());
+
+            File f = new File(filePath);
+            FileInputStream fis = new FileInputStream(f);
+            byte[] data = new byte[(int) f.length()];
+            fis.read(data);
+            fis.close();
+
+            String xml = new String(data);
+
+            e = (SaveObject) xstream.fromXML(xml);
 
             e.LoadBack();
-        } catch (IOException | ClassNotFoundException i) {
-            i.printStackTrace();
-            return;
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
     public static SaveObject TempLoad(String filePath){
-        SaveObject e = null;
         try {
-            FileInputStream fileIn = new FileInputStream(filePath);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            e = (SaveObject) in.readObject();
-            in.close();
-            fileIn.close();
+            SaveObject e = null;
+            XStream xstream = new XStream(new StaxDriver());
+
+            File f = new File(filePath);
+            FileInputStream fis = new FileInputStream(f);
+            byte[] data = new byte[(int) f.length()];
+            fis.read(data);
+            fis.close();
+
+            String xml = new String(data);
+
+            e = (SaveObject) xstream.fromXML(xml);
 
             return e;
-        } catch (IOException | ClassNotFoundException i) {
-            i.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
             return null;
         }
     }

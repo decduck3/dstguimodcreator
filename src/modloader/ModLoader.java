@@ -1,32 +1,24 @@
 package modloader;
 
 import frames.ModEditor;
+import logging.Logger;
 import modloader.classes.Item;
-import modloader.classes.Texture;
 import modloader.resources.Resource;
-import modloader.resources.ResourceLoader;
+import modloader.resources.ResourceManager;
 import savesystem.SaveSystem;
+import speech.SpeechFile;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.text.html.Option;
-import java.awt.desktop.SystemSleepEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModLoader {
     public static JFrame modEditorFrame;
     public static ModEditor modEditor;
     public static DefaultTableModel resourceModel;
+    public static DefaultTableModel speechModel;
 
     public static String fileComponent(String fname) {
         int pos = fname.lastIndexOf(File.separator);
@@ -66,15 +58,15 @@ public class ModLoader {
     }
 
     public static void Update(){
+        ResourceManager.GenerateResourceLists();
         int selectedModItem = modEditor.getModItemSelect().getSelectedIndex();
-        int selectedModIcon = ResourceLoader.resources.indexOf(Mod.modIcon);
+        int selectedModIcon = Mod.modIcon;
         int selectedModTexture = 0;
         try{
-            selectedModTexture = ResourceLoader.resources.indexOf(Mod.items.get(selectedModItem).itemTexture);
+            selectedModTexture = ResourceManager.resources.indexOf(Mod.items.get(selectedModItem).itemTexture);
         }catch(IndexOutOfBoundsException e){
 
         }
-
 
         modEditor.getModItemSelect().removeAllItems();
         for(int i = 0; i < Mod.items.size(); i++){
@@ -92,11 +84,21 @@ public class ModLoader {
 
         modEditor.getModIconTextureSelect().removeAllItems();
         modEditor.getModItemTextureSelect().removeAllItems();
-        for(Resource r:ResourceLoader.resources){
-            resourceModel.addRow(new Object[] { ModLoader.fileComponent(r.texture.texPath), r.texture.texPath, r.texture.xmlPath,  r.displayUse });
-            modEditor.getModIconTextureSelect().addItem(fileComponent(r.texture.texPath));
+        for(Resource r: ResourceManager.resources){
+            if(r.isTexture){
+                resourceModel.addRow(new Object[] { ModLoader.fileComponent(r.texture.texPath), "Texture", r.texture.texPath + ";" + r.texture.xmlPath, r.filePath});
+            }else if(r.isSpeech){
+                resourceModel.addRow(new Object[] { r.speechFile.resourceName, "Speech", r.speechFile.filePath, r.speechFile.speechType.name()});
+            }
+        }
+
+        for(Resource r: ResourceManager.inventoryimages){
             modEditor.getModItemTextureSelect().addItem(fileComponent(r.texture.texPath));
         }
+        for(Resource r: ResourceManager.modicons){
+            modEditor.getModIconTextureSelect().addItem(fileComponent(r.texture.texPath));
+        }
+
         if(Mod.items.size() < selectedModIcon){
             selectedModIcon = 0;
         }
@@ -120,11 +122,17 @@ public class ModLoader {
         modEditor.getModVersionTextField().setText(Mod.modVersion);
 
         try {
-            var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+            Item item = null;
+            try{
+                item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+            }catch (IndexOutOfBoundsException e){
+                return;
+            }
+
 
             modEditor.getModItemNameTextField().setText(item.itemName);
             modEditor.getModItemIdTextField().setText(item.itemId);
-            //Set the selected for the texture
+            modEditor.getModItemTextureSelect().setSelectedIndex(item.itemTexture);
             modEditor.getAxe().setSelected(item.axeBool);
             modEditor.getDurability().setSelected(item.durabilityBool);
             modEditor.getHat().setSelected(item.hatBool);
@@ -137,17 +145,42 @@ public class ModLoader {
 
             modEditorFrame.pack();
         } catch (Exception e) {
+            Logger.Error(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+    }
 
+    public static void ReloadSpeech(){
+        for(int i = 0; i < speechModel.getRowCount(); i++){
+            speechModel.removeRow(i);
+        }
+
+        for(Resource r: ResourceManager.resources){
+            if(r.isSpeech){
+                ResourceManager.ReloadResource(r);
+                if(r.speechFile.speechType == SpeechFile.SpeechType.Item)
+                {
+                    speechModel.addRow(new Object[]{r.speechFile.resourceName, r.speechFile.filePath, r.speechFile.speechType, r.speechFile.itemSpeech.speech.size()});
+                }else if(r.speechFile.speechType == SpeechFile.SpeechType.Character){
+                    speechModel.addRow(new Object[]{r.speechFile.resourceName, r.speechFile.filePath, r.speechFile.speechType, r.speechFile.characterSpeech.speech.size()});
+                }
+
+            }
         }
     }
 
     public static void SaveItem(){
         try {
-            var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+            Item item = null;
+            try{
+                item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+            }catch (Exception e){
+                return;
+            }
 
             item.itemName = modEditor.getModItemNameTextField().getText();
             item.itemId = modEditor.getModItemIdTextField().getText();
-            item.itemTexture = ResourceLoader.resources.get(modEditor.getModItemTextureSelect().getSelectedIndex());
+            item.itemTexture = modEditor.getModItemTextureSelect().getSelectedIndex();
             item.axeBool = modEditor.getAxe().isSelected();
             item.durabilityBool = modEditor.getDurability().isSelected();
             item.hatBool = modEditor.getHat().isSelected();
@@ -158,16 +191,25 @@ public class ModLoader {
             item.armorBool = modEditor.getArmor().isSelected();
             item.handBool = modEditor.getHand().isSelected();
         }catch(java.lang.IndexOutOfBoundsException e){
-
+            ShowWarning("There was a problem with saving an item. Please make sure all fields are filled then try again");
+            Logger.Error(e.getLocalizedMessage());
+            e.printStackTrace();
         }
     }
 
     public static void SaveModConfig(){
-        Mod.modName = modEditor.getModNameTextField().getText();
-        Mod.modAuthor = modEditor.getModAuthorTextField().getText();
-        Mod.modDescription = modEditor.getModDescriptTextArea().getText();
-        Mod.modVersion = modEditor.getModVersionTextField().getText();
-        Mod.modIcon = ResourceLoader.resources.get(modEditor.getModIconTextureSelect().getSelectedIndex());
+        try{
+            Mod.modName = modEditor.getModNameTextField().getText();
+            Mod.modAuthor = modEditor.getModAuthorTextField().getText();
+            Mod.modDescription = modEditor.getModDescriptTextArea().getText();
+            Mod.modVersion = modEditor.getModVersionTextField().getText();
+            Mod.modIcon = modEditor.getModIconTextureSelect().getSelectedIndex();
+        }catch (java.lang.IndexOutOfBoundsException e){
+            ShowWarning("There was a problem saving the mod config. Please make sure all fields are filled then try again");
+            Logger.Error(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public static void SaveAll(){
@@ -177,6 +219,8 @@ public class ModLoader {
             SaveSystem.Save(Mod.path);
         }catch(Exception e){
             JOptionPane.showMessageDialog(modEditorFrame, e.getLocalizedMessage(), "Error while saving", JOptionPane.ERROR_MESSAGE);
+            Logger.Error(e.getLocalizedMessage());
+            e.printStackTrace();
         }
 
     }
@@ -199,7 +243,7 @@ public class ModLoader {
                     SaveAll();
                 }
                 modEditorFrame.dispose();
-                return;
+                System.exit(0);
             }
 
             @Override
@@ -228,6 +272,13 @@ public class ModLoader {
             }
         });
 
+        speechModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
         resourceModel = new DefaultTableModel() {
 
             @Override
@@ -237,11 +288,17 @@ public class ModLoader {
             }
         };
         modEditor.getResourcesTable().setModel(resourceModel);
+        modEditor.getModSpeechTable().setModel(speechModel);
 
-        resourceModel.addColumn("Texture");
-        resourceModel.addColumn("TEX Path");
-        resourceModel.addColumn("XML Path");
+        resourceModel.addColumn("Name");
         resourceModel.addColumn("Type");
+        resourceModel.addColumn("Path");
+        resourceModel.addColumn("Other");
+
+        speechModel.addColumn("Name");
+        speechModel.addColumn("Location");
+        speechModel.addColumn("Type");
+        speechModel.addColumn("Entries");
 
         //Go see file for definitions
         ModLoaderActions.SetupListeners();
@@ -277,5 +334,9 @@ public class ModLoader {
         };
         int n = JOptionPane.showOptionDialog(modEditorFrame, message, message, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         return n == 0;
+    }
+
+    public static void ShowWarning(String message){
+        JOptionPane.showMessageDialog(modEditorFrame, message, "Warning", JOptionPane.WARNING_MESSAGE);
     }
 }
