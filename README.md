@@ -21,3 +21,5 @@ https://forums.kleientertainment.com/forums/topic/125145-how-to-mod-dst-without-
    - [ ] Hunger drain
    - [ ] Sanity drain
 - [ ] Add own code
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L537JF7)
