@@ -22,6 +22,10 @@ public class Master {
 
     public static void main(String[] args){
         Logger.Log("Starting up...");
+
+        new File("mods").mkdir();
+        new File("speech").mkdir();
+
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
