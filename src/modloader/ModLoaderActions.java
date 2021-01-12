@@ -295,7 +295,7 @@ public class ModLoaderActions extends ModLoader{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().open(new File(FILE_LOCATION));
+                    Desktop.getDesktop().open(new File(FILE_LOCATION + "/speech/"));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

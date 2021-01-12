@@ -149,14 +149,18 @@ public class Template {
             }
 
             Logger.Log("Starting simple replace");
-            ReplaceAll("ID", item.itemId);
-            ReplaceAll("NAME", item.itemName);
+            ReplaceAll("ID", item.itemId.toLowerCase());
+            ReplaceAll("I_UPPER_D", item.itemId.toUpperCase());
+            ReplaceAll("NA_ME", item.itemName);
+            ReplaceAll("NA_UPPER_ME", item.itemName.toUpperCase());
             Logger.Log("Done");
 
             //UPPER
+            ReplaceAll("UPPER", "");
+
 
             //INNER
-
+            ReplaceAll("FILLER", "");
         }
     }
 

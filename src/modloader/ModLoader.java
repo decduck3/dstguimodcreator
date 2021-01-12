@@ -1,5 +1,6 @@
 package modloader;
 
+import config.GlobalConfig;
 import frames.ModEditor;
 import logging.Logger;
 import modloader.classes.Item;
@@ -252,7 +253,7 @@ public class ModLoader {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                if(getBool("Save?")){
+                if(GlobalConfig.askSaveOnLeave && getBool("Save?")){
                     SaveAll();
                 }
                 modEditorFrame.dispose();

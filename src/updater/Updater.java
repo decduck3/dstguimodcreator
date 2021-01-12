@@ -18,7 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class Updater {
-    public static boolean CheckForUpdate(String version){
+    public static boolean CheckForUpdate(float version){
 
         String url = "https://api.github.com/repos/decduck3/dstguimodcreator/releases";
 
@@ -34,7 +34,7 @@ public class Updater {
 
             JSONObject obj = new JSONObject(json);
             JSONArray releases = obj.getJSONArray("releases");
-            if(!releases.getJSONObject(0).getString("tag_name").equals(version)){
+            if(Float.parseFloat(releases.getJSONObject(0).getString("tag_name")) > version){
                 return true;
             }
 

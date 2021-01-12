@@ -11,6 +11,7 @@ import static constants.Constants.FILE_LOCATION;
 public class GlobalConfig {
 
     public static boolean darkMode = false;
+    public static boolean askSaveOnLeave = true;
 
     public static XStream stream;
 

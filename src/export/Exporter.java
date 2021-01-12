@@ -1,5 +1,6 @@
 package export;
 
+import com.sun.jna.platform.unix.X11;
 import export.templates.Template;
 import frames.ExportWindow;
 import logging.Logger;
@@ -10,6 +11,7 @@ import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -54,9 +56,9 @@ public class Exporter {
 
             Done(modOutput);
         }catch(Exception e){
-            ModLoader.ShowWarning("There was an error while exporting the mod!");
+            ModLoader.ShowWarning("There was an error while exporting the mod! Continuing anyways!");
             Logger.Error(e.getLocalizedMessage());
-            Done("");
+            Done(Mod.path + "_exported/");
         }
 
     }
@@ -130,7 +132,7 @@ public class Exporter {
         exportWindow.getExportProgressBar().setValue(100);
         exportWindowFrame.dispose();
         try {
-            Runtime.getRuntime().exec("explorer.exe /select," + finishedLocation);
+            Desktop.getDesktop().open(new File(finishedLocation));
         } catch (IOException e) {
             e.printStackTrace();
         }

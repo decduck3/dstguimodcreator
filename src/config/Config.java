@@ -8,9 +8,11 @@ import static logging.Logger.currentLog;
 public class Config {
 
     public boolean darkMode;
+    public boolean askSaveOnLeave;
 
     public void Save(){
         darkMode = GlobalConfig.darkMode;
+        askSaveOnLeave = GlobalConfig.askSaveOnLeave;
 
         try {
             File file = new File(FILE_LOCATION + "/config.xml");
@@ -35,6 +37,7 @@ public class Config {
             Config config = (Config) GlobalConfig.stream.fromXML(xml);
 
             GlobalConfig.darkMode = config.darkMode;
+            GlobalConfig.askSaveOnLeave = config.askSaveOnLeave;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

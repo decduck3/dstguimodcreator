@@ -39,7 +39,7 @@ local function normal()
 end
 
 
-STRINGS.ID = "NAME"
-STRINGS.NAMES.ID = "Name"
+STRINGS.I_UPPER_D = "NA_ME"
+STRINGS.NAMES.I_UPPER_D = "NA_ME"
 
 return Prefab("ID", normal, assets)
