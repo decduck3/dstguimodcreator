@@ -1,3 +1,7 @@
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import config.Config;
+import config.GlobalConfig;
 import logging.Logger;
 import frames.*;
 import modloader.*;
@@ -24,7 +28,7 @@ public class Master {
     public static ProjectSelect projectSelect;
     public static JFrame projectSelectFrame;
 
-    public static String version = "0.0.1.1";
+    public static String version = "0.0.1.0";
 
     public static int currentlySelectedRow = -1;
 
@@ -33,18 +37,19 @@ public class Master {
 
         new File(FILE_LOCATION).mkdir();
 
+        GlobalConfig.CreateStream();
+        new Config().Load();
+        new Config().Save();
+
         try {
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
+            if(GlobalConfig.darkMode) {
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            }else{
+                UIManager.setLookAndFeel(new FlatLightLaf());
+            }
             Logger.Log("Changing look and feel");
-        } catch (ClassNotFoundException e) {
-            Logger.Error(e.getMessage());
-        } catch (InstantiationException e) {
-            Logger.Error(e.getMessage());
-        } catch (IllegalAccessException e) {
-            Logger.Error(e.getMessage());
         } catch (UnsupportedLookAndFeelException e) {
-            Logger.Error(e.getMessage());
+            e.printStackTrace();
         }
 
         JFrame startupForm = new JFrame("Loading...");
@@ -57,7 +62,7 @@ public class Master {
         startupForm.setVisible(true);
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000); //Just so you can look at my sweet ass logo
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -73,8 +78,8 @@ public class Master {
 
         Logger.Log("Creating frame...");
         projectSelect = new ProjectSelect();
-
         projectSelectFrame = new JFrame("Project Select");
+
         ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
         projectSelectFrame.setIconImage(img.getImage());
         projectSelectFrame.setContentPane(projectSelect.getProjectSelectPanel());
@@ -122,6 +127,7 @@ public class Master {
 
         projectSelectFrame.pack();
         startupForm.setVisible(false);
+        projectSelectFrame.setLocationRelativeTo(null);
         projectSelectFrame.setVisible(true);
 
         new File(FILE_LOCATION + "/mods").mkdir();

@@ -53,6 +53,9 @@ public class SaveObject implements java.io.Serializable {
     public void LoadResourcesList(List<Resource> a){
         for(Resource r: a){
             ResourceManager.LoadResource(r);
+            if(r.isSpeech){
+                System.out.println(r.speechFile.filePath);
+            }
         }
     }
 }

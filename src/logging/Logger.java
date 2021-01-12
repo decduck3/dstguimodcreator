@@ -1,7 +1,5 @@
 package logging;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Calendar;
 
 import static constants.Constants.FILE_LOCATION;
@@ -25,13 +23,10 @@ public class Logger {
 
     public static void WriteChanges(){
         try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(logLocation);
-            ObjectOutputStream out = null;
-            out = new ObjectOutputStream(fileOut);
-            out.writeObject(currentLog);
-            out.close();
-            fileOut.close();
+            File file = new File(logLocation);
+            FileWriter fr = new FileWriter(file, false);
+            fr.write(currentLog);
+            fr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

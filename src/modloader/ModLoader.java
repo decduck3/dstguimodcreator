@@ -87,9 +87,7 @@ public class ModLoader {
         }
         modEditor.getModItemSelect().setSelectedIndex(selectedModItem);
 
-        for(int i = 0; i < resourceModel.getRowCount(); i++){
-            resourceModel.removeRow(i);
-        }
+        resourceModel.setRowCount(0);
 
         modEditor.getModIconTextureSelect().removeAllItems();
         modEditor.getModItemTextureSelect().removeAllItems();
@@ -327,6 +325,7 @@ public class ModLoader {
         Logger.Log("Completed ModLoaderActions.SetupListeners()");
 
         modEditorFrame.pack();
+        modEditorFrame.setLocationRelativeTo(null);
         modEditorFrame.setVisible(true);
         Logger.Log("Finished Init of modEditorFrame");
     }

@@ -11,6 +11,7 @@ import speech.SpeechFile;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -82,7 +83,7 @@ public class ModLoaderActions extends ModLoader{
                         speech.getSpeechCreate().addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], Mod.path + "/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
+                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], FILE_LOCATION + "/speech/" + speech.getSpeechNameTextField().getText() + ".xml");
                                 speechConfigFrame.dispose();
                                 Update();
                                 Logger.Log("Created speech resource");
@@ -90,6 +91,7 @@ public class ModLoaderActions extends ModLoader{
                         });
 
                         speechConfigFrame.pack();
+                        speechConfigFrame.setLocationRelativeTo(null);
                         speechConfigFrame.setVisible(true);
                         Logger.Log("Finished speechConfigFrame setup");
                         break;
@@ -114,9 +116,7 @@ public class ModLoaderActions extends ModLoader{
         modEditor.getResourcesRemove().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ResourceManager.RemoveResource(
-                        (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 1),
-                        (String)modEditor.getResourcesTable().getModel().getValueAt(modEditor.getResourcesTable().getSelectedRow(), 2));
+                ResourceManager.resources.remove(modEditor.getResourcesTable().getSelectedRow());
                 Update();
                 Logger.Log("Removed resource");
             }
@@ -295,7 +295,7 @@ public class ModLoaderActions extends ModLoader{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Runtime.getRuntime().exec("explorer.exe /select," + System.getProperty("user.dir"));
+                    Desktop.getDesktop().open(new File(FILE_LOCATION));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

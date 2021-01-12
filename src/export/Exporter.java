@@ -99,6 +99,7 @@ public class Exporter {
         exportWindowFrame.setContentPane(exportWindow.getExportWindowFrame());
         exportWindowFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         exportWindowFrame.pack();
+        exportWindowFrame.setLocationRelativeTo(null);
         exportWindowFrame.setVisible(true);
         points = 6; //Load Templates, Create Templates, Modmain, Modinfo, Copy Resources
         for(int i = 0; i < Mod.items.size(); i++){
@@ -125,6 +126,7 @@ public class Exporter {
         exportWindowFrame.pack();
     }
     private static void Done(String finishedLocation){
+        JOptionPane.showMessageDialog(ModLoader.modEditorFrame, "Done!");
         exportWindow.getExportProgressBar().setValue(100);
         exportWindowFrame.dispose();
         try {
@@ -132,7 +134,6 @@ public class Exporter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JOptionPane.showMessageDialog(ModLoader.modEditorFrame, "Done!");
         Logger.Log("Finished export");
     }
 }
