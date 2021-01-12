@@ -52,11 +52,11 @@ public class Exporter {
                 MoveLoading();
             }
 
-            Done();
+            Done(modOutput);
         }catch(Exception e){
             ModLoader.ShowWarning("There was an error while exporting the mod!");
             Logger.Error(e.getLocalizedMessage());
-            Done();
+            Done("");
         }
 
     }
@@ -124,9 +124,14 @@ public class Exporter {
         exportWindow.getExportProgressBar().setValue(currentValue + (int) eachPointValue);
         exportWindowFrame.pack();
     }
-    private static void Done(){
+    private static void Done(String finishedLocation){
         exportWindow.getExportProgressBar().setValue(100);
         exportWindowFrame.dispose();
+        try {
+            Runtime.getRuntime().exec("explorer.exe /select," + finishedLocation);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         JOptionPane.showMessageDialog(ModLoader.modEditorFrame, "Done!");
         Logger.Log("Finished export");
     }

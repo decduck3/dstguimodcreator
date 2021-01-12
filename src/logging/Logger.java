@@ -1,15 +1,14 @@
 package logging;
-
-import savesystem.SaveObject;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Calendar;
 
+import static constants.Constants.FILE_LOCATION;
+
 public class Logger {
 
-    public static String logLocation = "./log.txt";
+    public static String logLocation = FILE_LOCATION + "/log.txt";
 
     public static String currentLog = "";
 

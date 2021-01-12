@@ -8,16 +8,17 @@
     <properties/>
     <border type="line"/>
     <children>
-      <component id="a745a" class="javax.swing.JLabel">
+      <component id="a745a" class="javax.swing.JLabel" binding="titleLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Belisa plumilla manual" size="22"/>
+          <font name="Arial" size="22"/>
+          <icon value="resources/small-logo.png"/>
           <text value="DST Mod Creator - by decduck3"/>
         </properties>
       </component>
-      <scrollpane id="80b08">
+      <scrollpane id="80b08" binding="tableScrollPlane">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>

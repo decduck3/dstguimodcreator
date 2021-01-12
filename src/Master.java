@@ -1,30 +1,37 @@
-
-import frames.NewModConfig;
-import frames.ProjectSelect;
 import logging.Logger;
-import modloader.ModLoader;
-import savesystem.SaveObject;
-import savesystem.SaveSystem;
+import frames.*;
+import modloader.*;
+import savesystem.*;
+import updater.Updater;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+
+import static constants.Constants.FILE_LOCATION;
 
 public class Master {
     public static ProjectSelect projectSelect;
     public static JFrame projectSelectFrame;
+
+    public static String version = "0.0.1.1";
 
     public static int currentlySelectedRow = -1;
 
     public static void main(String[] args){
         Logger.Log("Starting up...");
 
-        new File("mods").mkdir();
-        new File("src/speech").mkdir();
+        new File(FILE_LOCATION).mkdir();
 
         try {
             UIManager.setLookAndFeel(
@@ -39,6 +46,31 @@ public class Master {
         } catch (UnsupportedLookAndFeelException e) {
             Logger.Error(e.getMessage());
         }
+
+        JFrame startupForm = new JFrame("Loading...");
+        startupForm.setContentPane(new StartupForm().getStartupPanel());
+        startupForm.setUndecorated(true);
+        startupForm.setSize(200, 80);
+        startupForm.setType(Window.Type.UTILITY);
+        startupForm.pack();
+        startupForm.setLocationRelativeTo(null);
+        startupForm.setVisible(true);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(args.length > 0){
+            try {
+                Files.copy(Paths.get(args[0]), Paths.get(FILE_LOCATION + "/mods/" + ModLoader.fileComponent(args[0])), StandardCopyOption.REPLACE_EXISTING);
+                Logger.Log("Copied files. From:" + args[0] + " To: " + FILE_LOCATION + "/mods/" + ModLoader.fileComponent(args[0]));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         Logger.Log("Creating frame...");
         projectSelect = new ProjectSelect();
 
@@ -89,7 +121,17 @@ public class Master {
         });
 
         projectSelectFrame.pack();
+        startupForm.setVisible(false);
         projectSelectFrame.setVisible(true);
+
+        new File(FILE_LOCATION + "/mods").mkdir();
+        new File(FILE_LOCATION + "/speech").mkdir();
+
+        Logger.Log("Checking for update...");
+        if(Updater.CheckForUpdate(version)){
+            Logger.Log("Found update.");
+            Updater.GetLastestRelease(projectSelectFrame);
+        }
     }
 
     public static void CreateNewMod(){
@@ -105,7 +147,7 @@ public class Master {
                 String author = newModConfig.getModAuthorTextField().getText();
                 projectSelectFrame.setVisible(false);
                 newModConfigFrame.setVisible(false);
-                ModLoader.CreateMod(System.getProperty("user.dir") + "/mods/" + name.replace(" ", "") + ".demv", author, name);
+                ModLoader.CreateMod(FILE_LOCATION + "/mods/" + name.replace(" ", "") + ".demv", author, name);
             }
         });
 
@@ -121,16 +163,16 @@ public class Master {
                     JOptionPane.WARNING_MESSAGE);
         }else{
             projectSelectFrame.setVisible(false);
-            ModLoader.LoadMod(System.getProperty("user.dir") + "/mods/" + projectSelect.getProjectsListTable().getModel().getValueAt(currentlySelectedRow, 2));
+            ModLoader.LoadMod(FILE_LOCATION + "/mods/" + projectSelect.getProjectsListTable().getModel().getValueAt(currentlySelectedRow, 2));
         }
     }
 
     public static void readMods(){
         try{
             DefaultTableModel model = (DefaultTableModel) projectSelect.getProjectsListTable().getModel();
-            String[] mods = getAllDirectories(System.getProperty("user.dir") + "/mods");
+            String[] mods = getAllDirectories(FILE_LOCATION + "/mods");
             for(int i = 0; i < mods.length; i++){
-                SaveObject saveObject = SaveSystem.TempLoad(System.getProperty("user.dir") + "/mods/" + mods[i]);
+                SaveObject saveObject = SaveSystem.TempLoad(FILE_LOCATION + "/mods/" + mods[i]);
                 model.addRow(new Object[]{saveObject.modName, saveObject.modAuthor, mods[i]});
             }
         }catch (Exception e){

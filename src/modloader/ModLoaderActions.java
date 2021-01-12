@@ -14,6 +14,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+
+import static constants.Constants.FILE_LOCATION;
 
 public class ModLoaderActions extends ModLoader{
     public static void SetupListeners(){
@@ -79,7 +82,7 @@ public class ModLoaderActions extends ModLoader{
                         speech.getSpeechCreate().addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], System.getProperty("user.dir") + "/src/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
+                                ResourceManager.LoadResource(SpeechFile.SpeechType.values()[speech.getSpeechFileType().getSelectedIndex()], Mod.path + "/speech/" + speech.getSpeechNameTextField().getText() + ".speech");
                                 speechConfigFrame.dispose();
                                 Update();
                                 Logger.Log("Created speech resource");
@@ -285,6 +288,17 @@ public class ModLoaderActions extends ModLoader{
                 ReloadSpeech();
                 Update();
                 Logger.Log("Reloaded speech resources");
+            }
+        });
+
+        modEditor.getOpenFolder().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Runtime.getRuntime().exec("explorer.exe /select," + System.getProperty("user.dir"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
     }

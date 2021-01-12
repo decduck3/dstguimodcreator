@@ -12,6 +12,8 @@ public class ProjectSelect {
     private JTable projectsListTable;
     private JButton newMod;
     private JButton loadMod;
+    private JLabel titleLabel;
+    private JScrollPane tableScrollPlane;
 
     public JPanel getProjectSelectPanel() {
         return ProjectSelectPanel;
@@ -47,16 +49,17 @@ public class ProjectSelect {
         ProjectSelectPanel = new JPanel();
         ProjectSelectPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(20, 20, 20, 20), -1, -1));
         ProjectSelectPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
-        final JLabel label1 = new JLabel();
-        Font label1Font = this.$$$getFont$$$("Belisa plumilla manual", -1, 22, label1.getFont());
-        if (label1Font != null) label1.setFont(label1Font);
-        label1.setText("DST Mod Creator - by decduck3");
-        ProjectSelectPanel.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JScrollPane scrollPane1 = new JScrollPane();
-        ProjectSelectPanel.add(scrollPane1, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        titleLabel = new JLabel();
+        Font titleLabelFont = this.$$$getFont$$$("Arial", -1, 22, titleLabel.getFont());
+        if (titleLabelFont != null) titleLabel.setFont(titleLabelFont);
+        titleLabel.setIcon(new ImageIcon(getClass().getResource("/resources/small-logo.png")));
+        titleLabel.setText("DST Mod Creator - by decduck3");
+        ProjectSelectPanel.add(titleLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        tableScrollPlane = new JScrollPane();
+        ProjectSelectPanel.add(tableScrollPlane, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         projectsListTable = new JTable();
         projectsListTable.setEnabled(true);
-        scrollPane1.setViewportView(projectsListTable);
+        tableScrollPlane.setViewportView(projectsListTable);
         newMod = new JButton();
         newMod.setText("Create New Mod");
         ProjectSelectPanel.add(newMod, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

@@ -1,0 +1,2 @@
+Z:\Dev\dstguimodcreator\Launcher\Debug\Launcher.exe
+Z:\Dev\dstguimodcreator\Launcher\Debug\Launcher.pdb
