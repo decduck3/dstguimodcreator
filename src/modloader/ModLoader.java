@@ -153,7 +153,7 @@ public class ModLoader {
             modEditor.getArmor().setSelected(item.armorBool);
             modEditor.getHand().setSelected(item.handBool);
 
-            modEditorFrame.pack();
+            modEditorFrame.validate();
         } catch (Exception e) {
             Logger.Error(e.getLocalizedMessage());
             e.printStackTrace();

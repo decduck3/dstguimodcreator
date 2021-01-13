@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frames.ModEditor">
   <grid id="27dc6" binding="modEditorPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="845" height="965"/>
+      <xy x="20" y="20" width="1306" height="965"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -16,9 +16,9 @@
         </constraints>
         <properties>
           <enabled value="true"/>
-          <font name="Belisa plumilla manual" size="36"/>
-          <tabLayoutPolicy value="1"/>
-          <tabPlacement value="2"/>
+          <font/>
+          <tabLayoutPolicy value="0"/>
+          <tabPlacement value="1"/>
         </properties>
         <border type="none"/>
         <children>
@@ -29,7 +29,9 @@
                 <tooltip value="Change things such as mod name, author, config options"/>
               </tabbedpane>
             </constraints>
-            <properties/>
+            <properties>
+              <font/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="ea3a7" class="javax.swing.JLabel" binding="modNameLabel">
@@ -120,7 +122,7 @@
               </component>
             </children>
           </grid>
-          <grid id="e9185" binding="modItems" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="e9185" binding="modItems" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="true" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Items">
@@ -133,7 +135,8 @@
               <grid id="c0232" binding="modItemConfigPanel" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="1" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="0" column="1" row-span="4" col-span="1" vsize-policy="3" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="1000" height="-1"/>
                     <preferred-size width="1000" height="-1"/>
                   </grid>
                 </constraints>
@@ -286,7 +289,9 @@
               </grid>
               <component id="dd08f" class="javax.swing.JButton" binding="modItemCreate">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <maximum-size width="200" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <text value="New Item"/>
@@ -294,7 +299,9 @@
               </component>
               <component id="87fa0" class="javax.swing.JButton" binding="modItemDelete">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <maximum-size width="200" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <text value="Delete Item"/>
@@ -302,13 +309,17 @@
               </component>
               <component id="ffef0" class="javax.swing.JComboBox" binding="modItemSelect">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="200" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties/>
               </component>
               <component id="c0f7f" class="javax.swing.JButton" binding="modItemSave">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="200" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <text value="Save"/>
@@ -327,7 +338,7 @@
             <border type="none"/>
             <children/>
           </grid>
-          <grid id="1f6dd" binding="resources" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="1f6dd" binding="resources" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Resources">
@@ -337,11 +348,19 @@
             <properties/>
             <border type="none"/>
             <children>
-              <hspacer id="56566">
+              <scrollpane id="e1802" binding="resourcesScroll">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-              </hspacer>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="592f9" class="javax.swing.JTable" binding="resourcesTable">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
               <component id="6e970" class="javax.swing.JButton" binding="resourcesAdd">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -358,19 +377,6 @@
                   <text value="Remove Resource"/>
                 </properties>
               </component>
-              <scrollpane id="e1802" binding="resourcesScroll">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <component id="592f9" class="javax.swing.JTable" binding="resourcesTable">
-                    <constraints/>
-                    <properties/>
-                  </component>
-                </children>
-              </scrollpane>
             </children>
           </grid>
           <grid id="87d1b" binding="modSpeechConfig" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -383,7 +389,7 @@
             <children>
               <scrollpane id="6962a" binding="modSpeechTableScrollPlane">
                 <constraints>
-                  <grid row="0" column="1" row-span="3" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="3" col-span="1" vsize-policy="7" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -394,14 +400,11 @@
                   </component>
                 </children>
               </scrollpane>
-              <hspacer id="dcfdb">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </hspacer>
               <component id="f95d" class="javax.swing.JButton" binding="modSpeechReloadSpeech">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="300" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <text value="Reload"/>
@@ -409,7 +412,9 @@
               </component>
               <component id="f1527" class="javax.swing.JButton" binding="openFolder">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="300" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <text value="Open Folder"/>
@@ -417,26 +422,40 @@
               </component>
             </children>
           </grid>
+          <grid id="25d81" binding="modExportPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Export">
+                <tooltip value="Export your mod"/>
+              </tabbedpane>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="b9c73" class="javax.swing.JButton" binding="saveAll">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="300" height="150"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Save All"/>
+                </properties>
+              </component>
+              <component id="a7102" class="javax.swing.JButton" binding="modExport">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <maximum-size width="300" height="150"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Export"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </tabbedpane>
-      <component id="b9c73" class="javax.swing.JButton" binding="saveAll">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Save All"/>
-        </properties>
-      </component>
-      <component id="a7102" class="javax.swing.JButton" binding="modExport">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Export"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>
