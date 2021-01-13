@@ -42,7 +42,7 @@ public class StartupForm {
         image = new JLabel();
         image.setIcon(new ImageIcon(getClass().getResource("/resources/Github.png")));
         image.setText("");
-        startupPanel.add(image, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        startupPanel.add(image, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(411, 211), null, 0, false));
     }
 
     /**
