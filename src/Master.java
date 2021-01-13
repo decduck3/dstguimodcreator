@@ -2,6 +2,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import config.Config;
 import config.GlobalConfig;
+import constants.Constants;
 import logging.Logger;
 import frames.*;
 import modloader.*;
@@ -33,10 +34,10 @@ public class Master {
     public static int currentlySelectedRow = -1;
 
     public static void main(String[] args){
+        Constants.CreateConstants();
         Logger.Log("Starting up...");
 
-        new File(FILE_LOCATION).mkdir();
-
+        new File(FILE_LOCATION + "/").mkdir();
         GlobalConfig.CreateStream();
         new Config().Load();
         new Config().Save();

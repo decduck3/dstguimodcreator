@@ -28,7 +28,12 @@ public class Logger {
             fr.write(currentLog);
             fr.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                new File(logLocation).createNewFile();
+            } catch (IOException ioException) {
+                return;
+            }
+            WriteChanges();
         }
 
     }

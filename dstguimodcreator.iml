@@ -7,7 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="xstream-1.4.15" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -21,6 +20,24 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/src/lib/commons-codec-1.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/lib/darcula.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/lib/flatlaf-0.46.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -128,6 +145,15 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/lib/json-20201115.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
           <root url="jar://$MODULE_DIR$/src/lib/reactive-streams-1.0.2.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -155,7 +181,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/lib/json-20201115.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/lib/xstream-1.4.15.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -164,16 +190,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/lib/darcula.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/lib/flatlaf-0.46.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/lib/commons-lang3-3.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
