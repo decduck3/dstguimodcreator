@@ -30,7 +30,7 @@ public class Master {
     public static ProjectSelect projectSelect;
     public static JFrame projectSelectFrame;
 
-    public static float version = 0.11f;
+    public static float version = 0.12f;
 
     public static int currentlySelectedRow = -1;
 
