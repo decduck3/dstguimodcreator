@@ -12,6 +12,7 @@ public class GlobalConfig {
 
     public static boolean darkMode = false;
     public static boolean askSaveOnLeave = true;
+    public static String modsLocation = "/mods/";
 
     public static XStream stream;
 

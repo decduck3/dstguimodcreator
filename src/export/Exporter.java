@@ -9,6 +9,7 @@ import modloader.ModLoader;
 import modloader.classes.Item;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
+import resources.ResourceLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,7 +97,7 @@ public class Exporter {
         exportWindowFrame = new JFrame("Exporting...");
         Logger.Log("Exporting...");
         Logger.Log("Starting exporting init");
-        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+        ImageIcon img = new ImageIcon(ResourceLoader.class.getResource("dstguimodcreatorlogo.png"));
         exportWindowFrame.setIconImage(img.getImage());
         exportWindowFrame.setContentPane(exportWindow.getExportWindowFrame());
         exportWindowFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

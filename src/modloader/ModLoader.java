@@ -4,16 +4,22 @@ import config.GlobalConfig;
 import frames.ModEditor;
 import logging.Logger;
 import modloader.classes.Item;
+import modloader.classes.components.*;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
+import resources.ResourceLoader;
 import savesystem.SaveSystem;
 import speech.SpeechFile;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import javax.swing.tree.*;
+import java.awt.event.*;
 import java.io.*;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 public class ModLoader {
     public static JFrame modEditorFrame;
@@ -55,6 +61,8 @@ public class ModLoader {
 
         Mod.modName = name;
         Mod.modAuthor = author;
+        Mod.modDescription = "Example Description";
+        Mod.modVersion = "1.0";
 
         SaveSystem.Save(path);
         Update();
@@ -65,6 +73,53 @@ public class ModLoader {
         System.out.println("Mod Author: " + Mod.modAuthor);
         System.out.println("Mod Description: " + Mod.modDescription);
         System.out.println("Mod Version: " + Mod.modVersion);
+    }
+
+    public static <T> void AddClassToTree(DefaultMutableTreeNode root, Class toAdd, T values){
+        Field[] fields = toAdd.getFields();
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(toAdd.getSimpleName());
+
+        for(Field f:fields){
+            if(values != null){
+                try {
+                    DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(f.getName() + ": " + f.get(values));
+                    node.add(tempNode);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(f.getName());
+                node.add(tempNode);
+            }
+        }
+
+        root.add(node);
+    }
+
+    public static String getExpansionState(JTree tree){
+
+        StringBuilder  sb = new StringBuilder();
+
+        for(int i =0 ; i < tree.getRowCount(); i++){
+            TreePath tp = tree.getPathForRow(i);
+            if(tree.isExpanded(i)){
+                sb.append(tp.toString());
+                sb.append(",");
+            }
+        }
+
+        return sb.toString();
+
+    }
+
+    public static void setExpansionState(String s, JTree tree){
+
+        for(int i = 0 ; i<tree.getRowCount(); i++){
+            TreePath tp = tree.getPathForRow(i);
+            if(s.contains(tp.toString() )){
+                tree.expandRow(i);
+            }
+        }
     }
 
     public static void Update(){
@@ -139,19 +194,75 @@ public class ModLoader {
                 return;
             }
 
+            if(modEditor.getModItemSelect().getSelectedIndex() == -1){
+                DefaultTreeModel modelNotAdded = (DefaultTreeModel) modEditor.getModItemComponentNotAdded().getModel();
+                DefaultTreeModel modelAdded = (DefaultTreeModel) modEditor.getModItemComponetsAdded().getModel();
+                DefaultMutableTreeNode rootNotAdded = (DefaultMutableTreeNode) modelNotAdded.getRoot();
+                DefaultMutableTreeNode rootAdded = (DefaultMutableTreeNode) modelAdded.getRoot();
+
+                rootNotAdded.removeAllChildren();
+                rootAdded.removeAllChildren();
+
+                modEditorFrame.validate();
+                return;
+            }
+
+            DefaultTreeModel modelNotAdded = (DefaultTreeModel) modEditor.getModItemComponentNotAdded().getModel();
+            DefaultTreeModel modelAdded = (DefaultTreeModel) modEditor.getModItemComponetsAdded().getModel();
+            DefaultMutableTreeNode rootNotAdded = (DefaultMutableTreeNode) modelNotAdded.getRoot();
+            DefaultMutableTreeNode rootAdded = (DefaultMutableTreeNode) modelAdded.getRoot();
+
+            String expandedAdded = getExpansionState(modEditor.getModItemComponetsAdded());
+            String expandedNotAdded = getExpansionState(modEditor.getModItemComponentNotAdded());
+
+            rootNotAdded.removeAllChildren();
+            rootAdded.removeAllChildren();
+
+            if(item.armorBool){
+                AddClassToTree(rootAdded, Armor.class, item.armor);
+            }else{
+                AddClassToTree(rootNotAdded, Armor.class, null);
+            }
+
+            if(item.edibleBool){
+                AddClassToTree(rootAdded, Edible.class, item.edible);
+            }else{
+                AddClassToTree(rootNotAdded, Edible.class, null);
+            }
+
+            if(item.axeBool){
+                AddClassToTree(rootAdded, Axe.class, item.axe);
+            }else{
+                AddClassToTree(rootNotAdded, Axe.class, null);
+            }
+
+            if(item.dappernessBool){
+                AddClassToTree(rootAdded, Dapperness.class, item.dapperness);
+            }else{
+                AddClassToTree(rootNotAdded, Dapperness.class, null);
+            }
+
+            if(item.durabilityBool){
+                AddClassToTree(rootAdded, Durability.class, item.durability);
+            }else{
+                AddClassToTree(rootNotAdded, Durability.class, null);
+            }
+
+            if(item.equipableBool){
+                AddClassToTree(rootAdded, Equipable.class, item.equipable);
+            }else{
+                AddClassToTree(rootNotAdded, Equipable.class, null);
+            }
+
+            modelNotAdded.reload();
+            modelAdded.reload();
+
+            setExpansionState(expandedAdded, modEditor.getModItemComponetsAdded());
+            setExpansionState(expandedNotAdded, modEditor.getModItemComponentNotAdded());
 
             modEditor.getModItemNameTextField().setText(item.itemName);
             modEditor.getModItemIdTextField().setText(item.itemId);
             modEditor.getModItemTextureSelect().setSelectedIndex(item.itemTexture);
-            modEditor.getAxe().setSelected(item.axeBool);
-            modEditor.getDurability().setSelected(item.durabilityBool);
-            modEditor.getHat().setSelected(item.hatBool);
-            modEditor.getEquipable().setSelected(item.equipableBool);
-            modEditor.getDapperness().setSelected(item.dappernessBool);
-            modEditor.getEdible().setSelected(item.edibleBool);
-            modEditor.getChest().setSelected(item.chestBool);
-            modEditor.getArmor().setSelected(item.armorBool);
-            modEditor.getHand().setSelected(item.handBool);
 
             modEditorFrame.validate();
         } catch (Exception e) {
@@ -191,15 +302,6 @@ public class ModLoader {
             item.itemName = modEditor.getModItemNameTextField().getText();
             item.itemId = modEditor.getModItemIdTextField().getText();
             item.itemTexture = modEditor.getModItemTextureSelect().getSelectedIndex();
-            item.axeBool = modEditor.getAxe().isSelected();
-            item.durabilityBool = modEditor.getDurability().isSelected();
-            item.hatBool = modEditor.getHat().isSelected();
-            item.equipableBool = modEditor.getEquipable().isSelected();
-            item.dappernessBool = modEditor.getDapperness().isSelected();
-            item.edibleBool = modEditor.getEdible().isSelected();
-            item.chestBool = modEditor.getChest().isSelected();
-            item.armorBool = modEditor.getArmor().isSelected();
-            item.handBool = modEditor.getHand().isSelected();
         }catch(java.lang.IndexOutOfBoundsException e){
             ShowWarning("There was a problem with saving an item. Please make sure all fields are filled then try again");
             Logger.Error(e.getLocalizedMessage());
@@ -237,7 +339,7 @@ public class ModLoader {
 
     public static void CreateModEditorFrame(){
         modEditorFrame = new JFrame("Mod Editor");
-        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+        ImageIcon img = new ImageIcon(ResourceLoader.class.getResource("dstguimodcreatorlogo.png"));
         modEditorFrame.setIconImage(img.getImage());
         modEditor = new ModEditor();
 
@@ -305,6 +407,162 @@ public class ModLoader {
         };
         modEditor.getResourcesTable().setModel(resourceModel);
         modEditor.getModSpeechTable().setModel(speechModel);
+
+        ((DefaultTreeModel)modEditor.getModItemComponetsAdded().getModel()).setRoot(new DefaultMutableTreeNode("Added"));
+        ((DefaultTreeModel)modEditor.getModItemComponentNotAdded().getModel()).setRoot(new DefaultMutableTreeNode("Not Added"));
+
+        JTree addedTree = modEditor.getModItemComponetsAdded();
+        JTree notAddedTree = modEditor.getModItemComponentNotAdded();
+        MouseListener ml = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                int selRow = addedTree.getRowForLocation(e.getX(), e.getY());
+                TreePath selPath = addedTree.getPathForLocation(e.getX(), e.getY());
+                if(selRow != -1) {
+                    if(e.getClickCount() == 1) {
+
+                    }
+                    else if(e.getClickCount() == 2) {
+                        try {
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Axe.class)) {
+                                Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).axeBool = false;
+                                Update();
+                                return;
+                            }
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Edible.class)) {
+                                Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).edibleBool = false;
+                                Update();
+                                return;
+                            }
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Dapperness.class)) {
+                                Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).dappernessBool = false;
+                                Update();
+                                return;
+                            }
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Durability.class)) {
+                                Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).durabilityBool = false;
+                                Update();
+                                return;
+                            }
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Equipable.class)) {
+                                Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).equipableBool = false;
+                                Update();
+                                return;
+                            }
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Armor.class)) {
+                                Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).armorBool = false;
+                                Update();
+                                return;
+                            }
+                        }catch(NullPointerException n){
+
+                        }
+
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Axe.class)) {
+                            Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                            String value = selPath.getLastPathComponent().toString();
+                            if(value.startsWith("efficiency")){
+                                item.axe.efficiency = getFloat("Axe efficiency");
+                            }
+                            Update();
+                            return;
+                        }
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Edible.class)) {
+                            Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                            String value = selPath.getLastPathComponent().toString();
+                            if(value.startsWith("health")){
+                                item.edible.health = getFloat("Food health");
+                            }
+                            if(value.startsWith("sanity")){
+                                item.edible.sanity = getFloat("Food sanity");
+                            }
+                            if(value.startsWith("hunger")){
+                                item.edible.hunger = getFloat("Food hunger");
+                            }
+                            Update();
+                            return;
+                        }
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Dapperness.class)) {
+                            Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                            String value = selPath.getLastPathComponent().toString();
+                            if(value.startsWith("rate")){
+                                item.dapperness.rate = getFloat("Dapperness rate");
+                            }
+                            Update();
+                            return;
+                        }
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Durability.class)) {
+                            Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                            String value = selPath.getLastPathComponent().toString();
+                            if(value.startsWith("durability")){
+                                item.durability.durability = getFloat("Durability");
+                            }
+                            Update();
+                            return;
+                        }
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Equipable.class)) {
+                            Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                            String value = selPath.getLastPathComponent().toString();
+                            if(value.startsWith("place")){
+                                item.equipable.place = Equipable.Place.values()[getOption("Place", new Object[]{ "Hat", "Chest", "Hand" })];
+                            }
+                            Update();
+                            return;
+                        }
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Armor.class)) {
+                            Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
+                            String value = selPath.getLastPathComponent().toString();
+                            if(value.startsWith("resistance")){
+                                item.armor.resistance = getFloat("Resistance");
+                            }
+                            if(value.startsWith("maxCondition")){
+                                item.armor.maxCondition = getFloat("Max Condition");
+                            }
+                            Update();
+                            return;
+                        }
+                    }
+                }
+            }
+        };
+        addedTree.addMouseListener(ml);
+        MouseListener ml2 = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                int selRow = notAddedTree.getRowForLocation(e.getX(), e.getY());
+                TreePath selPath = notAddedTree.getPathForLocation(e.getX(), e.getY());
+                if(selRow != -1) {
+                    if(e.getClickCount() == 1) {
+
+                    }
+                    else if(e.getClickCount() == 2) {
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Axe.class)){
+                            Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).axeBool = true;
+                            Update();
+                        }
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Edible.class)){
+                            Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).edibleBool = true;
+                            Update();
+                        }
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Dapperness.class)){
+                            Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).dappernessBool = true;
+                            Update();
+                        }
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Durability.class)){
+                            Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).durabilityBool = true;
+                            Update();
+                        }
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Equipable.class)){
+                            Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).equipableBool = true;
+                            Update();
+                        }
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Armor.class)){
+                            Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).armorBool = true;
+                            Update();
+                        }
+                    }
+                }
+            }
+        };
+        notAddedTree.addMouseListener(ml2);
 
         Logger.Log("Created table models with appropriate settings");
 

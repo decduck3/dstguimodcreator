@@ -67,8 +67,6 @@ public class ResourceManager {
                 mapicons.add(r);
             }
         }
-
-        Logger.Log("Generated resource lists");
     }
 
     public static void LoadResource(String animPath){
@@ -165,7 +163,6 @@ public class ResourceManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Logger.Log("Reloaded resource");
     }
 
     public static Resource GetResource(String name){

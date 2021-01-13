@@ -7,6 +7,7 @@ import modloader.classes.Item;
 import modloader.classes.components.Equipable;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
+import resources.ResourceLoader;
 import speech.SpeechFile;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import static constants.Constants.FILE_LOCATION;
 
@@ -74,7 +77,7 @@ public class ModLoaderActions extends ModLoader{
                     case 1:
                         Logger.Log("Creating speech file...");
                         JFrame speechConfigFrame = new JFrame("Create New Speech File");
-                        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+                        ImageIcon img = new ImageIcon(ResourceLoader.class.getResource("dstguimodcreatorlogo.png"));
                         speechConfigFrame.setIconImage(img.getImage());
                         SpeechConfig speech = new SpeechConfig();
                         speechConfigFrame.setContentPane(speech.getSpeechConfigPanel());
@@ -147,133 +150,6 @@ public class ModLoaderActions extends ModLoader{
             }
         });
 
-        modEditor.getAxe().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getAxe().isSelected()){
-                    item.axe.efficiency = getFloat("Axe efficiency");
-
-                    Update();
-                    Logger.Log("Added axe component");
-                }
-            }
-        });
-
-        modEditor.getArmor().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getArmor().isSelected()){
-                    item.armor.resistance = getFloat("Armor Resistance");
-                    item.armor.maxCondition = getFloat("Armor Max Condition");
-
-                    Update();
-                    Logger.Log("Added armor component");
-                }
-            }
-        });
-
-        modEditor.getChest().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getChest().isSelected()){
-                    if(modEditor.getEquipable().isSelected()){
-                        item.equipable.place = Equipable.Place.Chest;
-                        item.chest.watertightness = getFloat("Water tightness");
-                    }else{
-                        JOptionPane.showMessageDialog(modEditorFrame, "Enable equip-able first", "Enable equip-able first", JOptionPane.WARNING_MESSAGE);
-                        modEditor.getChest().setSelected(false);
-                    }
-                    Update();
-                    Logger.Log("Added chest component");
-                }
-            }
-        });
-
-        modEditor.getDapperness().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getDapperness().isSelected()){
-                    item.dapperness.rate = getFloat("Dapperness rate");
-
-                    Update();
-                    Logger.Log("Added dapperness component");
-                }
-            }
-        });
-
-        modEditor.getDurability().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getDurability().isSelected()){
-                    if(modEditor.getAxe().isSelected()){
-                        item.durability.durability = getFloat("Durability");
-                    }else{
-                        JOptionPane.showMessageDialog(modEditorFrame, "Enable axe first", "Enable axe first", JOptionPane.WARNING_MESSAGE);
-                    }
-                    Update();
-                    Logger.Log("Added durability component");
-                }
-            }
-        });
-
-        modEditor.getEdible().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getEdible().isSelected()){
-                    item.edible.health = getFloat("Health");
-                    item.edible.hunger = getFloat("Hunger");
-                    item.edible.sanity = getFloat("Sanity");
-
-                    Update();
-                    Logger.Log("Added edible component");
-                }
-            }
-        });
-
-        //Don't need one for equipable
-
-        modEditor.getHand().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getChest().isSelected()){
-                    if(modEditor.getEquipable().isSelected()){
-                        item.equipable.place = Equipable.Place.Hand;
-                        item.hand.watertightness = getFloat("Water tightness");
-                    }else{
-                        JOptionPane.showMessageDialog(modEditorFrame, "Enable equip-able first", "Enable equip-able first", JOptionPane.WARNING_MESSAGE);
-                        modEditor.getChest().setSelected(false);
-                    }
-                    Update();
-                    Logger.Log("Added hand component");
-                }
-            }
-        });
-
-        modEditor.getHat().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
-                if(modEditor.getChest().isSelected()){
-                    if(modEditor.getEquipable().isSelected()){
-                        item.equipable.place = Equipable.Place.Hat;
-                        item.hat.watertightness = getFloat("Water tightness");
-                    }else{
-                        JOptionPane.showMessageDialog(modEditorFrame, "Enable equip-able first", "Enable equip-able first", JOptionPane.WARNING_MESSAGE);
-                        modEditor.getChest().setSelected(false);
-                    }
-                    Update();
-                    Logger.Log("Added hat component");
-                }
-            }
-        });
-
         modEditor.getModExport().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -298,6 +174,32 @@ public class ModLoaderActions extends ModLoader{
                     Desktop.getDesktop().open(new File(FILE_LOCATION + "/speech/"));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
+                }
+            }
+        });
+
+        modEditor.getGithubButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/decduck3/dstguimodcreator"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (URISyntaxException uriSyntaxException) {
+                    uriSyntaxException.printStackTrace();
+                }
+            }
+        });
+
+        modEditor.getWikiButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/decduck3/dstguimodcreator/wiki"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (URISyntaxException uriSyntaxException) {
+                    uriSyntaxException.printStackTrace();
                 }
             }
         });

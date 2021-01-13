@@ -3,16 +3,17 @@ package config;
 import java.io.*;
 
 import static constants.Constants.FILE_LOCATION;
-import static logging.Logger.currentLog;
 
 public class Config {
 
     public boolean darkMode;
     public boolean askSaveOnLeave;
+    public String modsLocation;
 
     public void Save(){
         darkMode = GlobalConfig.darkMode;
         askSaveOnLeave = GlobalConfig.askSaveOnLeave;
+        modsLocation = GlobalConfig.modsLocation;
 
         try {
             File file = new File(FILE_LOCATION + "/config.xml");
@@ -38,6 +39,7 @@ public class Config {
 
             GlobalConfig.darkMode = config.darkMode;
             GlobalConfig.askSaveOnLeave = config.askSaveOnLeave;
+            GlobalConfig.modsLocation = config.modsLocation;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

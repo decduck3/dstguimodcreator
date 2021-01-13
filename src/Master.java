@@ -6,6 +6,7 @@ import constants.Constants;
 import logging.Logger;
 import frames.*;
 import modloader.*;
+import resources.ResourceLoader;
 import savesystem.*;
 import updater.Updater;
 
@@ -70,8 +71,8 @@ public class Master {
 
         if(args.length > 0){
             try {
-                Files.copy(Paths.get(args[0]), Paths.get(FILE_LOCATION + "/mods/" + ModLoader.fileComponent(args[0])), StandardCopyOption.REPLACE_EXISTING);
-                Logger.Log("Copied files. From:" + args[0] + " To: " + FILE_LOCATION + "/mods/" + ModLoader.fileComponent(args[0]));
+                Files.copy(Paths.get(args[0]), Paths.get(FILE_LOCATION + GlobalConfig.modsLocation + ModLoader.fileComponent(args[0])), StandardCopyOption.REPLACE_EXISTING);
+                Logger.Log("Copied files. From:" + args[0] + " To: " + FILE_LOCATION + GlobalConfig.modsLocation + ModLoader.fileComponent(args[0]));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,7 +82,7 @@ public class Master {
         projectSelect = new ProjectSelect();
         projectSelectFrame = new JFrame("Project Select");
 
-        ImageIcon img = new ImageIcon("src/resources/dstguimodcreatorlogo.png");
+        ImageIcon img = new ImageIcon(ResourceLoader.class.getResource("dstguimodcreatorlogo.png"));
         projectSelectFrame.setIconImage(img.getImage());
         projectSelectFrame.setContentPane(projectSelect.getProjectSelectPanel());
         projectSelectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,6 +147,8 @@ public class Master {
         NewModConfig newModConfig = new NewModConfig();
         newModConfigFrame.setContentPane(newModConfig.getNewModConfigPanel());
         newModConfigFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImageIcon img = new ImageIcon(ResourceLoader.class.getResource("dstguimodcreatorlogo.png"));
+        newModConfigFrame.setIconImage(img.getImage());
 
         newModConfig.getCreateMod().addActionListener(new ActionListener() {
             @Override
@@ -154,11 +157,19 @@ public class Master {
                 String author = newModConfig.getModAuthorTextField().getText();
                 projectSelectFrame.setVisible(false);
                 newModConfigFrame.setVisible(false);
-                ModLoader.CreateMod(FILE_LOCATION + "/mods/" + name.replace(" ", "") + ".demv", author, name);
+                ModLoader.CreateMod(FILE_LOCATION + GlobalConfig.modsLocation + name.replace(" ", "") + ".demv", author, name);
+            }
+        });
+
+        newModConfig.getCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newModConfigFrame.dispose();
             }
         });
 
         newModConfigFrame.pack();
+        newModConfigFrame.setLocationRelativeTo(null);
         newModConfigFrame.setVisible(true);
     }
 
@@ -170,16 +181,16 @@ public class Master {
                     JOptionPane.WARNING_MESSAGE);
         }else{
             projectSelectFrame.setVisible(false);
-            ModLoader.LoadMod(FILE_LOCATION + "/mods/" + projectSelect.getProjectsListTable().getModel().getValueAt(currentlySelectedRow, 2));
+            ModLoader.LoadMod(FILE_LOCATION + GlobalConfig.modsLocation + projectSelect.getProjectsListTable().getModel().getValueAt(currentlySelectedRow, 2));
         }
     }
 
     public static void readMods(){
         try{
             DefaultTableModel model = (DefaultTableModel) projectSelect.getProjectsListTable().getModel();
-            String[] mods = getAllDirectories(FILE_LOCATION + "/mods");
+            String[] mods = getAllDirectories(FILE_LOCATION + GlobalConfig.modsLocation);
             for(int i = 0; i < mods.length; i++){
-                SaveObject saveObject = SaveSystem.TempLoad(FILE_LOCATION + "/mods/" + mods[i]);
+                SaveObject saveObject = SaveSystem.TempLoad(FILE_LOCATION + GlobalConfig.modsLocation + mods[i]);
                 model.addRow(new Object[]{saveObject.modName, saveObject.modAuthor, mods[i]});
             }
         }catch (Exception e){

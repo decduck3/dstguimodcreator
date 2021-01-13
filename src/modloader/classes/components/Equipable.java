@@ -7,5 +7,5 @@ public class Equipable {
         Hand
     }
 
-    public Place place;
+    public Place place = Place.Hand;
 }
