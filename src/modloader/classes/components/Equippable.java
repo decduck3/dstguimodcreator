@@ -1,6 +1,6 @@
 package modloader.classes.components;
 
-public class Equipable {
+public class Equippable {
     public enum Place{
         Hat,
         Chest,

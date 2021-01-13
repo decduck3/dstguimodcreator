@@ -4,8 +4,6 @@ import export.Exporter;
 import frames.SpeechConfig;
 import logging.Logger;
 import modloader.classes.Item;
-import modloader.classes.components.Equipable;
-import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 import resources.ResourceLoader;
 import speech.SpeechFile;
@@ -29,6 +27,7 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 Mod.items.add(new Item());
                 Update();
+                ModLoader.modEditor.getModItemSelect().setSelectedIndex(Mod.items.size()-1);
                 Logger.Log("Created new item");
             }
         });

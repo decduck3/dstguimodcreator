@@ -1,7 +1,6 @@
 package modloader.classes;
 
 import modloader.classes.components.*;
-import modloader.resources.Resource;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ public class Item implements java.io.Serializable {
         aMap.put("Edible", Edible.class);
         aMap.put("Dapperness", Dapperness.class);
         aMap.put("Durability", Durability.class);
-        aMap.put("Equipable", Equipable.class);
+        aMap.put("Equippable", Equippable.class);
         aMap.put("Armor", Armor.class);
         classMap = Collections.unmodifiableMap(aMap);
     }
@@ -38,7 +37,7 @@ public class Item implements java.io.Serializable {
     public Durability durability = new Durability();
 
     public boolean equipableBool = false;
-    public Equipable equipable = new Equipable();
+    public Equippable equippable = new Equippable();
 
     public boolean armorBool = false;
     public Armor armor = new Armor();

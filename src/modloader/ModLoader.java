@@ -17,9 +17,6 @@ import javax.swing.tree.*;
 import java.awt.event.*;
 import java.io.*;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 
 public class ModLoader {
     public static JFrame modEditorFrame;
@@ -194,17 +191,10 @@ public class ModLoader {
                 return;
             }
 
-            if(modEditor.getModItemSelect().getSelectedIndex() == -1){
-                DefaultTreeModel modelNotAdded = (DefaultTreeModel) modEditor.getModItemComponentNotAdded().getModel();
-                DefaultTreeModel modelAdded = (DefaultTreeModel) modEditor.getModItemComponetsAdded().getModel();
-                DefaultMutableTreeNode rootNotAdded = (DefaultMutableTreeNode) modelNotAdded.getRoot();
-                DefaultMutableTreeNode rootAdded = (DefaultMutableTreeNode) modelAdded.getRoot();
+            if(modEditor.getModItemSelect().getSelectedIndex() < Mod.items.size() + 1){
 
-                rootNotAdded.removeAllChildren();
-                rootAdded.removeAllChildren();
-
-                modEditorFrame.validate();
-                return;
+            }else{
+                throw new Exception("Item not selected");
             }
 
             DefaultTreeModel modelNotAdded = (DefaultTreeModel) modEditor.getModItemComponentNotAdded().getModel();
@@ -249,9 +239,9 @@ public class ModLoader {
             }
 
             if(item.equipableBool){
-                AddClassToTree(rootAdded, Equipable.class, item.equipable);
+                AddClassToTree(rootAdded, Equippable.class, item.equippable);
             }else{
-                AddClassToTree(rootNotAdded, Equipable.class, null);
+                AddClassToTree(rootNotAdded, Equippable.class, null);
             }
 
             modelNotAdded.reload();
@@ -263,12 +253,11 @@ public class ModLoader {
             modEditor.getModItemNameTextField().setText(item.itemName);
             modEditor.getModItemIdTextField().setText(item.itemId);
             modEditor.getModItemTextureSelect().setSelectedIndex(item.itemTexture);
-
-            modEditorFrame.validate();
         } catch (Exception e) {
             Logger.Error(e.getLocalizedMessage());
             e.printStackTrace();
         }
+        modEditorFrame.validate();
     }
 
     public static void ReloadSpeech(){
@@ -415,6 +404,7 @@ public class ModLoader {
         JTree notAddedTree = modEditor.getModItemComponentNotAdded();
         MouseListener ml = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                ModLoader.SaveItem();
                 int selRow = addedTree.getRowForLocation(e.getX(), e.getY());
                 TreePath selPath = addedTree.getPathForLocation(e.getX(), e.getY());
                 if(selRow != -1) {
@@ -443,7 +433,7 @@ public class ModLoader {
                                 Update();
                                 return;
                             }
-                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Equipable.class)) {
+                            if (Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Equippable.class)) {
                                 Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).equipableBool = false;
                                 Update();
                                 return;
@@ -499,11 +489,11 @@ public class ModLoader {
                             Update();
                             return;
                         }
-                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Equipable.class)) {
+                        if (Item.classMap.get(selPath.getPath()[1].toString()).equals(Equippable.class)) {
                             Item item = Mod.items.get(modEditor.getModItemSelect().getSelectedIndex());
                             String value = selPath.getLastPathComponent().toString();
                             if(value.startsWith("place")){
-                                item.equipable.place = Equipable.Place.values()[getOption("Place", new Object[]{ "Hat", "Chest", "Hand" })];
+                                item.equippable.place = Equippable.Place.values()[getOption("Place", new Object[]{ "Hat", "Chest", "Hand" })];
                             }
                             Update();
                             return;
@@ -527,6 +517,7 @@ public class ModLoader {
         addedTree.addMouseListener(ml);
         MouseListener ml2 = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                ModLoader.SaveItem();
                 int selRow = notAddedTree.getRowForLocation(e.getX(), e.getY());
                 TreePath selPath = notAddedTree.getPathForLocation(e.getX(), e.getY());
                 if(selRow != -1) {
@@ -550,7 +541,7 @@ public class ModLoader {
                             Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).durabilityBool = true;
                             Update();
                         }
-                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Equipable.class)){
+                        if(Item.classMap.get(selPath.getLastPathComponent().toString()).equals(Equippable.class)){
                             Mod.items.get(modEditor.getModItemSelect().getSelectedIndex()).equipableBool = true;
                             Update();
                         }

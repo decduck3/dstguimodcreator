@@ -1,5 +1,7 @@
 package logging;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import static constants.Constants.FILE_LOCATION;
@@ -11,7 +13,7 @@ public class Logger {
     public static String currentLog = "";
 
     public static void Log(String message){
-        currentLog = currentLog + "[" + Calendar.getInstance().getTime() + "] " + message + "\n";
+        currentLog = currentLog + "[" + new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + "] " + message + "\n";
         System.out.println(message);
         WriteChanges();
     }
