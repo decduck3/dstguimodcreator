@@ -1,7 +1,6 @@
 package modloader;
 
-import modloader.classes.*;
-import modloader.resources.Resource;
+import items.Item;
 
 import java.util.*;
 

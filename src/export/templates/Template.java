@@ -3,7 +3,7 @@ package export.templates;
 import logging.Logger;
 import modloader.Mod;
 import modloader.ModLoader;
-import modloader.classes.Item;
+import items.Item;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 import speech.SpeechFile;

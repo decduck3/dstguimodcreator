@@ -18,7 +18,9 @@
           </grid>
         </constraints>
         <properties>
-          <icon value="resources/Github.png"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <icon value="resources/KleiCreator.png"/>
           <text value=""/>
         </properties>
       </component>

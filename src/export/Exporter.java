@@ -1,12 +1,10 @@
 package export;
 
-import com.sun.jna.platform.unix.X11;
 import export.templates.Template;
 import frames.ExportWindow;
 import logging.Logger;
 import modloader.Mod;
 import modloader.ModLoader;
-import modloader.classes.Item;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 import resources.ResourceLoader;

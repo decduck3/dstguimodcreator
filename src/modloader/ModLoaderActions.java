@@ -3,7 +3,7 @@ package modloader;
 import export.Exporter;
 import frames.SpeechConfig;
 import logging.Logger;
-import modloader.classes.Item;
+import items.Item;
 import modloader.resources.ResourceManager;
 import resources.ResourceLoader;
 import speech.SpeechFile;

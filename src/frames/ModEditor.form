@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frames.ModEditor">
   <grid id="27dc6" binding="modEditorPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="1306" height="965"/>
+      <xy x="20" y="20" width="1728" height="1586"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -257,10 +257,55 @@
               </component>
             </children>
           </grid>
+          <grid id="45037" binding="modRecipes" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="20" left="20" bottom="20" right="20"/>
+            <constraints>
+              <tabbedpane title="Recipes">
+                <tooltip value="Add/Remove custom recipes"/>
+              </tabbedpane>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="26bf8" class="javax.swing.JTree" binding="modRecipesTree">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <toolbar id="49092" binding="modRecipesToolbar">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="-1" height="20"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <floatable value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="ee283" class="javax.swing.JButton" binding="modRecipesToolbarCreate">
+                    <constraints/>
+                    <properties>
+                      <text value="Create Recipe"/>
+                    </properties>
+                  </component>
+                  <component id="9414b" class="javax.swing.JButton" binding="modRecipesToolbarDelete">
+                    <constraints/>
+                    <properties>
+                      <text value="Delete Recipe"/>
+                    </properties>
+                  </component>
+                </children>
+              </toolbar>
+            </children>
+          </grid>
           <grid id="670d4" binding="modCharacters" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
-              <tabbedpane title="Characters">
+              <tabbedpane title="Characters" enabled="false">
                 <tooltip value="Create, delete and modify your modded characters"/>
               </tabbedpane>
             </constraints>

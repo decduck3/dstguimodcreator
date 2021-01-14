@@ -14,5 +14,3 @@ Over on the right (at least for me), there is a selection called "Releases". Jus
 
 ## Why doesn't it work?
 Most likely, I stuffed up. Open a issue (see above), and I'll see if I can replicate the bug, and then hopefully fix it!
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L537JF7)

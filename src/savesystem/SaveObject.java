@@ -1,8 +1,8 @@
 package savesystem;
 
+import items.Item;
 import logging.Logger;
 import modloader.Mod;
-import modloader.classes.*;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 

@@ -40,7 +40,9 @@ public class StartupForm {
         startupPanel.setForeground(new Color(-1));
         startupPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         image = new JLabel();
-        image.setIcon(new ImageIcon(getClass().getResource("/resources/Github.png")));
+        image.setHorizontalAlignment(0);
+        image.setHorizontalTextPosition(0);
+        image.setIcon(new ImageIcon(getClass().getResource("/resources/KleiCreator.png")));
         image.setText("");
         startupPanel.add(image, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(411, 211), null, 0, false));
     }
