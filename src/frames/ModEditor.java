@@ -56,10 +56,38 @@ public class ModEditor {
     private JButton githubButton;
     private JButton wikiButton;
     private JPanel modRecipes;
+    private JSplitPane modRecipeSplitPlane;
+    private JScrollPane modRecipeScrollPlane;
+    private JList modRecipesList;
+    private JTextField modRecipesTextDebug;
     private JTree modRecipesTree;
     private JToolBar modRecipesToolbar;
     private JButton modRecipesToolbarCreate;
     private JButton modRecipesToolbarDelete;
+
+    public JSplitPane getModRecipeSplitPlane() {
+        return modRecipeSplitPlane;
+    }
+
+    public JScrollPane getModRecipeScrollPlane() {
+        return modRecipeScrollPlane;
+    }
+
+    public JList getModRecipeList() {
+        return modRecipesList;
+    }
+
+    public JTextField getModRecipesTextDebug() {
+        return modRecipesTextDebug;
+    }
+
+    public JButton getModRecipesToolbarCreate() {
+        return modRecipesToolbarCreate;
+    }
+
+    public JButton getModRecipesToolbarDelete() {
+        return modRecipesToolbarDelete;
+    }
 
     public JPanel getModRecipes() {
         return modRecipes;
@@ -355,19 +383,16 @@ public class ModEditor {
         modItemSave.setText("Save");
         modItems.add(modItemSave, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, 1, GridConstraints.SIZEPOLICY_FIXED, null, null, new Dimension(200, -1), 0, false));
         modRecipes = new JPanel();
-        modRecipes.setLayout(new GridLayoutManager(2, 1, new Insets(20, 20, 20, 20), -1, -1));
+        modRecipes.setLayout(new GridLayoutManager(1, 1, new Insets(20, 20, 20, 20), -1, -1));
         modConfig.addTab("Recipes", null, modRecipes, "Add/Remove custom recipes");
-        modRecipesTree = new JTree();
-        modRecipes.add(modRecipesTree, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        modRecipesToolbar = new JToolBar();
-        modRecipesToolbar.setFloatable(false);
-        modRecipes.add(modRecipesToolbar, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 20), null, 0, false));
-        modRecipesToolbarCreate = new JButton();
-        modRecipesToolbarCreate.setText("Create Recipe");
-        modRecipesToolbar.add(modRecipesToolbarCreate);
-        modRecipesToolbarDelete = new JButton();
-        modRecipesToolbarDelete.setText("Delete Recipe");
-        modRecipesToolbar.add(modRecipesToolbarDelete);
+        modRecipeSplitPlane = new JSplitPane();
+        modRecipes.add(modRecipeSplitPlane, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
+        modRecipeScrollPlane = new JScrollPane();
+        modRecipeSplitPlane.setLeftComponent(modRecipeScrollPlane);
+        modRecipesList = new JList();
+        modRecipeScrollPlane.setViewportView(modRecipesList);
+        modRecipesTextDebug = new JTextField();
+        modRecipeSplitPlane.setRightComponent(modRecipesTextDebug);
         modCharacters = new JPanel();
         modCharacters.setLayout(new GridLayoutManager(1, 1, new Insets(20, 20, 20, 20), -1, -1));
         modConfig.addTab("Characters", null, modCharacters, "Create, delete and modify your modded characters");

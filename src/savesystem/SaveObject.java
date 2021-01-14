@@ -5,6 +5,7 @@ import logging.Logger;
 import modloader.Mod;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
+import recipes.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,9 @@ public class SaveObject implements java.io.Serializable {
     public String modVersion;
     public int modIcon;
 
-    public Item[] items;
+    public List<Item> items = new ArrayList<Item>();
     public List<Resource> resources = new ArrayList<Resource>();
+    public List<Recipe> recipes = new ArrayList<Recipe>();
 
     public SaveObject(){
         modName = Mod.modName;
@@ -26,9 +28,10 @@ public class SaveObject implements java.io.Serializable {
         modVersion = Mod.modAuthor;
         modIcon = Mod.modIcon;
 
-        items = Mod.items.toArray(new Item[0]);
+        items = Mod.items;
         ResourceManager.GenerateResourceLists();
         resources = ResourceManager.resources;
+        recipes = Mod.recipes;
 
         Logger.Log("Created SaveObject");
     }
@@ -41,9 +44,19 @@ public class SaveObject implements java.io.Serializable {
         Mod.modIcon = modIcon;
 
         Mod.items.clear();
-        for(int i = 0; i < items.length; i++){
-            Mod.items.add(items[i]);
+        for(int i = 0; i < items.size(); i++){
+            Mod.items.add(items.get(i));
         }
+        try{
+            Mod.recipes.clear();
+            for(Recipe r:recipes){
+                Mod.recipes.add(r);
+            }
+        }catch(NullPointerException e){
+            Logger.Log("No recipes");
+        }
+
+
         LoadResourcesList(resources);
         ResourceManager.GenerateResourceLists();
 

@@ -368,6 +368,12 @@ public class ModLoader {
         return n == 0;
     }
 
+    public static String getString(String message){
+        JTextField field = new JTextField();
+        JOptionPane.showMessageDialog(modEditorFrame, field, message, JOptionPane.YES_NO_OPTION);
+        return field.getText();
+    }
+
     public static void ShowWarning(String message){
         JOptionPane.showMessageDialog(modEditorFrame, message, "Warning", JOptionPane.WARNING_MESSAGE);
     }

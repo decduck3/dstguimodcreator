@@ -20,7 +20,7 @@
         <properties>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <icon value="resources/KleiCreator.png"/>
+          <icon value="resources/Github.png"/>
           <text value=""/>
         </properties>
       </component>
