@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frames.ModEditor">
   <grid id="27dc6" binding="modEditorPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="1728" height="1586"/>
+      <xy x="20" y="20" width="1278" height="829"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -257,7 +257,7 @@
               </component>
             </children>
           </grid>
-          <grid id="45037" binding="modRecipes" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="45037" binding="modRecipes" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="20" left="20" bottom="20" right="20"/>
             <constraints>
               <tabbedpane title="Recipes">
@@ -267,36 +267,41 @@
             <properties/>
             <border type="none"/>
             <children>
-              <splitpane id="b01ad" binding="modRecipeSplitPlane">
+              <grid id="e739" binding="modRecipesButtonPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="200"/>
-                  </grid>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <scrollpane id="e4827" binding="modRecipeScrollPlane">
+                  <component id="db82f" class="javax.swing.JButton" binding="modRecipesButtonDelete">
                     <constraints>
-                      <splitpane position="left"/>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
-                    <border type="none"/>
-                    <children>
-                      <component id="9fb27" class="javax.swing.JList" binding="modRecipesList">
-                        <constraints/>
-                        <properties/>
-                      </component>
-                    </children>
-                  </scrollpane>
-                  <component id="64119" class="javax.swing.JTextField" binding="modRecipesTextDebug">
+                    <properties>
+                      <text value="Delete"/>
+                    </properties>
+                  </component>
+                  <component id="b96fc" class="javax.swing.JButton" binding="modRecipesButtonCreate">
                     <constraints>
-                      <splitpane position="right"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <text value="Create"/>
+                    </properties>
                   </component>
                 </children>
-              </splitpane>
+              </grid>
+              <grid id="b33ba" binding="modRecipesListPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
           </grid>
           <grid id="670d4" binding="modCharacters" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

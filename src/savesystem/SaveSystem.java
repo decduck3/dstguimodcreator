@@ -33,6 +33,7 @@ public class SaveSystem {
         clearTheFile(filePath);
 
         XStream xstream = new XStream(new DomDriver());
+        
         SaveObject toSave = new SaveObject();
 
         String xml = xstream.toXML(toSave);

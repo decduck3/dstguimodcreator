@@ -58,14 +58,13 @@ public class Master {
         JFrame startupForm = new JFrame("Loading...");
         startupForm.setContentPane(new StartupForm().getStartupPanel());
         startupForm.setUndecorated(true);
-        //startupForm.setSize(411, 211);
         startupForm.setType(Window.Type.UTILITY);
         startupForm.pack();
         startupForm.setLocationRelativeTo(null);
         startupForm.setVisible(true);
 
         try {
-            Thread.sleep(2000); //Just so you can look at my sweet ass logo
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

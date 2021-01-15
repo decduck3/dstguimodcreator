@@ -11,37 +11,31 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
 public class RecipeLoader extends ModLoader {
 
     public static List<Recipe> recipes = new ArrayList<Recipe>();
+
     static{
-        for(Recipe r:recipes){
-            r.input.add("input");
+        for(int i = 0; i < 20; i++){
+            recipes.add(new Recipe("" + i, new ArrayList<String>(), ""));
         }
     }
 
     public static void SetupRecipeTab(){
-        for(Recipe r:Mod.recipes){
-            recipes.add(r);
-        }
 
-        DefaultListModel<String> model = new DefaultListModel<>();
-        modEditor.getModRecipeList().setModel(model);
-
-        for(Recipe r:recipes){
-            model.addElement(r.result);
-        }
     }
 
     public static void UpdateRecipeTab(){
-        Mod.recipes.clear();
+        for(int i = 0; i < modEditor.getModRecipesListPanel().getComponents().length; i++){
+            modEditor.getModRecipesListPanel().remove(i);
+        }
+
         for(Recipe r:recipes){
-            Mod.recipes.add(r);
+            modEditor.getModRecipesListPanel().add(new JRecipe(r).getRecipePanel());
         }
     }
 
