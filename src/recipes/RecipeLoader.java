@@ -30,13 +30,7 @@ public class RecipeLoader extends ModLoader {
     }
 
     public static void UpdateRecipeTab(){
-        for(int i = 0; i < modEditor.getModRecipesListPanel().getComponents().length; i++){
-            modEditor.getModRecipesListPanel().remove(i);
-        }
 
-        for(Recipe r:recipes){
-            modEditor.getModRecipesListPanel().add(new JRecipe(r).getRecipePanel());
-        }
     }
 
 }
