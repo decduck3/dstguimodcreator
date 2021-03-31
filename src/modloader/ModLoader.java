@@ -10,6 +10,7 @@ import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
 import recipes.RecipeLoader;
 import resources.ResourceLoader;
+import savesystem.SaveObject;
 import savesystem.SaveSystem;
 import speech.SpeechFile;
 
@@ -250,8 +251,10 @@ public class ModLoader {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                if(GlobalConfig.askSaveOnLeave && getBool("Save?")){
-                    SaveAll();
+                if(new SaveObject().hashCode() != SaveSystem.TempLoad(Mod.path).hashCode()){
+                    if(GlobalConfig.askSaveOnLeave && getBool("Save?")){
+                        SaveAll();
+                    }
                 }
                 modEditorFrame.dispose();
                 System.exit(0);
