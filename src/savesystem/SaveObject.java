@@ -48,7 +48,7 @@ public class SaveObject implements java.io.Serializable {
             Mod.items.add(items.get(i));
         }
         Mod.recipes.clear();
-        for(int i = 0; i < items.size(); i++){
+        for(int i = 0; i < recipes.size(); i++){
             Mod.recipes.add(recipes.get(i));
         }
 

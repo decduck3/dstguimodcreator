@@ -3,9 +3,13 @@ local assets =
 ASSETS
 }
 
+local prefabs = {
+
+}
+
 UPPER
 
-local function common_fn(bank, build)
+local function fn()
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
@@ -15,8 +19,8 @@ local function common_fn(bank, build)
 
     MakeInventoryPhysics(inst)
 
-    inst.AnimState:SetBank(bank)
-    inst.AnimState:SetBuild(build)
+    inst.AnimState:SetBank("ID")
+    inst.AnimState:SetBuild("ID")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("sharp")
@@ -34,12 +38,8 @@ local function common_fn(bank, build)
     return inst
 end
 
-local function normal()
-    return common_fn("ID", "ID")
-end
-
 
 STRINGS.I_UPPER_D = "NA_ME"
 STRINGS.NAMES.I_UPPER_D = "NA_ME"
 
-return Prefab("ID", normal, assets)
+return Prefab("ID", fn, assets, prefabs)

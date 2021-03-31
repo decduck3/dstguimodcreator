@@ -2,10 +2,6 @@ PrefabFiles = {
 PREFAB_FILES
 }
 
-Assets = {
-ASSETS
-}
-
 STRINGS = GLOBAL.STRINGS
 RECIPETABS = GLOBAL.RECIPETABS
 Recipe = GLOBAL.Recipe

@@ -76,12 +76,13 @@ public class Template {
             String atlasTemplate = "    Asset(\"ATLAS\", \"REPLACE\"),\n";
             String imageTemplate = "    Asset(\"IMAGE\", \"REPLACE\" ),\n";
 
+            /*
             Logger.Log("Generating assets...");
             if(ResourceManager.resources.size() > 0){
                 for(Resource r:ResourceManager.resources){
                     if(r.isTexture && r.filePath != ""){ //If a texture, and not the mod icon
-                        String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
-                        String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
+                        String image = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
+                        String atlas = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
                         assets = assets + atlas + image;
                     }
                 }
@@ -92,6 +93,7 @@ public class Template {
                 Logger.Log("No assets, skipping");
                 ReplaceAll("ASSETS", "");
             }
+            */
             Logger.Log("Generating speech...");
 
             String Speech = "";
@@ -125,14 +127,14 @@ public class Template {
 
             String atlasTemplate = "    Asset(\"ATLAS\", \"REPLACE\"),\n";
             String imageTemplate = "    Asset(\"IMAGE\", \"REPLACE\" ),\n";
-            String animTemplate = "	Asset(\"ANIM\", \"anim/REPLACE.zip\"),\n";
+            String animTemplate = "	Asset(\"ANIM\", \"anim/REPLACE\"),\n";
 
             Logger.Log("Generating assets...");
             if(ResourceManager.resources.size() > 0){
                 for(Resource r:ResourceManager.resources){
                     if(r.isTexture && r.filePath != ""){ //If a texture, and not the mod icon
-                        String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
-                        String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
+                        String atlas = atlasTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.xmlPath));
+                        String image = imageTemplate.replace("REPLACE", r.filePath + ModLoader.fileComponent(r.texture.texPath));
                         assets = assets + atlas + image;
                     }
                     if(r.isAnim){
