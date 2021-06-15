@@ -5,6 +5,7 @@ import frames.SpeechConfig;
 import logging.Logger;
 import items.Item;
 import modloader.resources.ResourceManager;
+import recipes.RecipeLoader;
 import resources.ResourceLoader;
 import speech.SpeechFile;
 
@@ -200,6 +201,20 @@ public class ModLoaderActions extends ModLoader{
                 } catch (URISyntaxException uriSyntaxException) {
                     uriSyntaxException.printStackTrace();
                 }
+            }
+        });
+
+        modEditor.getModRecipesButtonCreate().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RecipeLoader.CreateNewRecipe();
+            }
+        });
+
+        modEditor.getModRecipesButtonDelete().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RecipeLoader.DeleteRecipe();
             }
         });
     }

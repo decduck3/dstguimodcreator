@@ -8,7 +8,6 @@ import items.Item;
 import items.components.*;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
-import recipes.RecipeLoader;
 import resources.ResourceLoader;
 import savesystem.SaveObject;
 import savesystem.SaveSystem;
@@ -139,8 +138,6 @@ public class ModLoader {
         modEditor.getModDescriptTextArea().setText(Mod.modDescription);
         modEditor.getModVersionTextField().setText(Mod.modVersion);
 
-        RecipeLoader.UpdateRecipeTab();
-
         try {
             Item item = null;
             try{
@@ -227,7 +224,7 @@ public class ModLoader {
             SaveSystem.Save(Mod.path);
         }catch(Exception e){
             JOptionPane.showMessageDialog(modEditorFrame, e.getLocalizedMessage(), "Error while saving", JOptionPane.ERROR_MESSAGE);
-            Logger.Error(e.getLocalizedMessage());
+            Logger.Error(e.getStackTrace().toString());
             e.printStackTrace();
         }
         Logger.Log("Saved All");
@@ -240,6 +237,8 @@ public class ModLoader {
         modEditor = new ModEditor();
 
         Logger.Log("Created JFrame and ModEditor objects");
+
+        Logger.Log("Starting IntelliJ Frame setup");
 
         modEditorFrame.setContentPane(modEditor.getModEditorPanel());
         modEditorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -286,7 +285,9 @@ public class ModLoader {
             }
         });
 
-        Logger.Log("Added window listener");
+        Logger.Log("Added window listener. Finished Frame setup.");
+
+        Logger.Log("Starting tab setup...");
 
         speechModel = new DefaultTableModel(){
             @Override
@@ -315,9 +316,7 @@ public class ModLoader {
         ItemLoader.SetupAddedTree(addedTree);
         ItemLoader.SetupNotAddedTree(notAddedTree);
 
-        RecipeLoader.SetupRecipeTab();
-
-        Logger.Log("Created table models with appropriate settings");
+        Logger.Log("Created table models");
 
         resourceModel.addColumn("Name");
         resourceModel.addColumn("Type");

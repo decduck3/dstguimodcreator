@@ -13,8 +13,9 @@ public class Logger {
     public static String currentLog = "";
 
     public static void Log(String message){
-        currentLog = currentLog + "[" + new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + "] " + message + "\n";
-        System.out.println(message);
+        String currentMessage = "[" + new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + "] " + message + "\n";
+        currentLog = currentLog + currentMessage;
+        System.out.print(currentMessage);
         WriteChanges();
     }
 

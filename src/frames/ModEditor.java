@@ -59,16 +59,7 @@ public class ModEditor {
     private JPanel modRecipesButtonPanel;
     private JButton modRecipesButtonCreate;
     private JButton modRecipesButtonDelete;
-    private JPanel modRecipesListPanel;
-    private JScrollPane modRecipesListScrollPlane;
-
-    public JScrollPane getModRecipesListScrollPlane() {
-        return modRecipesListScrollPlane;
-    }
-
-    public JPanel getModRecipesListPanel() {
-        return modRecipesListPanel;
-    }
+    private JPanel modRecipesPanel;
 
     public JPanel getModRecipes() {
         return modRecipes;
@@ -260,6 +251,10 @@ public class ModEditor {
 
     public JTree getModItemComponetsAdded() {
         return modItemComponetsAdded;
+    }
+
+    public JPanel getModRecipesPanel() {
+        return modRecipesPanel;
     }
 
     private void createUIComponents() {
