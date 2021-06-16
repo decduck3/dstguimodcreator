@@ -196,10 +196,8 @@ public class ModLoaderActions extends ModLoader{
             public void actionPerformed(ActionEvent e) {
                 try {
                     Desktop.getDesktop().browse(new URI("https://github.com/decduck3/dstguimodcreator/wiki"));
-                } catch (IOException ioException) {
+                } catch (IOException | URISyntaxException ioException) {
                     ioException.printStackTrace();
-                } catch (URISyntaxException uriSyntaxException) {
-                    uriSyntaxException.printStackTrace();
                 }
             }
         });

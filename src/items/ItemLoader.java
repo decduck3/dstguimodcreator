@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.reflect.Field;
 
+import static util.TreeHelper.*;
+
 public class ItemLoader extends ModLoader {
 
     public static void SetupAddedTree(JTree addedTree){
@@ -173,52 +175,7 @@ public class ItemLoader extends ModLoader {
         notAddedTree.addMouseListener(ml2);
     }
 
-    public static <T> void AddClassToTree(DefaultMutableTreeNode root, Class toAdd, T values){
-        Field[] fields = toAdd.getFields();
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(toAdd.getSimpleName());
 
-        for(Field f:fields){
-            if(values != null){
-                try {
-                    DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(f.getName() + ": " + f.get(values));
-                    node.add(tempNode);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(f.getName());
-                node.add(tempNode);
-            }
-        }
-
-        root.add(node);
-    }
-
-    public static String getExpansionState(JTree tree){
-
-        StringBuilder  sb = new StringBuilder();
-
-        for(int i =0 ; i < tree.getRowCount(); i++){
-            TreePath tp = tree.getPathForRow(i);
-            if(tree.isExpanded(i)){
-                sb.append(tp.toString());
-                sb.append(",");
-            }
-        }
-
-        return sb.toString();
-
-    }
-
-    public static void setExpansionState(String s, JTree tree){
-
-        for(int i = 0 ; i<tree.getRowCount(); i++){
-            TreePath tp = tree.getPathForRow(i);
-            if(s.contains(tp.toString() )){
-                tree.expandRow(i);
-            }
-        }
-    }
 
     public static void UpdateTrees(Item item){
         DefaultTreeModel modelNotAdded = (DefaultTreeModel) modEditor.getModItemComponentNotAdded().getModel();

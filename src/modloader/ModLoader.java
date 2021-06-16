@@ -8,6 +8,7 @@ import items.Item;
 import items.components.*;
 import modloader.resources.Resource;
 import modloader.resources.ResourceManager;
+import recipes.RecipeLoader;
 import resources.ResourceLoader;
 import savesystem.SaveObject;
 import savesystem.SaveSystem;
@@ -25,6 +26,7 @@ public class ModLoader {
     public static ModEditor modEditor;
     public static DefaultTableModel resourceModel;
     public static DefaultTableModel speechModel;
+    public static DefaultTableModel recipeModel;
 
     public static String fileComponent(String fname) {
         int pos = fname.lastIndexOf(File.separator);
@@ -137,6 +139,8 @@ public class ModLoader {
         modEditor.getModAuthorTextField().setText(Mod.modAuthor);
         modEditor.getModDescriptTextArea().setText(Mod.modDescription);
         modEditor.getModVersionTextField().setText(Mod.modVersion);
+
+        RecipeLoader.Update();
 
         try {
             Item item = null;
@@ -310,13 +314,21 @@ public class ModLoader {
         ((DefaultTreeModel)modEditor.getModItemComponetsAdded().getModel()).setRoot(new DefaultMutableTreeNode("Added"));
         ((DefaultTreeModel)modEditor.getModItemComponentNotAdded().getModel()).setRoot(new DefaultMutableTreeNode("Not Added"));
 
+        ((DefaultTreeModel)modEditor.getModRecipesEditor().getModel()).setRoot(new DefaultMutableTreeNode("Recipe"));
+
         JTree addedTree = modEditor.getModItemComponetsAdded();
         JTree notAddedTree = modEditor.getModItemComponentNotAdded();
+
+        JTree recipeTree = modEditor.getModRecipesEditor();
 
         ItemLoader.SetupAddedTree(addedTree);
         ItemLoader.SetupNotAddedTree(notAddedTree);
 
         Logger.Log("Created table models");
+
+        RecipeLoader.SetupRecipeEditor(recipeTree);
+
+        Logger.Log("Setup recipes editor")
 
         resourceModel.addColumn("Name");
         resourceModel.addColumn("Type");
@@ -329,6 +341,8 @@ public class ModLoader {
         speechModel.addColumn("Entries");
 
         Logger.Log("Added columns to resourceModel and speechModel");
+
+
 
         //Go see file for definitions
         ModLoaderActions.SetupListeners();

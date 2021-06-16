@@ -57,6 +57,10 @@ public class ModEditor {
     private JButton wikiButton;
     private JPanel modRecipes;
     private JPanel modRecipesButtonPanel;
+    private JTree modRecipesEditor;
+    private JComboBox modRecipesSelector;
+    private JButton modRecipesCreate;
+    private JButton modRecipesDelete;
     private JButton modRecipesButtonCreate;
     private JButton modRecipesButtonDelete;
     private JPanel modRecipesPanel;
@@ -255,6 +259,22 @@ public class ModEditor {
 
     public JPanel getModRecipesPanel() {
         return modRecipesPanel;
+    }
+
+    public JTree getModRecipesEditor() {
+        return modRecipesEditor;
+    }
+
+    public JComboBox getModRecipesSelector() {
+        return modRecipesSelector;
+    }
+
+    public JButton getModRecipesCreate() {
+        return modRecipesCreate;
+    }
+
+    public JButton getModRecipesDelete() {
+        return modRecipesDelete;
     }
 
     private void createUIComponents() {
